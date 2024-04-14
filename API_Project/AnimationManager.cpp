@@ -52,6 +52,9 @@ Animation AnimationManager::LoadAnimation(const string& folderName, float time)
     newAnim.bitmaps = bitmapHandles;
     newAnim.time = time;
 
+    static int identity = 1000;
+    newAnim.identity = identity;
+    identity++;
     return newAnim;
 }
 
@@ -61,4 +64,26 @@ void AnimationManager::ReleaseAnimation(Animation& anim)
     {
         DeleteObject(hBitmap);
     }
+}
+
+HBITMAP AnimationManager::LoadHBitmap(const string& path)
+{
+    char buffer[MAX_PATH];
+    GetCurrentDirectoryA(MAX_PATH, buffer);
+    string currentDirectory = buffer;
+    string searchPath = currentDirectory + "\\" + path + ".bmp";
+    HBITMAP hBitmap = (HBITMAP)LoadImageA(NULL, searchPath.c_str(), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE);
+    if (hBitmap != NULL)
+    {
+        return hBitmap;
+    }
+    else
+    {
+        return NULL;
+    }
+}
+
+void AnimationManager::ReleaseHBitmap(HBITMAP hbit)
+{
+    DeleteObject(hbit);
 }

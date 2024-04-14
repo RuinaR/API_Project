@@ -1,10 +1,36 @@
 #pragma once
 #include "Component.h"
 #include "Rigidbody.h"
+
+enum class PlayerArrow
+{
+	left,
+	right,
+	max
+};
+
+enum class PlayerAState
+{
+	idle,
+	walk,
+	jump,
+	max
+};
+
+enum class PlayerMode
+{
+	mDefault,
+	max
+};
+
 class Player : public Component
 {
 private:
 	Rigidbody* m_rig = nullptr;
+	AnimationRender* m_ar = nullptr;
+	Animation m_arrAnim[(int)PlayerMode::max][(int)PlayerArrow::max][(int)PlayerAState::max];
+	PlayerMode m_mode;
+	PlayerArrow m_arrow;
 protected:
 	void CollisionEnter(Collider* other) override;
 	void CollisionExit(Collider* other) override;

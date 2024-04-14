@@ -5,9 +5,8 @@ struct Animation;
 class GameScene : public Scene
 {
 private:
-	Animation anim;
-	Animation land;
-	GameObject* obj1, * obj2, * obj3 = nullptr;
+	HBITMAP land;
+	GameObject* player = nullptr;
 public:
 	void Init() override;
 	void Release() override;

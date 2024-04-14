@@ -76,17 +76,15 @@ void Rigidbody::Update()
 			m_velocity.y = 0.0f;
 		}
 	}
-	float vF = max(0.0f, min(1.0f, (1.0f - m_friction * MainFrame::GetInstance()->DeltaTime())));
+	float vF = max(0.0f, min(1.0f, (1.0f - (m_friction * MainFrame::GetInstance()->DeltaTime()))));
 	m_velocity.x *= vF;
 	m_velocity.y *= vF;
-	if (abs(m_velocity.x) < m_friction)
-		m_velocity.x = 0.0f;
-	if (abs(m_velocity.y) < m_friction)
-		m_velocity.y = 0.0f;
+	if (abs(m_velocity.x) >= 30)
+		m_gameObj->Position().x += m_velocity.x * MainFrame::GetInstance()->DeltaTime();
 
-	m_gameObj->Position().x += m_velocity.x * MainFrame::GetInstance()->DeltaTime();
-	m_gameObj->Position().y += m_velocity.y * MainFrame::GetInstance()->DeltaTime();
-
+	if (abs(m_velocity.y) >= 30)
+		m_gameObj->Position().y += m_velocity.y * MainFrame::GetInstance()->DeltaTime();
+	
 	//cout << "(" << m_velocity.x <<
 	//	" , "  << m_velocity.y << ")" << endl;
 }

@@ -3,7 +3,7 @@ class Rigidbody : public Component
 {
 private:
 	float m_gravity = 2000.0f;
-	float m_friction = 0.5f;
+	float m_friction = 0.9f;
 	bool m_isOnLand = false;
 	Vector2D m_velocity;
 	BoxCollider* m_box = nullptr;

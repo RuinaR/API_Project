@@ -22,7 +22,7 @@
 #include "Mouse.h"
 #include "Buffer.h"
 
-#define TRANSCOLOR (RGB((255),(255),(255)))
+#define TRANSCOLOR (RGB((255),(0),(255)))
 #define COLSIZEOFFSET 0.5f
 
 using namespace std;

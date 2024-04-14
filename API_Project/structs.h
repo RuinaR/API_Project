@@ -12,4 +12,5 @@ struct Animation
 {
 	vector<HBITMAP> bitmaps;
 	float time;
+	int identity;
 };

@@ -40,6 +40,8 @@ void AnimationRender::Update()
 	if (m_updateTimer < (float)m_anim.time)
 		return;
 
+	if (m_isOneTime && m_curItr == --m_anim.bitmaps.end())
+		return;
 	m_updateTimer = 0.0f;
 	m_curItr++;
 	if (m_curItr == m_anim.bitmaps.end())
@@ -53,4 +55,14 @@ void AnimationRender::Update()
 void AnimationRender::SetPlay(bool play)
 {
 	m_isPlay = play;
+}
+
+void AnimationRender::SetOneTime(bool b)
+{
+	m_isOneTime = b;
+}
+
+const Animation& AnimationRender::GetCurrentAnim()
+{
+	return m_anim;
 }
