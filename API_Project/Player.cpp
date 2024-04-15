@@ -46,7 +46,7 @@ void Player::Initialize()
 			{
 				string path = "Bitmaps\\Player\\" + modeStr[a] + "\\" + arrowStr[i] + "\\" + stateStr[j];
 				float atime = 0.1f;
-				if (j == (int)PlayerAState::jump) atime = 0.04f;
+				if (j == (int)PlayerAState::jump) atime = 0.07f;
 				m_arrAnim[a][i][j] = AnimationManager::LoadAnimation(path, atime);
 			}
 		}
@@ -83,12 +83,16 @@ void Player::Update()
 	if (!m_rig)
 		return;
 
-	
+	WindowFrame::GetInstance()->GetBuffer()->CameraPos() =
+	{ m_gameObj->Position().x,
+	m_gameObj->Position().y};
+
 	if (GetAsyncKeyState(VK_LEFT))
 	{
 		if (!m_rig->GetIsOnLand())
 			return;
-		m_rig->AddForce(Vector2D({ -10.0f, 0.0f }));
+		m_rig->AddForce(Vector2D({ -250.f * MainFrame::GetInstance()->DeltaTime(), 0.0f}));
+		//m_gameObj->Position().x -= 150 * MainFrame::GetInstance()->DeltaTime();
 		m_arrow = PlayerArrow::left;
 		if (m_ar->GetCurrentAnim().identity != m_arrAnim[(int)m_mode][(int)PlayerArrow::left][(int)PlayerAState::walk].identity)
 		{
@@ -100,7 +104,9 @@ void Player::Update()
 	{
 		if (!m_rig->GetIsOnLand())
 			return;
-		m_rig->AddForce(Vector2D({ 10.0f, 0.0f }));
+		m_rig->AddForce(Vector2D({ 250.f * MainFrame::GetInstance()->DeltaTime(), 0.0f }));
+		//m_gameObj->Position().x += 150 * MainFrame::GetInstance()->DeltaTime();
+
 		m_arrow = PlayerArrow::right;
 		if (m_ar->GetCurrentAnim().identity != m_arrAnim[(int)m_mode][(int)PlayerArrow::right][(int)PlayerAState::walk].identity)
 		{
@@ -128,7 +134,7 @@ void Player::Update()
 			static bool isJump = false;
 			if (!isJump)
 			{
-				m_rig->AddForce(Vector2D({ 0.0f, -800.0f }));
+				m_rig->AddForce(Vector2D({ 0.0f, -500.f }));
 				if (m_ar->GetCurrentAnim().identity != m_arrAnim[(int)m_mode][(int)m_arrow][(int)PlayerAState::jump].identity)
 				{
 					m_ar->SetOneTime(true);

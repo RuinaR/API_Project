@@ -17,7 +17,8 @@ public:
     GameObject();
     virtual ~GameObject();
 
-    Vector2D& Position();
+    const Vector2D& Position();
+    void SetPosition(Vector2D v);
     Vector2D& Size();
     float& Angle();
     template <typename T>

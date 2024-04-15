@@ -8,8 +8,17 @@ GameObject::~GameObject() {
     cout << "~GameObject()" << endl;
 }
 
-Vector2D& GameObject::Position() {
+const Vector2D& GameObject::Position() {
     return m_position;
+}
+
+void GameObject::SetPosition(Vector2D v)
+{
+    m_position.y = v.y;
+   /* if (v.x > m_position.x)
+        m_position.x += (m_position.x - v.x) * WindowFrame::GetInstance()->GetBuffer()->SizeRatio().x;
+    else*/
+        m_position.x = v.x;
 }
 
 Vector2D& GameObject::Size() {

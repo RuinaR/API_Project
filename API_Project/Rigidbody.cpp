@@ -76,17 +76,23 @@ void Rigidbody::Update()
 			m_velocity.y = 0.0f;
 		}
 	}
-	float vF = max(0.0f, min(1.0f, (1.0f - (m_friction * MainFrame::GetInstance()->DeltaTime()))));
-	m_velocity.x *= vF;
-	m_velocity.y *= vF;
-	if (abs(m_velocity.x) >= 30)
-		m_gameObj->Position().x += m_velocity.x * MainFrame::GetInstance()->DeltaTime();
+	if (!m_isK)
+	{
+		m_velocity.x *= 1.0f - m_friction * MainFrame::GetInstance()->DeltaTime();
+		m_velocity.y *= 1.0f - m_friction * MainFrame::GetInstance()->DeltaTime();
+	}
+	if (abs(m_velocity.x) >= 20.0f)
+	{
+		m_gameObj->SetPosition(Vector2D({ m_gameObj->Position().x + m_velocity.x * MainFrame::GetInstance()->DeltaTime() ,
+			m_gameObj->Position().y }));
+	}
 
-	if (abs(m_velocity.y) >= 30)
-		m_gameObj->Position().y += m_velocity.y * MainFrame::GetInstance()->DeltaTime();
+	if (abs(m_velocity.y) >= 20.0f)
+	{
+		m_gameObj->SetPosition(Vector2D({ m_gameObj->Position().x ,
+			m_gameObj->Position().y + m_velocity.y * MainFrame::GetInstance()->DeltaTime() }));
+	}
 	
-	//cout << "(" << m_velocity.x <<
-	//	" , "  << m_velocity.y << ")" << endl;
 }
 
 void Rigidbody::CollisionEnter(Collider* other)
@@ -146,7 +152,7 @@ void Rigidbody::Collision(Collider* other)
 
 
 	SetNoIntersect(&r2, &r1);
-	m_gameObj->Position() = { (float)r1.left - d, (float)r1.top - d };
+	m_gameObj->SetPosition(Vector2D({ (float)r1.left - d, (float)r1.top - d }));
 
 
 	return;
@@ -176,4 +182,9 @@ bool Rigidbody::GetIsOnLand()
 Vector2D Rigidbody::GetVelocity()
 {
 	return m_velocity;
+}
+
+void Rigidbody::SetK(bool k)
+{
+	m_isK = k;
 }

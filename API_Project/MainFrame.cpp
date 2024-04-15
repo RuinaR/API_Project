@@ -31,6 +31,11 @@ void MainFrame::Destroy()
 	}
 }
 
+Timer& MainFrame::Timer()
+{
+	return m_timer;
+}
+
 float MainFrame::DeltaTime()
 {
 	return m_timer.getDeltaTime();
@@ -68,7 +73,8 @@ int MainFrame::Run()
 			}
 			WindowFrame::GetInstance()->Run(&Message);
 		}
-		else {
+		else if(WindowFrame::GetInstance()->IsFocus())
+		{
 			m_timer.tick();
 			if (m_timer.getDeltaTime() >= targetFrameTime)
 			{
@@ -79,7 +85,7 @@ int MainFrame::Run()
 				//RENDER
 				InvalidateRect(WindowFrame::GetInstance()->GetHWND(), NULL, FALSE);
 				UpdateWindow(WindowFrame::GetInstance()->GetHWND());
-				//1초마다 업데이트 프레임 계산 후 조정
+				//1초마다 업데이트 프레임 계산 후 조정?
 				if (m_timer.hasSecondPassed())
 				{
 					fps = frameCount;
@@ -88,20 +94,16 @@ int MainFrame::Run()
 					swprintf_s(strFPS, (int)_countof(strFPS), TEXT("FPS : %d / TargetFPS : %d / FPSOffset : %d"),
 						fps, m_targetFPS, frameOffset);
 					SetWindowText(WindowFrame::GetInstance()->GetHWND(), strFPS);
-					if (fps < m_targetFPS)
-					{
-						frameOffset += m_targetFPS - fps;
-						targetFrameTime = 1.0 / (m_targetFPS + frameOffset);
-					}
-					else if (fps > m_targetFPS)
-					{
-						int tmp = (fps - m_targetFPS) * 0.5f;
-						if (frameOffset - tmp < m_targetFPS)
-						{
-							frameOffset -= tmp;
-							targetFrameTime = 1.0 / (m_targetFPS + frameOffset);
-						}
-					}
+					//if (fps < m_targetFPS)
+					//{
+					//	frameOffset += (m_targetFPS - fps) * 0.5f;
+					//	targetFrameTime = 1.0 / (m_targetFPS + frameOffset);
+					//}
+					//else if (fps > m_targetFPS)
+					//{
+					//	frameOffset -= (fps - m_targetFPS) * 0.5f;
+					//	targetFrameTime = 1.0 / (m_targetFPS + frameOffset);
+					//}
 				}
 			}
 			else

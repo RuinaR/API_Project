@@ -1,6 +1,5 @@
 #pragma once
 #include <Windows.h>
-
 class Timer 
 {
 public:
@@ -17,20 +16,20 @@ public:
         LONGLONG elapsedTime = currentTime.QuadPart - lastTime.QuadPart;
         deltaTime = double(elapsedTime) / frequency.QuadPart;
         lastTime = currentTime;
-        totalElapsedTime += deltaTime;
-    }
+		totalElapsedTime += deltaTime;
+	}
 
-    double getDeltaTime() const 
-    {
-        return deltaTime;
-    }
+	double getDeltaTime()
+	{
+		return deltaTime;
+	}
 
-    bool hasSecondPassed() 
-    {
-        return totalElapsedTime >= 1.0;
-    }
+	bool hasSecondPassed()
+	{
+		return totalElapsedTime >= 1.0;
+	}
 
-    void resetElapsedTime() 
+	void resetElapsedTime()
     {
         totalElapsedTime = 0.0;
     }

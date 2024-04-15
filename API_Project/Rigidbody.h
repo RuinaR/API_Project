@@ -2,12 +2,13 @@
 class Rigidbody : public Component
 {
 private:
-	float m_gravity = 2000.0f;
-	float m_friction = 0.9f;
+	float m_gravity = 1200.0f;
+	float m_friction = 0.5f;
 	bool m_isOnLand = false;
 	Vector2D m_velocity;
 	BoxCollider* m_box = nullptr;
 	BOOL SetNoIntersect(const LPRECT pHold, LPRECT pRect);
+	bool m_isK = false;
 private:
 	void Initialize() override;
 	void Release() override;
@@ -23,5 +24,6 @@ public:
 	void AddForce(Vector2D vec);
 	bool GetIsOnLand();
 	Vector2D GetVelocity();
+	void SetK(bool k);
 };
 

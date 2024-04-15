@@ -20,6 +20,8 @@ void Buffer::Init(HWND hWnd, float sizeRatioX, float sizeRatioY)
 
 	HDC hdcMain = GetDC(m_hWnd);
 	m_hdc = CreateCompatibleDC(hdcMain);
+	m_sizeRatio.x = sizeRatioX;
+	m_sizeRatio.y = sizeRatioY;
 	m_bitmap = CreateCompatibleBitmap(hdcMain, rect.right * sizeRatioX, rect.bottom * sizeRatioY);
 
 	m_oldBitmap = (HBITMAP)SelectObject(m_hdc, m_bitmap);
@@ -30,6 +32,9 @@ void Buffer::Init(HWND hWnd, float sizeRatioX, float sizeRatioY)
 	DeleteDC(m_hdc);
 	ReleaseDC(m_hWnd, hdcMain);
 	m_hdc = NULL;
+
+	m_cameraPos.x = rect.right / 2;
+	m_cameraPos.y = rect.bottom / 2;
 }
 
 void Buffer::Release()
@@ -82,20 +87,28 @@ void Buffer::DeleteHDC()
 	}
 }
 
-void Buffer::CopyBitmap(HDC hdc)
+Vector2D& Buffer::SizeRatio()
 {
-	this->MakeHDC();
-	BitBlt(hdc, 0, 0, m_bitInfo.bmWidth, m_bitInfo.bmHeight, this->GetHDC(), 0, 0, SRCCOPY);
-	this->DeleteHDC();
+	return m_sizeRatio;
 }
 
-void Buffer::CopyBitmapGame(HDC hdc, int x, int y)
+Vector2D& Buffer::CameraPos()
+{
+	return m_cameraPos;
+}
+
+void Buffer::CopyBitmap(HDC hdc)
 {
 	RECT rect;
 	GetClientRect(m_hWnd, &rect);
 
+	const int widht = rect.right / 2;
+	const int height = rect.bottom / 2;
+	//cout << "(" << m_cameraPos.x << " , " << m_cameraPos.y << ")" << endl;
 	this->MakeHDC();
-	BitBlt(hdc, 0, 0, m_bitInfo.bmWidth, m_bitInfo.bmHeight, this->GetHDC(), x - rect.right / 2, y - rect.bottom / 2, SRCCOPY);
+	BitBlt(hdc, 0, 0, m_bitInfo.bmWidth, m_bitInfo.bmHeight, this->GetHDC(), 
+		(m_cameraPos.x  - widht / 2) * m_sizeRatio.x, (m_cameraPos.y - height / 2) * m_sizeRatio.y, SRCCOPY);
+
+	
 	this->DeleteHDC();
 }
-
