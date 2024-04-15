@@ -5,6 +5,12 @@
 #include "Collider.h"
 #include "BoxCollider.h"
 #include "Rigidbody.h"
+
+float Lerp(float start, float end, float t)
+{
+	return start + ((end - start) * t);
+}
+
 void Player::CollisionEnter(Collider* other)
 {
 	cout << "P_Enter" << endl;
@@ -76,23 +82,36 @@ void Player::Release()
 
 void Player::Start()
 {
+	RECT rect;
+	GetClientRect(WindowFrame::GetInstance()->GetHWND(), &rect);
+	Camera::GetInstance()->SetPos(m_gameObj->Position().x - (rect.right / 4), m_gameObj->Position().y - (rect.bottom / 4));
 }
 
 void Player::Update()
 {
 	if (!m_rig)
 		return;
+	
+	Vector2D playerPos = m_gameObj->Position();  // 플레이어 위치
+	Vector2D camPos = Camera::GetInstance()->GetPos();  // 현재 카메라 위치
+	RECT rect;
+	GetClientRect(WindowFrame::GetInstance()->GetHWND(), &rect);
 
-	WindowFrame::GetInstance()->GetBuffer()->CameraPos() =
-	{ m_gameObj->Position().x,
-	m_gameObj->Position().y};
+	// 선형 보간을 사용하여 카메라 위치 업데이트
+	float smoothFactor = 0.05f;  // 부드러운 이동을 위한 보간 계수
+	Vector2D newCamPos = {
+		Lerp(camPos.x, playerPos.x - rect.right / 4, smoothFactor),
+		Lerp(camPos.y, playerPos.y - rect.bottom / 4, smoothFactor)
+	};
+
+	Camera::GetInstance()->SetPos(newCamPos.x, newCamPos.y);
 
 	if (GetAsyncKeyState(VK_LEFT))
 	{
 		if (!m_rig->GetIsOnLand())
 			return;
-		m_rig->AddForce(Vector2D({ -300.f * MainFrame::GetInstance()->DeltaTime(), 0.0f}));
-		//m_gameObj->Position().x -= 150 * MainFrame::GetInstance()->DeltaTime();
+		m_rig->AddForce(Vector2D({ -500.f * MainFrame::GetInstance()->DeltaTime(), 0.0f}));
+		//m_gameObj->AddPosition({ -150.f * MainFrame::GetInstance()->DeltaTime(), 0.0f });
 		m_arrow = PlayerArrow::left;
 		if (m_ar->GetCurrentAnim().identity != m_arrAnim[(int)m_mode][(int)PlayerArrow::left][(int)PlayerAState::walk].identity)
 		{
@@ -104,9 +123,8 @@ void Player::Update()
 	{
 		if (!m_rig->GetIsOnLand())
 			return;
-		m_rig->AddForce(Vector2D({ 300.f * MainFrame::GetInstance()->DeltaTime(), 0.0f }));
-		//m_gameObj->Position().x += 150 * MainFrame::GetInstance()->DeltaTime();
-
+		m_rig->AddForce(Vector2D({ 500.f * MainFrame::GetInstance()->DeltaTime(), 0.0f }));
+		//m_gameObj->AddPosition({ 150.f * MainFrame::GetInstance()->DeltaTime(), 0.0f });
 		m_arrow = PlayerArrow::right;
 		if (m_ar->GetCurrentAnim().identity != m_arrAnim[(int)m_mode][(int)PlayerArrow::right][(int)PlayerAState::walk].identity)
 		{
@@ -134,7 +152,7 @@ void Player::Update()
 			static bool isJump = false;
 			if (!isJump)
 			{
-				m_rig->AddForce(Vector2D({ 0.0f, -500.f }));
+				m_rig->AddForce(Vector2D({ 0.0f, -600.0f }));
 				if (m_ar->GetCurrentAnim().identity != m_arrAnim[(int)m_mode][(int)m_arrow][(int)PlayerAState::jump].identity)
 				{
 					m_ar->SetOneTime(true);

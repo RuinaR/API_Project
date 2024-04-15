@@ -1,20 +1,20 @@
 #include "pch.h"
-CMouse* CMouse::mPthis = nullptr;
+Mouse* Mouse::mPthis = nullptr;
 
-void CMouse::Create()
+void Mouse::Create()
 {
 	if (!mPthis)
 	{
-		mPthis = new CMouse();
+		mPthis = new Mouse();
 	}
 }
 
-CMouse* CMouse::GetInstance()
+Mouse* Mouse::GetInstance()
 {
 	return mPthis;
 }
 
-void CMouse::Destroy()
+void Mouse::Destroy()
 {
 	if (mPthis)
 	{
@@ -23,7 +23,7 @@ void CMouse::Destroy()
 	}
 }
 
-void CMouse::Initialize()
+void Mouse::Initialize()
 {
 	this->mPos.X = 0;
 	this->mPos.Y = 0;
@@ -31,38 +31,38 @@ void CMouse::Initialize()
 	this->mIsRightDown = false;
 }
 
-void CMouse::SetPos(int x, int y)
+void Mouse::SetPos(int x, int y)
 {
 	this->mPos.X = x;
 	this->mPos.Y = y;
 }
 
-void CMouse::SetPos(COORD pos)
+void Mouse::SetPos(COORD pos)
 {
 	this->mPos = pos;
 }
 
-COORD CMouse::GetPos()
+COORD Mouse::GetPos()
 {
 	return this->mPos;
 }
 
-void CMouse::SetLeftBtn(bool isDown)
+void Mouse::SetLeftBtn(bool isDown)
 {
 	this->mIsLeftDown = isDown;
 }
 
-bool CMouse::IsLeftDown()
+bool Mouse::IsLeftDown()
 {
 	return this->mIsLeftDown;
 }
 
-void CMouse::SetRightBtn(bool isDown)
+void Mouse::SetRightBtn(bool isDown)
 {
 	this->mIsRightDown = isDown;
 }
 
-bool CMouse::IsRightDown()
+bool Mouse::IsRightDown()
 {
 	return this->mIsRightDown;
 }

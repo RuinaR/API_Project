@@ -9,7 +9,6 @@ private:
 	HBITMAP m_oldBitmap;
 	BITMAP m_bitInfo;
 	HDC m_hdc;
-	Vector2D m_cameraPos = { 0.0f, 0.0f };
 	Vector2D m_sizeRatio = {0.0f, 0.0f};
 public:
 	Buffer();
@@ -26,7 +25,6 @@ public:
 	void DeleteHDC();
 
 	Vector2D& SizeRatio();
-	Vector2D& CameraPos();
 
 	void CopyBitmap(HDC hdc);
 };

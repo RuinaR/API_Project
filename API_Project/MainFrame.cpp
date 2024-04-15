@@ -11,7 +11,8 @@ void MainFrame::Create(HINSTANCE hInstance)
 	{
 		m_Pthis = new MainFrame();
 		WindowFrame::Create(hInstance);
-		CMouse::Create();
+		Mouse::Create();
+		Camera::Create();
 	}
 }
 
@@ -24,7 +25,8 @@ void MainFrame::Destroy()
 {
 	if (m_Pthis)
 	{
-		CMouse::Destroy();
+		Camera::Destroy();
+		Mouse::Destroy();
 		WindowFrame::Destroy();
 		delete m_Pthis;
 		m_Pthis = nullptr;

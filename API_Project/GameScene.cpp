@@ -25,23 +25,23 @@ void GameScene::Start()
 	GameObject* obj1, *obj2, *obj3, *obj4, *obj5;
 	obj1 = new GameObject();
 	obj1->SetTag("land");
-	obj1->SetPosition(Vector2D({ 350,250 }));
-	obj1->Size() = { 100, 100 };
+	obj1->SetPosition(Vector2D({ 350,300 }));
+	obj1->Size() = { 300, 100 };
 	obj1->AddComponent(new BitmapRender(land));
 	obj1->AddComponent(new BoxCollider());
 	obj1->InitializeSet();
 
 	obj2 = new GameObject();
 	obj2->SetTag("land");
-	obj2->SetPosition(Vector2D({ 400,250 }));
-	obj2->Size() = { 100, 100 };
+	obj2->SetPosition(Vector2D({ 700,250 }));
+	obj2->Size() = { 300, 100 };
 	obj2->AddComponent(new BitmapRender(land));
 	obj2->AddComponent(new BoxCollider());
 	obj2->InitializeSet();
 
 	obj3 = new GameObject();
 	obj3->SetTag("land");
-	obj3->SetPosition(Vector2D({ 200,200 }));
+	obj3->SetPosition(Vector2D({ 200,400 }));
 	obj3->Size() = { 3000, 300 };
 	obj3->AddComponent(new BitmapRender(land));
 	obj3->AddComponent(new BoxCollider());
@@ -66,12 +66,27 @@ void GameScene::Start()
 	player = nullptr;
 	player = new GameObject();
 	player->SetTag("player");
-	player->SetPosition(Vector2D({ 300,50 }));
+	player->SetPosition(Vector2D({ 300,0 }));
 	player->Size() = { 50, 50 };
 	player->AddComponent(new Player());
 	player->InitializeSet();
 
 	player->SetOrderInLayer(10);
+
+	GameObject* tmp1 = new GameObject();
+	tmp1->SetPosition({ 280,-10 });
+	tmp1->Size() = { 20,20 };
+	tmp1->AddComponent(new BitmapRender(land));
+	tmp1->InitializeSet();
+
+	GameObject* tmp2 = new GameObject();
+	tmp2->SetPosition({ 260,-30 });
+	tmp2->Size() = { 20,20 };
+	tmp2->AddComponent(new BitmapRender(land));
+	tmp2->InitializeSet();
+
+	player->AddChild(tmp1);
+	player->AddChild(tmp2);
 
 	obj1->SetOrderInLayer(1);
 	obj2->SetOrderInLayer(2);

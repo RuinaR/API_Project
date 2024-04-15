@@ -13,6 +13,7 @@
 #include <vector>
 #include <list>
 #include <string>
+#include <math.h>
 
 #include "AnimationManager.h"
 #include "ObjectManager.h"
@@ -20,6 +21,7 @@
 #include "MainFrame.h"
 #include "WindowFrame.h"
 #include "Mouse.h"
+#include "Camera.h"
 #include "Buffer.h"
 
 #define TRANSCOLOR (RGB((255),(0),(255)))

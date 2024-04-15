@@ -1,17 +1,18 @@
 #pragma once
-class CMouse
+
+class Mouse
 {
 private:
-	static CMouse* mPthis;
-	CMouse() {}
-	~CMouse() {}
+	static Mouse* mPthis;
+	Mouse() {}
+	~Mouse() {}
 
 	COORD mPos = { 0 };
 	bool mIsLeftDown = false;
 	bool mIsRightDown = false;
 public:
 	static void Create();
-	static CMouse* GetInstance();
+	static Mouse* GetInstance();
 	static void Destroy();
 
 	void Initialize();

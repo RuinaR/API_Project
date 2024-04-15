@@ -134,6 +134,7 @@
     <ClCompile Include="BitmapRender.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Buffer.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="BitmapRender.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Buffer.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />

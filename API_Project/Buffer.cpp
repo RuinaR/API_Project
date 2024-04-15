@@ -32,9 +32,6 @@ void Buffer::Init(HWND hWnd, float sizeRatioX, float sizeRatioY)
 	DeleteDC(m_hdc);
 	ReleaseDC(m_hWnd, hdcMain);
 	m_hdc = NULL;
-
-	m_cameraPos.x = rect.right / 2;
-	m_cameraPos.y = rect.bottom / 2;
 }
 
 void Buffer::Release()
@@ -90,11 +87,6 @@ void Buffer::DeleteHDC()
 Vector2D& Buffer::SizeRatio()
 {
 	return m_sizeRatio;
-}
-
-Vector2D& Buffer::CameraPos()
-{
-	return m_cameraPos;
 }
 
 void Buffer::CopyBitmap(HDC hdc)

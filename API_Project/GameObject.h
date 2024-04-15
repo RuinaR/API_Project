@@ -12,7 +12,8 @@ protected:
     float m_angle = 0.0f;
     float m_orderInLayer = 0.0f;
     vector<Component*>* m_vecComponent = nullptr;
-
+    GameObject* m_parent = nullptr;
+    vector<GameObject*>* m_children;
 public:
     GameObject();
     virtual ~GameObject();
@@ -48,4 +49,6 @@ public:
     void Release();
     void Start();
     void Update();
+    void SetParent(GameObject* obj);
+    void AddChild(GameObject* obj);
 };

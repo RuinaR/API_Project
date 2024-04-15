@@ -2,6 +2,7 @@
 #include "GameObject.h"
 GameObject::GameObject() {
     m_vecComponent = new vector<Component*>();
+    m_children = new vector<GameObject*>();
 }
 
 GameObject::~GameObject() {
@@ -14,14 +15,23 @@ const Vector2D& GameObject::Position() {
 
 void GameObject::SetPosition(Vector2D v)
 {
+    Vector2D d = {v.x - m_position.x,  v.y - m_position.y };
     m_position.x = v.x;
     m_position.y = v.y;
+    for (vector<GameObject*>::iterator itr = m_children->begin(); itr != m_children->end(); itr++)
+        (*itr)->AddPosition(d);
 }
 
 void GameObject::AddPosition(Vector2D v)
 {
-    m_position.x += v.x;
+    if (v.x > 0)
+        m_position.x += v.x * 1.3f;
+    else
+        m_position.x += v.x;
     m_position.y += v.y;
+
+    for (vector<GameObject*>::iterator itr = m_children->begin(); itr != m_children->end(); itr++)
+        (*itr)->AddPosition(v);
 }
 
 Vector2D& GameObject::Size() {
@@ -112,6 +122,8 @@ void GameObject::Release() {
 
 	delete m_vecComponent;
     m_vecComponent = nullptr;
+    delete m_children;
+    m_children = nullptr;
 }
 
 void GameObject::Start() {
@@ -125,4 +137,16 @@ void GameObject::Update() {
 
     for (vector<Component*>::iterator itr = m_vecComponent->begin(); itr != m_vecComponent->end(); itr++)
         (*itr)->Update();
+}
+
+void GameObject::SetParent(GameObject* obj)
+{
+    m_parent = obj;
+    obj->m_children->push_back(this);
+}
+
+void GameObject::AddChild(GameObject* obj)
+{
+    m_children->push_back(obj);
+    obj->m_parent = this;
 }

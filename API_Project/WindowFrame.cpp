@@ -39,29 +39,30 @@ LRESULT WindowFrame::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPa
 	case WM_CREATE:
 		m_Pthis->m_hWnd = hWnd;
 		m_Pthis->m_buffer->Init(hWnd, 1.0f, 1.0f);
+		MoveWindow(hWnd, 100, 100, 800, 600, true);
 		return 0;
 	case WM_LBUTTONDOWN:
-		CMouse::GetInstance()->SetLeftBtn(true);
-		CMouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
+		Mouse::GetInstance()->SetLeftBtn(true);
+		Mouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
 		if (m_Pthis->m_scene)m_Pthis->m_scene->LBtnDown();
 		return 0;
 	case WM_LBUTTONUP:
-		CMouse::GetInstance()->SetLeftBtn(false);
-		CMouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
+		Mouse::GetInstance()->SetLeftBtn(false);
+		Mouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
 		if (m_Pthis->m_scene)m_Pthis->m_scene->LBtnUp();
 		return 0;
 	case WM_RBUTTONDOWN:
-		CMouse::GetInstance()->SetRightBtn(true);
-		CMouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
+		Mouse::GetInstance()->SetRightBtn(true);
+		Mouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
 		if (m_Pthis->m_scene)m_Pthis->m_scene->RBtnDown();
 		return 0;
 	case WM_RBUTTONUP:
-		CMouse::GetInstance()->SetRightBtn(false);
-		CMouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
+		Mouse::GetInstance()->SetRightBtn(false);
+		Mouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
 		if (m_Pthis->m_scene)m_Pthis->m_scene->RBtnUp();
 		return 0;
 	case WM_MOUSEMOVE:
-		CMouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
+		Mouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
 		return 0;
 	case WM_KILLFOCUS:
 		m_Pthis->m_isFocus = false;
@@ -122,7 +123,7 @@ void WindowFrame::BuildWindow()
 	this->m_hWnd =
 		CreateWindow(WndClass.lpszClassName, WndClass.lpszClassName,
 			WS_OVERLAPPEDWINDOW,
-			CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+			0, 0, 1920, 1080,
 			NULL, (HMENU)NULL, this->m_Instance, NULL);
 
 	ShowWindow(this->m_hWnd, SW_SHOW);
