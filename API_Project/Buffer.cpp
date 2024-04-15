@@ -106,9 +106,8 @@ void Buffer::CopyBitmap(HDC hdc)
 	const int height = rect.bottom / 2;
 	//cout << "(" << m_cameraPos.x << " , " << m_cameraPos.y << ")" << endl;
 	this->MakeHDC();
-	BitBlt(hdc, 0, 0, m_bitInfo.bmWidth, m_bitInfo.bmHeight, this->GetHDC(), 
-		(m_cameraPos.x  - widht / 2) * m_sizeRatio.x, (m_cameraPos.y - height / 2) * m_sizeRatio.y, SRCCOPY);
+	BitBlt(hdc, 0, 0, rect.right, rect.bottom, this->GetHDC(),
+		0, 0, SRCCOPY);
 
-	
 	this->DeleteHDC();
 }

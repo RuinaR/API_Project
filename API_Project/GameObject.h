@@ -19,6 +19,8 @@ public:
 
     const Vector2D& Position();
     void SetPosition(Vector2D v);
+    void AddPosition(Vector2D v);
+
     Vector2D& Size();
     float& Angle();
     template <typename T>

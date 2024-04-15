@@ -14,11 +14,14 @@ const Vector2D& GameObject::Position() {
 
 void GameObject::SetPosition(Vector2D v)
 {
+    m_position.x = v.x;
     m_position.y = v.y;
-   /* if (v.x > m_position.x)
-        m_position.x += (m_position.x - v.x) * WindowFrame::GetInstance()->GetBuffer()->SizeRatio().x;
-    else*/
-        m_position.x = v.x;
+}
+
+void GameObject::AddPosition(Vector2D v)
+{
+    m_position.x += v.x;
+    m_position.y += v.y;
 }
 
 Vector2D& GameObject::Size() {

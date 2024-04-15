@@ -41,7 +41,7 @@ void GameScene::Start()
 
 	obj3 = new GameObject();
 	obj3->SetTag("land");
-	obj3->SetPosition(Vector2D({ 200,400 }));
+	obj3->SetPosition(Vector2D({ 200,200 }));
 	obj3->Size() = { 3000, 300 };
 	obj3->AddComponent(new BitmapRender(land));
 	obj3->AddComponent(new BoxCollider());

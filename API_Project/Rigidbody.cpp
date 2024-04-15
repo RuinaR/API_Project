@@ -81,18 +81,12 @@ void Rigidbody::Update()
 		m_velocity.x *= 1.0f - m_friction * MainFrame::GetInstance()->DeltaTime();
 		m_velocity.y *= 1.0f - m_friction * MainFrame::GetInstance()->DeltaTime();
 	}
-	if (abs(m_velocity.x) >= 20.0f)
-	{
-		m_gameObj->SetPosition(Vector2D({ m_gameObj->Position().x + m_velocity.x * MainFrame::GetInstance()->DeltaTime() ,
-			m_gameObj->Position().y }));
-	}
+	if (abs(m_velocity.x) < 20.0f && abs(m_velocity.y) < 20.0f)
+		return;
 
-	if (abs(m_velocity.y) >= 20.0f)
-	{
-		m_gameObj->SetPosition(Vector2D({ m_gameObj->Position().x ,
-			m_gameObj->Position().y + m_velocity.y * MainFrame::GetInstance()->DeltaTime() }));
-	}
-	
+		m_gameObj->AddPosition(Vector2D({
+			m_velocity.x * MainFrame::GetInstance()->DeltaTime() ,
+			m_velocity.y * MainFrame::GetInstance()->DeltaTime() }));
 }
 
 void Rigidbody::CollisionEnter(Collider* other)

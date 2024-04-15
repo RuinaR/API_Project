@@ -82,7 +82,6 @@ void BitmapRender::Update()
 {
 	if (m_bit == NULL)
 		return;
-
 	Buffer* buffer = WindowFrame::GetInstance()->GetBuffer();
 	buffer->MakeHDC();
 	DrawBitmap(buffer->GetHDC(),

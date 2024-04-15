@@ -91,7 +91,7 @@ void Player::Update()
 	{
 		if (!m_rig->GetIsOnLand())
 			return;
-		m_rig->AddForce(Vector2D({ -250.f * MainFrame::GetInstance()->DeltaTime(), 0.0f}));
+		m_rig->AddForce(Vector2D({ -300.f * MainFrame::GetInstance()->DeltaTime(), 0.0f}));
 		//m_gameObj->Position().x -= 150 * MainFrame::GetInstance()->DeltaTime();
 		m_arrow = PlayerArrow::left;
 		if (m_ar->GetCurrentAnim().identity != m_arrAnim[(int)m_mode][(int)PlayerArrow::left][(int)PlayerAState::walk].identity)
@@ -104,7 +104,7 @@ void Player::Update()
 	{
 		if (!m_rig->GetIsOnLand())
 			return;
-		m_rig->AddForce(Vector2D({ 250.f * MainFrame::GetInstance()->DeltaTime(), 0.0f }));
+		m_rig->AddForce(Vector2D({ 300.f * MainFrame::GetInstance()->DeltaTime(), 0.0f }));
 		//m_gameObj->Position().x += 150 * MainFrame::GetInstance()->DeltaTime();
 
 		m_arrow = PlayerArrow::right;

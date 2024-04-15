@@ -38,7 +38,7 @@ LRESULT WindowFrame::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPa
 	{
 	case WM_CREATE:
 		m_Pthis->m_hWnd = hWnd;
-		m_Pthis->m_buffer->Init(hWnd, 2.0f, 2.0f);
+		m_Pthis->m_buffer->Init(hWnd, 1.0f, 1.0f);
 		return 0;
 	case WM_LBUTTONDOWN:
 		CMouse::GetInstance()->SetLeftBtn(true);
