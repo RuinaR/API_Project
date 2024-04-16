@@ -16,23 +16,23 @@ const Vector2D& GameObject::Position() {
 void GameObject::SetPosition(Vector2D v)
 {
     Vector2D d = {v.x - m_position.x,  v.y - m_position.y };
-    m_position.x = v.x;
-    m_position.y = v.y;
-    for (vector<GameObject*>::iterator itr = m_children->begin(); itr != m_children->end(); itr++)
-        (*itr)->AddPosition(d);
+	m_position.x = v.x;
+	m_position.y = v.y;
+	for (vector<GameObject*>::iterator itr = m_children->begin(); itr != m_children->end(); itr++)
+		(*itr)->AddPosition(d);
 }
 
 void GameObject::AddPosition(Vector2D v)
 {
-        m_position.x += v.x;
-    m_position.y += v.y;
+	m_position.x += v.x;
+	m_position.y += v.y;
 
-    for (vector<GameObject*>::iterator itr = m_children->begin(); itr != m_children->end(); itr++)
-        (*itr)->AddPosition(v);
+	for (vector<GameObject*>::iterator itr = m_children->begin(); itr != m_children->end(); itr++)
+		(*itr)->AddPosition(v);
 }
 
 Vector2D& GameObject::Size() {
-    return m_size;
+	return m_size;
 }
 
 float& GameObject::Angle()
