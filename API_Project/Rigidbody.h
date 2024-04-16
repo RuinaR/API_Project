@@ -23,7 +23,7 @@ public:
 	void SetFriction(float f);
 	void AddForce(Vector2D vec);
 	bool GetIsOnLand();
-	Vector2D GetVelocity();
+	Vector2D& Velocity();
 	void SetK(bool k);
 };
 

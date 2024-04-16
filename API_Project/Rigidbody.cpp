@@ -85,8 +85,8 @@ void Rigidbody::Update()
 		return;
 
 		m_gameObj->AddPosition(Vector2D({
-			m_velocity.x * MainFrame::GetInstance()->DeltaTime() ,
-			m_velocity.y * MainFrame::GetInstance()->DeltaTime() }));
+			(float)(m_velocity.x * MainFrame::GetInstance()->DeltaTime()) ,
+			(float)(m_velocity.y * MainFrame::GetInstance()->DeltaTime()) }));
 }
 
 void Rigidbody::CollisionEnter(Collider* other)
@@ -173,7 +173,7 @@ bool Rigidbody::GetIsOnLand()
 	return m_isOnLand;
 }
 
-Vector2D Rigidbody::GetVelocity()
+Vector2D& Rigidbody::Velocity()
 {
 	return m_velocity;
 }

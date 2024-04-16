@@ -26,7 +26,7 @@ void Player::Collision(Collider* other)
 
 }
 
-Player::Player() : Component()
+Player::Player() : Component(), m_mode(PlayerMode::mDefault), m_arrow(PlayerArrow::right)
 {
 }
 
@@ -84,75 +84,83 @@ void Player::Start()
 {
 	RECT rect;
 	GetClientRect(WindowFrame::GetInstance()->GetHWND(), &rect);
-	Camera::GetInstance()->SetPos(m_gameObj->Position().x - (rect.right / 4), m_gameObj->Position().y - (rect.bottom / 4));
+	Camera::GetInstance()->SetPos(m_gameObj->Position().x - (rect.right / 2), m_gameObj->Position().y - (rect.bottom / 2));
+	m_rig->SetK(true);
+
 }
 
 void Player::Update()
 {
 	if (!m_rig)
 		return;
-	
+	float speed = 250.0f;
+	float curSpeed = 0.0f;
 	Vector2D playerPos = m_gameObj->Position();  // 플레이어 위치
 	Vector2D camPos = Camera::GetInstance()->GetPos();  // 현재 카메라 위치
 	RECT rect;
 	GetClientRect(WindowFrame::GetInstance()->GetHWND(), &rect);
 
 	// 선형 보간을 사용하여 카메라 위치 업데이트
-	float smoothFactor = 0.05f;  // 부드러운 이동을 위한 보간 계수
+	float smoothFactor = 0.02f;  // 부드러운 이동을 위한 보간 계수
 	Vector2D newCamPos = {
-		Lerp(camPos.x, playerPos.x - rect.right / 4, smoothFactor),
-		Lerp(camPos.y, playerPos.y - rect.bottom / 4, smoothFactor)
+		Lerp(camPos.x, playerPos.x - rect.right / 2 + m_gameObj->Size().x / 2, smoothFactor),
+		Lerp(camPos.y, playerPos.y - rect.bottom / 2 + m_gameObj->Size().y/2, smoothFactor)
 	};
 
 	Camera::GetInstance()->SetPos(newCamPos.x, newCamPos.y);
+	float delta = MainFrame::GetInstance()->DeltaTime();
 
+
+	if (m_rig->GetIsOnLand())
+		m_rig->Velocity() = { 0.0f, 0.0f };
+
+	if (GetAsyncKeyState(VK_RIGHT))
+	{
+		if (!m_rig->GetIsOnLand())
+			return;
+		curSpeed = speed;
+		m_rig->Velocity() = {speed, 0.0f};
+		m_arrow = PlayerArrow::right;
+		if (m_ar->GetCurrentAnim().identity != m_arrAnim[(int)m_mode][(int)PlayerArrow::right][(int)PlayerAState::walk].identity)
+		{
+			m_ar->SetOneTime(false);
+			m_ar->ChangeAnim(m_arrAnim[(int)m_mode][(int)m_arrow][(int)PlayerAState::walk]);
+		}
+	}
 	if (GetAsyncKeyState(VK_LEFT))
 	{
 		if (!m_rig->GetIsOnLand())
 			return;
-		m_rig->AddForce(Vector2D({ -500.f * MainFrame::GetInstance()->DeltaTime(), 0.0f}));
-		//m_gameObj->AddPosition({ -150.f * MainFrame::GetInstance()->DeltaTime(), 0.0f });
+		curSpeed = -speed;
+		m_rig->Velocity() = { -speed, 0.0f };
 		m_arrow = PlayerArrow::left;
 		if (m_ar->GetCurrentAnim().identity != m_arrAnim[(int)m_mode][(int)PlayerArrow::left][(int)PlayerAState::walk].identity)
 		{
-			m_ar->ChangeAnim(m_arrAnim[(int)m_mode][(int)m_arrow][(int)PlayerAState::walk]);
 			m_ar->SetOneTime(false);
+			m_ar->ChangeAnim(m_arrAnim[(int)m_mode][(int)m_arrow][(int)PlayerAState::walk]);
 		}
 	}
-	else if (GetAsyncKeyState(VK_RIGHT))
+
+	if (m_rig->GetIsOnLand() && !GetAsyncKeyState(VK_RIGHT) && !GetAsyncKeyState(VK_LEFT))
 	{
-		if (!m_rig->GetIsOnLand())
-			return;
-		m_rig->AddForce(Vector2D({ 500.f * MainFrame::GetInstance()->DeltaTime(), 0.0f }));
-		//m_gameObj->AddPosition({ 150.f * MainFrame::GetInstance()->DeltaTime(), 0.0f });
-		m_arrow = PlayerArrow::right;
-		if (m_ar->GetCurrentAnim().identity != m_arrAnim[(int)m_mode][(int)PlayerArrow::right][(int)PlayerAState::walk].identity)
-		{
-			m_ar->ChangeAnim(m_arrAnim[(int)m_mode][(int)m_arrow][(int)PlayerAState::walk]);
-			m_ar->SetOneTime(false);
-		}
-	}
-	else
-	{
-		if (!m_rig->GetIsOnLand())
-			return;
 		if (m_ar->GetCurrentAnim().identity != m_arrAnim[(int)m_mode][(int)m_arrow][(int)PlayerAState::idle].identity)
 		{
-			m_ar->ChangeAnim(m_arrAnim[(int)m_mode][(int)m_arrow][(int)PlayerAState::idle]);
 			m_ar->SetOneTime(false);
+			m_ar->ChangeAnim(m_arrAnim[(int)m_mode][(int)m_arrow][(int)PlayerAState::idle]);
 		}
 	}
+
 
 	if (GetAsyncKeyState(VK_SPACE))
 	{
 		if (m_rig->GetIsOnLand() &&
-			m_rig->GetVelocity().y >= -0.1f &&
-			m_rig->GetVelocity().y <= 0.1f)
+			m_rig->Velocity().y >= -0.1f &&
+			m_rig->Velocity().y <= 0.1f)
 		{
 			static bool isJump = false;
 			if (!isJump)
 			{
-				m_rig->AddForce(Vector2D({ 0.0f, -600.0f }));
+				m_rig->Velocity() = {curSpeed, -500.0f};
 				if (m_ar->GetCurrentAnim().identity != m_arrAnim[(int)m_mode][(int)m_arrow][(int)PlayerAState::jump].identity)
 				{
 					m_ar->SetOneTime(true);

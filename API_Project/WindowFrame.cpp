@@ -37,9 +37,6 @@ LRESULT WindowFrame::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPa
 	switch (iMessage)
 	{
 	case WM_CREATE:
-		m_Pthis->m_hWnd = hWnd;
-		m_Pthis->m_buffer->Init(hWnd, 1.0f, 1.0f);
-		MoveWindow(hWnd, 100, 100, 800, 600, true);
 		return 0;
 	case WM_LBUTTONDOWN:
 		Mouse::GetInstance()->SetLeftBtn(true);
@@ -69,16 +66,15 @@ LRESULT WindowFrame::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPa
 		return 0;
 	case WM_SETFOCUS:
 		MainFrame::GetInstance()->Timer().tick();
-		MainFrame::GetInstance()->Timer().resetElapsedTime();
+		MainFrame::GetInstance()->Timer().resetTotalDeltaTime();
 		m_Pthis->m_isFocus = true;
+		return 0;
+	case WM_SIZE:
 		return 0;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
 		m_Pthis->m_buffer->CopyBitmap(hdc);
-		m_Pthis->m_buffer->MakeHDC();
-		Rectangle(m_Pthis->m_buffer->GetHDC(), 1, 1, 
-			m_Pthis->m_buffer->GetBitmapInfo().bmWidth - 1, m_Pthis->m_buffer->GetBitmapInfo().bmHeight - 1);
-		m_Pthis->m_buffer->DeleteHDC();
+		m_Pthis->m_buffer->SetWihite();
 		EndPaint(hWnd, &ps);
 		return 0;
 	case WM_DESTROY:
@@ -101,7 +97,9 @@ void WindowFrame::SetScene(Scene* scene)
 
 void WindowFrame::Initialize()
 {
-
+	BuildWindow();
+	m_Pthis->m_buffer->Init(m_Pthis->m_hWnd);
+	MoveWindow(m_Pthis->m_hWnd, 100, 100, 1440, 900, TRUE);
 }
 
 void WindowFrame::BuildWindow()
@@ -113,20 +111,20 @@ void WindowFrame::BuildWindow()
 	WndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	WndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
 	WndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-	WndClass.hInstance = this->m_Instance;
+	WndClass.hInstance = m_Pthis->m_Instance;
 	WndClass.lpfnWndProc = WndProc;
 	WndClass.lpszClassName = TEXT("ÃÖ¿øÁØ");
 	WndClass.lpszMenuName = NULL;
 	WndClass.style = CS_HREDRAW | CS_VREDRAW;
 	RegisterClass(&WndClass);
 
-	this->m_hWnd =
+	m_Pthis->m_hWnd =
 		CreateWindow(WndClass.lpszClassName, WndClass.lpszClassName,
 			WS_OVERLAPPEDWINDOW,
-			0, 0, 1920, 1080,
-			NULL, (HMENU)NULL, this->m_Instance, NULL);
+			0, 0, MAXWINDOWW, MAXWINDOWH,
+			NULL, (HMENU)NULL, m_Pthis->m_Instance, NULL);
 
-	ShowWindow(this->m_hWnd, SW_SHOW);
+	ShowWindow(m_Pthis->m_hWnd, SW_SHOW);
 }
 
 void WindowFrame::Run(const MSG* Message)

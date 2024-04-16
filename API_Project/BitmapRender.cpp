@@ -83,11 +83,9 @@ void BitmapRender::Update()
 	if (m_bit == NULL)
 		return;
 	Buffer* buffer = WindowFrame::GetInstance()->GetBuffer();
-	buffer->MakeHDC();
 	DrawBitmap(buffer->GetHDC(),
 		m_gameObj->Position().x - Camera::GetInstance()->GetPos().x,
         m_gameObj->Position().y - Camera::GetInstance()->GetPos().y,
 		m_gameObj->Size().x, m_gameObj->Size().y,
 		m_bit, m_gameObj->Angle(), TRANSCOLOR);
-	buffer->DeleteHDC();
 }

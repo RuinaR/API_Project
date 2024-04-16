@@ -9,23 +9,17 @@ private:
 	HBITMAP m_oldBitmap;
 	BITMAP m_bitInfo;
 	HDC m_hdc;
-	Vector2D m_sizeRatio = {0.0f, 0.0f};
 public:
 	Buffer();
 	~Buffer();
 
-	void Init(HWND hWnd, float sizeRatioX, float sizeRatioY);
+	void Init(HWND hWnd);
 	void Release();
 	HBITMAP GetBitmap();
 	BITMAP GetBitmapInfo();
 
-	void MakeHDC();
 	HDC GetHDC();
 	void SetWihite();
-	void DeleteHDC();
-
-	Vector2D& SizeRatio();
-
 	void CopyBitmap(HDC hdc);
 };
 

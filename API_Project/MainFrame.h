@@ -9,14 +9,14 @@ private:
 	MainFrame() {}
 	~MainFrame() {}
 	Timer m_timer;
-	int m_targetFPS = 120;
+	int m_targetFPS = 60;
 public:
 	static void Create(HINSTANCE hInstance);
 	static MainFrame* GetInstance();
 	static void Destroy();
 	Timer& Timer();
-	float DeltaTime();
-	void Initialize(int targetFPS = 120);
+	double DeltaTime();
+	void Initialize(int targetFPS = 60);
 	int Run();
 private:
 	void Release();

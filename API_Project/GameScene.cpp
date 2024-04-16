@@ -66,7 +66,7 @@ void GameScene::Start()
 	player = nullptr;
 	player = new GameObject();
 	player->SetTag("player");
-	player->SetPosition(Vector2D({ 300,0 }));
+	player->SetPosition(Vector2D({ 300,200 }));
 	player->Size() = { 50, 50 };
 	player->AddComponent(new Player());
 	player->InitializeSet();
@@ -74,13 +74,13 @@ void GameScene::Start()
 	player->SetOrderInLayer(10);
 
 	GameObject* tmp1 = new GameObject();
-	tmp1->SetPosition({ 280,-10 });
+	tmp1->SetPosition({ 280,190 });
 	tmp1->Size() = { 20,20 };
 	tmp1->AddComponent(new BitmapRender(land));
 	tmp1->InitializeSet();
 
 	GameObject* tmp2 = new GameObject();
-	tmp2->SetPosition({ 260,-30 });
+	tmp2->SetPosition({ 260, 180 });
 	tmp2->Size() = { 20,20 };
 	tmp2->AddComponent(new BitmapRender(land));
 	tmp2->InitializeSet();

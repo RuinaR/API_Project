@@ -24,9 +24,6 @@ void GameObject::SetPosition(Vector2D v)
 
 void GameObject::AddPosition(Vector2D v)
 {
-    if (v.x > 0)
-        m_position.x += v.x * 1.3f;
-    else
         m_position.x += v.x;
     m_position.y += v.y;
 
