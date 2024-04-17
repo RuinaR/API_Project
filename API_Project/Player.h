@@ -14,6 +14,8 @@ enum class PlayerAState
 	idle,
 	walk,
 	jump,
+	run,
+	fly,
 	max
 };
 
@@ -32,6 +34,14 @@ private:
 	PlayerMode m_mode;
 	PlayerArrow m_arrow;
 	PlayerAState m_state;
+	Timer m_flyTimer = Timer();
+
+	int m_leftKey = 0;
+	int m_rightKey = 0;
+	int m_runKey = 0;
+	int m_jumpKey = 0;
+	int m_atkKey = 0;
+
 	void UpdateAnim(bool isOneTime);
 protected:
 	void CollisionEnter(Collider* other) override;
