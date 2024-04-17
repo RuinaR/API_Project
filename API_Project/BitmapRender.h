@@ -7,7 +7,7 @@ class BitmapRender : public Component
 private:
 	HBITMAP m_bit = { 0 };
 
-	void DrawBitmap(HDC hdc, int x, int y, int w, int h, HBITMAP hbit, float angle, UINT transparentColor);
+	void DrawBitmap(HDC hdc, int x, int y, int w, int h, HBITMAP hbit, UINT transparentColor);
 
 public:
 	BitmapRender(HBITMAP hbit);

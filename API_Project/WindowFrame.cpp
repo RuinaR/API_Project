@@ -63,6 +63,9 @@ LRESULT WindowFrame::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPa
 		return 0;
 	case WM_KILLFOCUS:
 		m_Pthis->m_isFocus = false;
+
+		//테스트용, 나중에 지울것
+		SetFocus(WindowFrame::GetInstance()->GetHWND());
 		return 0;
 	case WM_SETFOCUS:
 		MainFrame::GetInstance()->Timer().tick();
@@ -100,6 +103,7 @@ void WindowFrame::Initialize()
 	BuildWindow();
 	m_Pthis->m_buffer->Init(m_Pthis->m_hWnd);
 	MoveWindow(m_Pthis->m_hWnd, 100, 100, 1440, 900, TRUE);
+	SetFocus(m_Pthis->m_hWnd);
 }
 
 void WindowFrame::BuildWindow()

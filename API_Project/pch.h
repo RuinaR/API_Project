@@ -28,11 +28,11 @@
 #include "Buffer.h"
 
 #define TRANSCOLOR (RGB((255),(0),(255)))
-#define COLSIZEOFFSET 0.5f
+#define COLSIZEOFFSET 1.0f
 #define MAXWINDOWW 1920
 #define MAXWINDOWH 1080
-#define BUFFERBITW MAXWINDOWW * 2
-#define BUFFERBITH MAXWINDOWH * 2
+#define BUFFERBITW MAXWINDOWW
+#define BUFFERBITH MAXWINDOWH
 #define TARGETFPS 60
 
 using namespace std;

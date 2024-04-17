@@ -9,7 +9,6 @@ protected:
     string m_tag = "";
     Vector2D m_position = { 0 };
     Vector2D m_size = { 0 };
-    float m_angle = 0.0f;
     float m_orderInLayer = 0.0f;
     vector<Component*>* m_vecComponent = nullptr;
     GameObject* m_parent = nullptr;
@@ -23,7 +22,6 @@ public:
     void AddPosition(Vector2D v);
 
     Vector2D& Size();
-    float& Angle();
     template <typename T>
     T* GetComponent() {
         for (vector<Component*>::iterator itr = m_vecComponent->begin(); itr != m_vecComponent->end(); itr++) {

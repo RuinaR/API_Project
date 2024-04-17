@@ -76,7 +76,7 @@ void Rigidbody::Update()
 			m_velocity.y = 0.0f;
 		}
 	}
-	if (!m_isK)
+	if (!m_isNoFriction)
 	{
 		m_velocity.x *= 1.0f - m_friction * MainFrame::GetInstance()->DeltaTime();
 		m_velocity.y *= 1.0f - m_friction * MainFrame::GetInstance()->DeltaTime();
@@ -178,7 +178,7 @@ Vector2D& Rigidbody::Velocity()
 	return m_velocity;
 }
 
-void Rigidbody::SetK(bool k)
+void Rigidbody::SetNoFriction(bool nf)
 {
-	m_isK = k;
+	m_isNoFriction = nf;
 }

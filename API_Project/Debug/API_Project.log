@@ -1,4 +1,35 @@
-﻿  AnimationManager.cpp
+﻿  pch.cpp
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\AnimationManager.h(14,2): warning C4091: 'static ': 변수를 선언하지 않으면 'AnimationManager' 왼쪽은 무시됩니다.
+  AnimationManager.cpp
+  AnimationRender.cpp
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\AnimationRender.cpp(39,54): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  BitmapRender.cpp
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\BitmapRender.cpp(51,26): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\BitmapRender.cpp(50,20): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\BitmapRender.cpp(49,33): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\BitmapRender.cpp(48,27): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  BoxCollider.cpp
+  Buffer.cpp
+  Camera.cpp
+  Collider.cpp
+  CollisionManager.cpp
+  Component.cpp
+  GameObject.cpp
+  GameScene.cpp
+  MainFrame.cpp
+  Mouse.cpp
+  ObjectManager.cpp
+  Player.cpp
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp(94,55): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp(93,73): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp(113,47): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp(113,14): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp(114,48): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp(114,14): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp(116,54): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp(116,41): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Rigidbody.cpp
+  WindowFrame.cpp
   main.cpp
   코드를 생성하고 있습니다...
-  API_Project.vcxproj -> C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\API_Project.exe
+  API_Project.vcxproj -> C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\API_Project.exe

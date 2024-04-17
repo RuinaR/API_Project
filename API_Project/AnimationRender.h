@@ -23,6 +23,7 @@ public:
 	void Update() override;
 	void SetPlay(bool play);
 	void SetOneTime(bool b);
+	bool IsFinishAnim(); //oneTime옵션이 켜져있을 때 마지막까지 애니메이션이 재생되었으면 true 반환
 	const Animation& GetCurrentAnim();
 };
 

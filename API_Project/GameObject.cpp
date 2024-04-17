@@ -35,11 +35,6 @@ Vector2D& GameObject::Size() {
 	return m_size;
 }
 
-float& GameObject::Angle()
-{
-    return m_angle;
-}
-
 void GameObject::SetDestroy(bool destroy) {
     m_isDestroy = destroy;
 }

@@ -6,6 +6,7 @@ class GameScene : public Scene
 {
 private:
 	HBITMAP land;
+	GameObject* obj1, * obj2, * obj3, * obj4, * obj5;
 	GameObject* player = nullptr;
 public:
 	void Init() override;

@@ -31,6 +31,8 @@ private:
 	Animation m_arrAnim[(int)PlayerMode::max][(int)PlayerArrow::max][(int)PlayerAState::max];
 	PlayerMode m_mode;
 	PlayerArrow m_arrow;
+	PlayerAState m_state;
+	void UpdateAnim(bool isOneTime);
 protected:
 	void CollisionEnter(Collider* other) override;
 	void CollisionExit(Collider* other) override;

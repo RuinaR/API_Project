@@ -64,6 +64,7 @@ int MainFrame::Run()
     int fps = 0;
     double fpsCheckTime = 0.0;
     m_timer.tick();  // 최초 시간 초기화
+
     while (TRUE) 
     {
         while (PeekMessage(&Message, 0, 0, 0, PM_REMOVE))  // 메시지 처리 우선

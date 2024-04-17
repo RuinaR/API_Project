@@ -8,7 +8,7 @@ private:
 	Vector2D m_velocity;
 	BoxCollider* m_box = nullptr;
 	BOOL SetNoIntersect(const LPRECT pHold, LPRECT pRect);
-	bool m_isK = false;
+	bool m_isNoFriction = false;
 private:
 	void Initialize() override;
 	void Release() override;
@@ -24,6 +24,6 @@ public:
 	void AddForce(Vector2D vec);
 	bool GetIsOnLand();
 	Vector2D& Velocity();
-	void SetK(bool k);
+	void SetNoFriction(bool k);
 };
 

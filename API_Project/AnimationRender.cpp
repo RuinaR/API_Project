@@ -62,6 +62,14 @@ void AnimationRender::SetOneTime(bool b)
 	m_isOneTime = b;
 }
 
+bool AnimationRender::IsFinishAnim()
+{
+	if (m_isOneTime && m_curItr == --m_anim.bitmaps.end())
+		return true;
+
+	return false;
+}
+
 const Animation& AnimationRender::GetCurrentAnim()
 {
 	return m_anim;
