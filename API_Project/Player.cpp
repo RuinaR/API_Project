@@ -34,7 +34,7 @@ void Player::FlyAction()
 		if (GetAsyncKeyState(m_jumpKey)) //위로 가속
 		{
 			m_flyTimer.tick();
-			if (m_flyTimer.getTotalDeltaTime() > 0.2)
+			if (m_flyTimer.getTotalDeltaTime() > m_dblTime)
 			{
 				m_rig->Velocity().y = -m_speed_fly;
 				m_flyTimer.resetTotalDeltaTime();
@@ -69,11 +69,11 @@ void Player::MoveLeft()
 	{
 		m_arrow = PlayerArrow::left;
 		UpdateAnim(false);
-		if (GetAsyncKeyState(m_runKey) &&
-			(m_state == PlayerAState::walk || 
-				m_state == PlayerAState::jump || 
-				m_state == PlayerAState::idle || 
-				m_state == PlayerAState::run)) //Run_Left
+		if ((m_leftKeyTimer.getDeltaTime() <= m_dblTime &&
+			(m_state == PlayerAState::walk ||
+				m_state == PlayerAState::jump ||
+				m_state == PlayerAState::idle)) ||
+			m_state == PlayerAState::run)  //Run_Left
 		{
 			m_curXSpeed = -m_speed_run;
 			m_state = PlayerAState::run;
@@ -105,11 +105,11 @@ void Player::MoveRight()
 	{
 		m_arrow = PlayerArrow::right;
 		UpdateAnim(false);
-		if (GetAsyncKeyState(m_runKey) &&
-			(m_state == PlayerAState::walk || 
+		if ((m_rightKeyTimer.getDeltaTime() <= m_dblTime &&
+				(m_state == PlayerAState::walk || 
 				m_state == PlayerAState::jump || 
-				m_state == PlayerAState::idle || 
-				m_state == PlayerAState::run))  //Run_Right
+				m_state == PlayerAState::idle )) ||
+			m_state == PlayerAState::run)  //Run_Right
 		{
 			m_curXSpeed = m_speed_run;
 			m_state = PlayerAState::run;
@@ -137,49 +137,36 @@ void Player::MoveRight()
 
 void Player::JumpAction()
 {
-	m_flyTimer.tick();
 	//점프
 	if (m_rig->GetIsOnLand() &&
 		m_rig->Velocity().y >= -0.1f &&
 		m_rig->Velocity().y <= 0.1f)
 	{
-		static bool _isJump = false;
-		if (!_isJump)
+		if (m_state == PlayerAState::eat_idle ||
+			m_state == PlayerAState::eat_move ||
+			m_state == PlayerAState::eat_jump)
 		{
-			if (m_state == PlayerAState::eat_idle ||
-				m_state == PlayerAState::eat_move ||
-				m_state == PlayerAState::eat_jump)
-			{
-				m_rig->Velocity() = { m_curXSpeed, -m_JumpV / 2 };
-				m_state = PlayerAState::eat_jump;
-			}
-			else
-			{
-				m_rig->Velocity() = { m_curXSpeed, -m_JumpV };
-				m_state = PlayerAState::jump;
-			}
-			UpdateAnim(true);
-			cout << "Jump" << endl;
-			_isJump = true;
-			m_flyTimer.resetTotalDeltaTime();
-			m_flyTimer.tick();
+			m_rig->Velocity() = { m_curXSpeed, -m_JumpV / 2 };
+			m_state = PlayerAState::eat_jump;
 		}
 		else
 		{
-			_isJump = false;
+			m_rig->Velocity() = { m_curXSpeed, -m_JumpV };
+			m_state = PlayerAState::jump;
 		}
+		UpdateAnim(true);
+		cout << "Jump" << endl;
 	}
-	else if (m_flyTimer.getTotalDeltaTime() > 0.2f &&
+	else if (m_flyTimer.getDeltaTime() > m_dblTime &&
 		m_state != PlayerAState::eat_jump &&
 		m_state != PlayerAState::eat_idle &&
 		m_state != PlayerAState::eat_move)//날기 start
 	{
-		m_flyTimer.tick();
-		m_flyTimer.resetTotalDeltaTime();
 		m_state = PlayerAState::fly;
 		m_rig->Velocity().y = -m_speed_fly;
-		m_rig->SetGravity(450);
+		m_rig->SetGravity(m_flyGravity);
 		UpdateAnim(false);
+		cout << "Fly" << endl;
 	}
 }
 
@@ -262,9 +249,8 @@ void Player::Initialize()
 
 	m_leftKey = VK_LEFT;
 	m_rightKey = VK_RIGHT;
-	m_runKey = VK_SHIFT;
 	m_jumpKey = VK_SPACE;
-	m_atkKey = 0x5A;	//Z키
+	m_atkKey = 0x5A;	//Z키, ATK
 }
 
 void Player::Release()
@@ -291,7 +277,10 @@ void Player::Start()
 	if (m_rig)
 		m_rig->SetNoFriction(true);
 
+	m_startGravity = m_rig->GetGravity();
 	m_flyTimer.tick();
+	m_leftKeyTimer.tick();
+	m_rightKeyTimer.tick();
 }
 
 void Player::Update()
@@ -303,7 +292,7 @@ void Player::Update()
 	Vector2D camPos = Camera::GetInstance()->GetPos();  // 현재 카메라 위치
 	RECT rect;
 	GetClientRect(WindowFrame::GetInstance()->GetHWND(), &rect);
-	if (m_state != PlayerAState::fly)m_rig->SetGravity(1200);
+	if (m_state != PlayerAState::fly)m_rig->SetGravity(m_startGravity);
 	// 선형 보간을 사용하여 카메라 위치 업데이트
 	float smoothFactor = 0.02f;  // 부드러운 이동을 위한 보간 계수
 	Vector2D newCamPos = {
@@ -320,9 +309,9 @@ void Player::Update()
 
 	//eat 상태 테스트용, 나중에 지울것----
 	static bool isDouble = false;
-	if (GetAsyncKeyState(VK_CONTROL))
+	if (!GetAsyncKeyState(VK_CONTROL))
 		isDouble = true;
-	if (!GetAsyncKeyState(VK_CONTROL)) 
+	if (GetAsyncKeyState(VK_CONTROL)) 
 	{
 		if (isDouble)
 		{
@@ -341,21 +330,43 @@ void Player::Update()
 		}
 	}
 	//----
-
-	if (GetAsyncKeyState(m_rightKey))//우측 이동
-	{
-		MoveRight();
-	}
-	else if (GetAsyncKeyState(m_leftKey))//좌측 이동
-	{
-		MoveLeft();
-	}
-	if (m_rig->GetIsOnLand() && !GetAsyncKeyState(m_leftKey) && !GetAsyncKeyState(m_rightKey)) 	//Idle
-	{
+	if (m_rig->GetIsOnLand() && !GetAsyncKeyState(m_leftKey) && !GetAsyncKeyState(m_rightKey) && !GetAsyncKeyState(m_atkKey)) 	//Idle
 		Idle();
+	if (!(GetAsyncKeyState(m_rightKey) && GetAsyncKeyState(m_leftKey))) //이동
+	{
+		if (GetAsyncKeyState(m_rightKey))//우측 이동
+		{
+			if (m_rightKeyTrigger)
+			{
+				m_rightKeyTrigger = false;
+				m_rightKeyTimer.tick();
+			}
+			MoveRight();
+		}
+		else
+			m_rightKeyTrigger = true;
+
+		if (GetAsyncKeyState(m_leftKey))//좌측 이동
+		{
+			if (m_leftKeyTrigger)
+			{
+				m_leftKeyTrigger = false;
+				m_leftKeyTimer.tick();
+			}
+			MoveLeft();
+		}
+		else
+			m_leftKeyTrigger = true;
 	}
 	if (GetAsyncKeyState(m_jumpKey)) //점프 & 날기
 	{
-		JumpAction();
+		if (m_jumpFlyTrigger)
+		{
+			m_jumpFlyTrigger = false;
+			m_flyTimer.tick();
+			JumpAction();
+		}
 	}
+	else
+		m_jumpFlyTrigger = true;
 }

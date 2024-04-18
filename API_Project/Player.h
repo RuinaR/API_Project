@@ -30,7 +30,7 @@ enum class PlayerMode
 
 class Player : public Component
 {
-private:
+protected:
 	Rigidbody* m_rig = nullptr;
 	AnimationRender* m_ar = nullptr;
 	Animation m_arrAnim[(int)PlayerMode::max][(int)PlayerArrow::max][(int)PlayerAState::max];
@@ -38,13 +38,19 @@ private:
 	PlayerArrow m_arrow;
 	PlayerAState m_state;
 	Timer m_flyTimer = Timer();
+	Timer m_leftKeyTimer = Timer();
+	Timer m_rightKeyTimer = Timer();
+
+	bool m_leftKeyTrigger = false;
+	bool m_rightKeyTrigger = false;
+	bool m_jumpFlyTrigger = false;
+
+	float m_dblTime = 0.25f;
 
 	int m_leftKey = 0;
 	int m_rightKey = 0;
-	int m_runKey = 0;
 	int m_jumpKey = 0;
 	int m_atkKey = 0;
-
 
 	float m_speed = 250.0f;
 	float m_speed_run = 500.0f;
@@ -52,6 +58,10 @@ private:
 	float m_eatSpeed = 150.0f;
 	float m_curXSpeed = 0.0f;
 	float m_JumpV = 500.0f;
+
+	float m_startGravity = 0.0f;
+	float m_flyGravity = 450.0f;
+protected:
 	void UpdateAnim(bool isOneTime);
 	void FlyAction();
 	void MoveLeft();

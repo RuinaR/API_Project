@@ -22,13 +22,6 @@ void GameScene::Release()
 
 void GameScene::Start()
 {
-	GameObject* triggerTest = new GameObject();
-	triggerTest->SetPosition({ 500, 200 });
-	triggerTest->Size() = {200, 200};
-	triggerTest->AddComponent(new BitmapRender(land));
-	triggerTest->AddComponent(new BoxCollider());
-	triggerTest->InitializeSet();
-
 	obj1 = new GameObject();
 	obj1->SetTag("land");
 	obj1->SetPosition({ 500,300 });

@@ -19,6 +19,7 @@ protected:
 	void CollisionExit(Collider* other) override;
 	void Collision(Collider* other) override;
 public:
+	float GetGravity();
 	void SetGravity(float g);
 	void SetFriction(float f);
 	void AddForce(Vector2D vec);

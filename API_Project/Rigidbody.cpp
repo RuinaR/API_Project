@@ -152,6 +152,11 @@ void Rigidbody::Collision(Collider* other)
 	return;
 }
 
+float Rigidbody::GetGravity()
+{
+	return m_gravity;
+}
+
 void Rigidbody::SetGravity(float g)
 {
 	m_gravity = g;
