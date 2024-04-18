@@ -42,12 +42,12 @@ void Player::FlyAction()
 		}
 		if (GetAsyncKeyState(m_rightKey))//우측 fly 이동
 		{
-			m_rig->Velocity() = { m_speed, m_rig->Velocity().y };
+			m_rig->Velocity() = { m_speed / 2, m_rig->Velocity().y };
 			m_arrow = PlayerArrow::right;
 		}
 		else if (GetAsyncKeyState(m_leftKey))//좌측 fly 이동
 		{
-			m_rig->Velocity() = { -m_speed, m_rig->Velocity().y };
+			m_rig->Velocity() = { -m_speed / 2, m_rig->Velocity().y };
 			m_arrow = PlayerArrow::left;
 		}
 		else //fly idle
@@ -137,7 +137,7 @@ void Player::JumpAction()
 		m_flyTimer.resetTotalDeltaTime();
 		m_state = PlayerAState::fly;
 		m_rig->Velocity().y = -m_speed_fly;
-		m_rig->SetGravity(150);
+		m_rig->SetGravity(450);
 		UpdateAnim(false);
 	}
 }
