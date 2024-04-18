@@ -16,6 +16,9 @@ enum class PlayerAState
 	jump,
 	run,
 	fly,
+	eat_idle,
+	eat_move,
+	eat_jump,
 	max
 };
 
@@ -42,11 +45,13 @@ private:
 	int m_jumpKey = 0;
 	int m_atkKey = 0;
 
+
 	float m_speed = 250.0f;
 	float m_speed_run = 500.0f;
 	float m_speed_fly = 150.0f;
+	float m_eatSpeed = 150.0f;
 	float m_curXSpeed = 0.0f;
-
+	float m_JumpV = 500.0f;
 	void UpdateAnim(bool isOneTime);
 	void FlyAction();
 	void MoveLeft();

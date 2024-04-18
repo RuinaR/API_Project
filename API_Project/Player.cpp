@@ -69,13 +69,27 @@ void Player::MoveLeft()
 	{
 		m_arrow = PlayerArrow::left;
 		UpdateAnim(false);
-		if (GetAsyncKeyState(m_runKey)) //Run_Left
+		if (GetAsyncKeyState(m_runKey) &&
+			(m_state == PlayerAState::walk || 
+				m_state == PlayerAState::jump || 
+				m_state == PlayerAState::idle || 
+				m_state == PlayerAState::run)) //Run_Left
 		{
 			m_curXSpeed = -m_speed_run;
 			m_state = PlayerAState::run;
 			UpdateAnim(false);
 		}
-		else //Walk_Left
+		else if (m_state == PlayerAState::eat_idle ||
+			m_state == PlayerAState::eat_jump ||
+			m_state == PlayerAState::eat_move)//eat_move_left
+		{
+			m_curXSpeed = -m_eatSpeed;
+			m_state = PlayerAState::eat_move;
+			UpdateAnim(false);
+		}
+		else if (m_state == PlayerAState::idle || 
+			m_state == PlayerAState::walk || 
+			m_state == PlayerAState::jump)//Walk_Left
 		{
 			m_curXSpeed = -m_speed;
 			m_state = PlayerAState::walk;
@@ -91,13 +105,27 @@ void Player::MoveRight()
 	{
 		m_arrow = PlayerArrow::right;
 		UpdateAnim(false);
-		if (GetAsyncKeyState(m_runKey)) //Run_Right
+		if (GetAsyncKeyState(m_runKey) &&
+			(m_state == PlayerAState::walk || 
+				m_state == PlayerAState::jump || 
+				m_state == PlayerAState::idle || 
+				m_state == PlayerAState::run))  //Run_Right
 		{
 			m_curXSpeed = m_speed_run;
 			m_state = PlayerAState::run;
 			UpdateAnim(false);
 		}
-		else //Walk_Right
+		else if (m_state == PlayerAState::eat_idle ||
+			m_state == PlayerAState::eat_jump ||
+			m_state == PlayerAState::eat_move)//eat_move_right
+		{
+			m_curXSpeed = m_eatSpeed;
+			m_state = PlayerAState::eat_move;
+			UpdateAnim(false);
+		}
+		else if (m_state == PlayerAState::idle || 
+			m_state == PlayerAState::walk || 
+			m_state == PlayerAState::jump)//Walk_Right
 		{
 			m_curXSpeed = m_speed;
 			m_state = PlayerAState::walk;
@@ -118,8 +146,18 @@ void Player::JumpAction()
 		static bool _isJump = false;
 		if (!_isJump)
 		{
-			m_rig->Velocity() = { m_curXSpeed, -500.0f };
-			m_state = PlayerAState::jump;
+			if (m_state == PlayerAState::eat_idle ||
+				m_state == PlayerAState::eat_move ||
+				m_state == PlayerAState::eat_jump)
+			{
+				m_rig->Velocity() = { m_curXSpeed, -m_JumpV / 2 };
+				m_state = PlayerAState::eat_jump;
+			}
+			else
+			{
+				m_rig->Velocity() = { m_curXSpeed, -m_JumpV };
+				m_state = PlayerAState::jump;
+			}
 			UpdateAnim(true);
 			cout << "Jump" << endl;
 			_isJump = true;
@@ -131,7 +169,10 @@ void Player::JumpAction()
 			_isJump = false;
 		}
 	}
-	else if (m_flyTimer.getTotalDeltaTime() > 0.2f)//날기 start
+	else if (m_flyTimer.getTotalDeltaTime() > 0.2f &&
+		m_state != PlayerAState::eat_jump &&
+		m_state != PlayerAState::eat_idle &&
+		m_state != PlayerAState::eat_move)//날기 start
 	{
 		m_flyTimer.tick();
 		m_flyTimer.resetTotalDeltaTime();
@@ -144,20 +185,29 @@ void Player::JumpAction()
 
 void Player::Idle()
 {
+	if (m_state == PlayerAState::eat_idle ||
+		m_state == PlayerAState::eat_move ||
+		m_state == PlayerAState::eat_jump)
+	{
+		m_state = PlayerAState::eat_idle;
+	}
+	else
+	{
+		m_state = PlayerAState::idle;
+	}
 	m_rig->Velocity() = { 0.0f, 0.0f };
 	m_curXSpeed = 0.0f;
-	m_state = PlayerAState::idle;
 	UpdateAnim(false);
 }
 
 void Player::CollisionEnter(Collider* other)
 {
-	cout << "P_Enter" << endl;
+	cout << "Player_CollisionEnter : Target : " << other->GetGameObject()->GetTag() << endl;
 }
 
 void Player::CollisionExit(Collider* other)
 {
-	cout << "P_Exit" << endl;
+	cout << "Player_CollisionExit : Target : " << other->GetGameObject()->GetTag() << endl;
 }
 
 void Player::Collision(Collider* other)
@@ -185,6 +235,9 @@ void Player::Initialize()
 	stateStr[(int)PlayerAState::jump] = "jump";
 	stateStr[(int)PlayerAState::run] = "run";
 	stateStr[(int)PlayerAState::fly] = "fly";
+	stateStr[(int)PlayerAState::eat_idle] = "eat_idle";
+	stateStr[(int)PlayerAState::eat_move] = "eat_move";
+	stateStr[(int)PlayerAState::eat_jump] = "eat_jump";
 
 	for (int a = 0; a < (int)PlayerMode::max; a++)
 	{
@@ -195,6 +248,7 @@ void Player::Initialize()
 				string path = "Bitmaps\\Player\\" + modeStr[a] + "\\" + arrowStr[i] + "\\" + stateStr[j];
 				float atime = 0.1f;
 				if (j == (int)PlayerAState::jump) atime = 0.07f;
+				else if (j == (int)PlayerAState::idle || j == (int)PlayerAState::eat_idle) atime = 0.25f;
 				m_arrAnim[a][i][j] = AnimationManager::LoadAnimation(path, atime);
 			}
 		}
@@ -232,8 +286,8 @@ void Player::Start()
 {
 	RECT rect;
 	GetClientRect(WindowFrame::GetInstance()->GetHWND(), &rect);
-	Camera::GetInstance()->SetPos(m_gameObj->Position().x - rect.right / 2 + m_gameObj->Size().x / 2, 
-													m_gameObj->Position().y - rect.right / 2 + m_gameObj->Size().y / 2);
+	Camera::GetInstance()->SetPos(m_gameObj->Position().x - rect.right / 2 + m_gameObj->Size().x / 2,
+		m_gameObj->Position().y - rect.right / 2 + m_gameObj->Size().y / 2);
 	if (m_rig)
 		m_rig->SetNoFriction(true);
 
@@ -263,11 +317,36 @@ void Player::Update()
 		FlyAction();
 		return;
 	}
+
+	//eat 상태 테스트용, 나중에 지울것----
+	static bool isDouble = false;
+	if (GetAsyncKeyState(VK_CONTROL))
+		isDouble = true;
+	if (!GetAsyncKeyState(VK_CONTROL)) 
+	{
+		if (isDouble)
+		{
+			if (m_state == PlayerAState::idle)
+			{
+				m_state = PlayerAState::eat_idle;
+				cout << "eat_idle" << endl;
+			}
+			else if (m_state == PlayerAState::eat_idle)
+			{
+				m_state = PlayerAState::idle;
+				cout << "idle" << endl;
+			}
+			UpdateAnim(false);
+			isDouble = false;
+		}
+	}
+	//----
+
 	if (GetAsyncKeyState(m_rightKey))//우측 이동
 	{
 		MoveRight();
-	}	
-	if (GetAsyncKeyState(m_leftKey))//좌측 이동
+	}
+	else if (GetAsyncKeyState(m_leftKey))//좌측 이동
 	{
 		MoveLeft();
 	}
