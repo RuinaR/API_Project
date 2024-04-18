@@ -42,7 +42,17 @@ private:
 	int m_jumpKey = 0;
 	int m_atkKey = 0;
 
+	float m_speed = 250.0f;
+	float m_speed_run = 500.0f;
+	float m_speed_fly = 150.0f;
+	float m_curXSpeed = 0.0f;
+
 	void UpdateAnim(bool isOneTime);
+	void FlyAction();
+	void MoveLeft();
+	void MoveRight();
+	void JumpAction();
+	void Idle();
 protected:
 	void CollisionEnter(Collider* other) override;
 	void CollisionExit(Collider* other) override;
