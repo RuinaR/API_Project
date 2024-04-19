@@ -16,5 +16,6 @@ public:
 	void AddCollider(Collider* col);
 	bool UnregisterCollider(Collider* col);
 	void Update();
+	void Clear();
 };
 

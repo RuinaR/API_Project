@@ -111,11 +111,19 @@ void GameObject::Release() {
 		delete(*itr);
 		(*itr) = nullptr;
 	}
-
 	delete m_vecComponent;
     m_vecComponent = nullptr;
+
+    for (vector<GameObject*>::iterator itr = m_children->begin(); itr != m_children->end(); itr++)
+    {
+        (*itr)->SetParent(nullptr);
+        (*itr)->SetDestroy(true);
+    }
     delete m_children;
     m_children = nullptr;
+
+    if (m_parent != nullptr)
+        m_parent->DeleteChild(this);
 }
 
 void GameObject::Start() {
@@ -134,6 +142,8 @@ void GameObject::Update() {
 void GameObject::SetParent(GameObject* obj)
 {
     m_parent = obj;
+    if (obj == nullptr)
+        return;
     obj->m_children->push_back(this);
 }
 
@@ -141,4 +151,19 @@ void GameObject::AddChild(GameObject* obj)
 {
     m_children->push_back(obj);
     obj->m_parent = this;
+}
+
+void GameObject::DeleteChild(GameObject* obj)
+{
+    if (m_children == nullptr)
+        return;
+
+    for (vector<GameObject*>::iterator itr = m_children->begin(); itr != m_children->end(); itr++)
+    {
+        if ((*itr) == obj)
+        {
+            m_children->erase(itr);
+            return;
+        }
+    }
 }

@@ -24,6 +24,10 @@ void WindowFrame::Destroy()
 {
 	if (m_Pthis)
 	{
+		if (m_Pthis->m_scene)
+		{
+			delete m_Pthis->m_scene;
+		}
 		delete m_Pthis->m_buffer;
 		delete m_Pthis;
 		m_Pthis = nullptr;
@@ -81,6 +85,7 @@ LRESULT WindowFrame::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPa
 		EndPaint(hWnd, &ps);
 		return 0;
 	case WM_DESTROY:
+		m_Pthis->m_scene->Release();
 		m_Pthis->m_buffer->Release();
 		PostQuitMessage(0);
 		return 0;
@@ -93,9 +98,11 @@ void WindowFrame::SetScene(Scene* scene)
 	if (m_scene)
 	{
 		m_scene->Release();
+		ObjectManager::GetInstance()->Clear();
 		delete m_scene;
 	}
 	m_scene = scene;
+	m_scene->Start();
 }
 
 void WindowFrame::Initialize()

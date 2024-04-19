@@ -120,3 +120,11 @@ void CollisionManager::Update()
 		}
 	}
 }
+
+void CollisionManager::Clear()
+{
+	for (vector<Collider*>::iterator itr = m_objVec->begin(); itr != m_objVec->end(); itr++)
+	{
+		m_objVec->clear();
+	}
+}

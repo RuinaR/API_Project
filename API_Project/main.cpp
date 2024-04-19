@@ -7,5 +7,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance
 	MainFrame::GetInstance()->Initialize(TARGETFPS);
 	int result = MainFrame::GetInstance()->Run();
 	MainFrame::Destroy();
+
+	_CrtDumpMemoryLeaks();
 	return result;
 }

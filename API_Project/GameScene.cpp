@@ -71,19 +71,19 @@ void GameScene::Start()
 
 	player->SetOrderInLayer(10);
 
-	GameObject* tmp1 = new GameObject();
+	tmp1 = new GameObject();
 	tmp1->SetPosition({ 280,190 });
 	tmp1->Size() = { 20,20 };
 	tmp1->AddComponent(new BitmapRender(land));
 	tmp1->InitializeSet();
 
-	GameObject* tmp2 = new GameObject();
+	tmp2 = new GameObject();
 	tmp2->SetPosition({ 260, 180 });
 	tmp2->Size() = { 20,20 };
 	tmp2->AddComponent(new BitmapRender(land));
 	tmp2->InitializeSet();
 
-	GameObject* tmp3 = new GameObject();
+	tmp3 = new GameObject();
 	tmp3->SetPosition({ 240, 170 });
 	tmp3->Size() = { 20,20 };
 	tmp3->AddComponent(new BitmapRender(land));
@@ -91,8 +91,8 @@ void GameScene::Start()
 
 
 	player->AddChild(tmp1);
-	player->AddChild(tmp2);
-	tmp1->AddChild(tmp3);
+	tmp1->AddChild(tmp2);
+	tmp2->AddChild(tmp3);
 
 	obj1->SetOrderInLayer(1);
 	obj2->SetOrderInLayer(2);
@@ -103,12 +103,14 @@ void GameScene::Start()
 
 void GameScene::LBtnDown()
 {
-	
+	GameScene* newScene = new GameScene();
+	newScene->Init();
+	WindowFrame::GetInstance()->SetScene(newScene);
 }
 
 void GameScene::RBtnDown()
 {
-
+	tmp2->SetDestroy(true);
 }
 
 void GameScene::LBtnUp()

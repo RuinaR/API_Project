@@ -49,4 +49,5 @@ public:
     void Update();
     void SetParent(GameObject* obj);
     void AddChild(GameObject* obj);
+    void DeleteChild(GameObject* obj);
 };

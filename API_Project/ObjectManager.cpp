@@ -159,6 +159,20 @@ void ObjectManager::Update()
 	}
 }
 
+void ObjectManager::Clear()
+{
+	if (m_Pthis)
+	{
+		for (list<GameObject*>::iterator itr = m_Pthis->m_objList->begin(); itr != m_Pthis->m_objList->end(); itr++)
+		{
+			(*itr)->Release();
+			delete(*itr);
+			(*itr) = nullptr;
+		}
+		m_objList->clear();
+	}
+}
+
 list<GameObject*>* ObjectManager::GetObjList()
 {
 	return m_objList;

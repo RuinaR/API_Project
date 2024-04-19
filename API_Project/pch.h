@@ -27,6 +27,10 @@
 #include "Camera.h"
 #include "Buffer.h"
 
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 #define TRANSCOLOR (RGB((255),(0),(255)))
 #define COLSIZEOFFSET 1.0f
 #define MAXWINDOWW 1920

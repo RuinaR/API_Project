@@ -332,6 +332,9 @@ void Player::Update()
 	//----
 	if (m_rig->GetIsOnLand() && !GetAsyncKeyState(m_leftKey) && !GetAsyncKeyState(m_rightKey) && !GetAsyncKeyState(m_atkKey)) 	//Idle
 		Idle();
+
+
+
 	if (!(GetAsyncKeyState(m_rightKey) && GetAsyncKeyState(m_leftKey))) //이동
 	{
 		if (GetAsyncKeyState(m_rightKey))//우측 이동

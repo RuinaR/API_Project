@@ -20,6 +20,7 @@ public:
 	bool FindObject(GameObject* obj);
 	void Release();
 	void Update();
+	void Clear();
 	list<GameObject*>* GetObjList();
 };
 

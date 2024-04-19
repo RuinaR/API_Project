@@ -51,7 +51,6 @@ void MainFrame::Initialize(int targetFPS)
 	CollisionManager::Create();
 	m_scene = new GameScene();
 	m_scene->Init();
-	m_scene->Start();
 	WindowFrame::GetInstance()->SetScene(m_scene);
 }
 
@@ -110,8 +109,6 @@ int MainFrame::Run()
 
 void MainFrame::Release()
 {
-	m_scene->Release();
-	delete m_scene;
 	ObjectManager::GetInstance()->Release();
 	ObjectManager::Destroy();
 	CollisionManager::Destroy();
