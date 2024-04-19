@@ -23,6 +23,7 @@ void AnimationRender::ChangeAnim(Animation anim)
 {
 	m_anim = anim;
 	m_curItr = m_anim.bitmaps.begin();
+	m_bitren->ChangeBitmap(*m_curItr);
 }
 
 void AnimationRender::Start()
