@@ -5,6 +5,8 @@
 #include "Collider.h"
 #include "BoxCollider.h"
 #include "Rigidbody.h"
+#include "ChangeObject.h"
+#include "AttakObject.h"
 
 float Lerp(float start, float end, float t)
 {
@@ -77,7 +79,6 @@ void Player::MoveLeft()
 		{
 			m_curXSpeed = -m_speed_run;
 			m_state = PlayerAState::run;
-			UpdateAnim(false);
 		}
 		else if (m_state == PlayerAState::eat_idle ||
 			m_state == PlayerAState::eat_jump ||
@@ -85,16 +86,13 @@ void Player::MoveLeft()
 		{
 			m_curXSpeed = -m_eatSpeed;
 			m_state = PlayerAState::eat_move;
-			UpdateAnim(false);
 		}
-		else if (m_state == PlayerAState::idle || 
-			m_state == PlayerAState::walk || 
-			m_state == PlayerAState::jump)//Walk_Left
+		else//Walk_Left
 		{
 			m_curXSpeed = -m_speed;
 			m_state = PlayerAState::walk;
-			UpdateAnim(false);
 		}
+		UpdateAnim(false);
 		m_rig->Velocity() = { m_curXSpeed, 0.0f };
 	}
 }
@@ -113,7 +111,6 @@ void Player::MoveRight()
 		{
 			m_curXSpeed = m_speed_run;
 			m_state = PlayerAState::run;
-			UpdateAnim(false);
 		}
 		else if (m_state == PlayerAState::eat_idle ||
 			m_state == PlayerAState::eat_jump ||
@@ -121,16 +118,13 @@ void Player::MoveRight()
 		{
 			m_curXSpeed = m_eatSpeed;
 			m_state = PlayerAState::eat_move;
-			UpdateAnim(false);
 		}
-		else if (m_state == PlayerAState::idle || 
-			m_state == PlayerAState::walk || 
-			m_state == PlayerAState::jump)//Walk_Right
+		else //Walk_Right
 		{
 			m_curXSpeed = m_speed;
 			m_state = PlayerAState::walk;
-			UpdateAnim(false);
 		}
+		UpdateAnim(false);
 		m_rig->Velocity() = { m_curXSpeed, 0.0f };
 	}
 }
@@ -154,7 +148,6 @@ void Player::JumpAction()
 			m_rig->Velocity() = { m_curXSpeed, -m_JumpV };
 			m_state = PlayerAState::jump;
 		}
-		UpdateAnim(true);
 		cout << "Jump" << endl;
 	}
 	else if (m_flyTimer.getDeltaTime() > m_dblTime &&
@@ -165,9 +158,9 @@ void Player::JumpAction()
 		m_state = PlayerAState::fly;
 		m_rig->Velocity().y = -m_speed_fly;
 		m_rig->SetGravity(m_flyGravity);
-		UpdateAnim(false);
 		cout << "Fly" << endl;
 	}
+	UpdateAnim(true);
 }
 
 void Player::Idle()
@@ -187,19 +180,99 @@ void Player::Idle()
 	UpdateAnim(false);
 }
 
+void Player::Attack_default()
+{
+	if (m_rig->GetIsOnLand() &&
+		m_state != PlayerAState::eat_idle &&
+		m_state != PlayerAState::eat_move) //흡수(기본상태)
+	{
+		m_rig->Velocity() = { 0.0f, 0.0f };
+		m_state = PlayerAState::eating;
+		UpdateAnim(false);
+		m_atkTrigger = false;
+	}
+	else if (m_state == PlayerAState::eat_idle ||
+		m_state == PlayerAState::eat_move) //뱉기
+	{
+		if (m_atkTrigger)
+		{
+			GameObject* obj = new GameObject();
+			AttakObject* ao = new AttakObject();
+			if (m_arrow == PlayerArrow::left)
+			{
+				ao->SetSpeed(-5.0f);
+				obj->SetPosition({ m_gameObj->Position().x - 40, m_gameObj->Position().y });
+			}
+			else
+			{
+				ao->SetSpeed(5.0f);
+				obj->SetPosition({ m_gameObj->Position().x + 40, m_gameObj->Position().y });
+			}
+			obj->AddComponent(ao);
+			obj->InitializeSet();
+			obj->SetOrderInLayer(m_gameObj->GetOrderInLayer() + 1);
+			m_state = PlayerAState::attack;
+			UpdateAnim(true);
+			m_atkTrigger = false;
+			return;
+		}
+	}
+}
+
+void Player::Attack_sword()
+{
+	if (m_rig->GetIsOnLand())
+	{
+		m_state = PlayerAState::attack;
+		UpdateAnim(true);
+		m_atkTrigger = false;
+		return;
+	}
+}
+
 void Player::CollisionEnter(Collider* other)
 {
-	cout << "Player_CollisionEnter : Target : " << other->GetGameObject()->GetTag() << endl;
+}
+
+void Player::Attack_stone()
+{
 }
 
 void Player::CollisionExit(Collider* other)
 {
-	cout << "Player_CollisionExit : Target : " << other->GetGameObject()->GetTag() << endl;
 }
 
 void Player::Collision(Collider* other)
 {
+	if (m_state == PlayerAState::eating &&  //흡수
+		(other->GetGameObject()->GetTag() == TAG_CHANGE || other->GetGameObject()->GetTag() == TAG_MONSTER))
+	{
+		ChangeObject* co = other->GetGameObject()->GetComponent<ChangeObject>();
+		if (co == nullptr) return;
 
+		m_eatMode = co->GetMode();
+		m_state = PlayerAState::eat_idle;
+		UpdateAnim(true);
+
+		other->GetGameObject()->SetDestroy(true);
+	}
+
+	else if (m_state != PlayerAState::eating &&
+		(other->GetGameObject()->GetTag() == TAG_HIT || other->GetGameObject()->GetTag() == TAG_MONSTER)) //피격
+	{
+		m_mode = PlayerMode::mDefault;
+		m_state = PlayerAState::hit;
+		UpdateAnim(true);
+		m_gameObj->Size() = m_dSize;
+		if (m_arrow == PlayerArrow::left)
+		{
+			m_rig->Velocity() = {150,-150};
+		}
+		else
+		{
+			m_rig->Velocity() = { -150,-150 };
+		}
+	}
 }
 
 Player::Player()
@@ -213,8 +286,10 @@ Player::~Player()
 
 void Player::Initialize()
 {
+	m_gameObj->Size() = m_dSize;
+
 	m_mode = PlayerMode::mDefault;
-	string modeStr[(int)PlayerMode::max] = { "default" };
+	string modeStr[(int)PlayerMode::max] = { "default", "sword"};
 	string arrowStr[(int)PlayerArrow::max] = { "left", "right" };
 	string stateStr[(int)PlayerAState::max] = {};
 	stateStr[(int)PlayerAState::idle] = "idle";
@@ -225,6 +300,14 @@ void Player::Initialize()
 	stateStr[(int)PlayerAState::eat_idle] = "eat_idle";
 	stateStr[(int)PlayerAState::eat_move] = "eat_move";
 	stateStr[(int)PlayerAState::eat_jump] = "eat_jump";
+	stateStr[(int)PlayerAState::change] = "change";
+	stateStr[(int)PlayerAState::eat] = "eat";
+	stateStr[(int)PlayerAState::eating] = "eating";
+	stateStr[(int)PlayerAState::attack] = "attack";
+	stateStr[(int)PlayerAState::hit] = "hit";
+
+	m_attackFunc[(int)PlayerMode::mDefault] = &Player::Attack_default;
+	m_attackFunc[(int)PlayerMode::mSword] = &Player::Attack_sword;
 
 	for (int a = 0; a < (int)PlayerMode::max; a++)
 	{
@@ -251,6 +334,7 @@ void Player::Initialize()
 	m_rightKey = VK_RIGHT;
 	m_jumpKey = VK_SPACE;
 	m_atkKey = 0x5A;	//Z키, ATK
+	m_changeKey = VK_DOWN;
 }
 
 void Player::Release()
@@ -301,41 +385,45 @@ void Player::Update()
 	};
 	Camera::GetInstance()->SetPos(newCamPos.x, newCamPos.y);
 
+	if (m_state == PlayerAState::change ||
+		m_state == PlayerAState::attack ||
+		m_state == PlayerAState::hit)
+	{
+		if (m_ar->IsFinishAnim())
+		{
+			Idle();
+			return;
+		}
+		else
+			return;
+	}
+
 	if (m_state == PlayerAState::fly) //나는 중일때의 처리
 	{
 		FlyAction();
 		return;
 	}
 
-	//eat 상태 테스트용, 나중에 지울것----
-	static bool isDouble = false;
-	if (!GetAsyncKeyState(VK_CONTROL))
-		isDouble = true;
-	if (GetAsyncKeyState(VK_CONTROL)) 
-	{
-		if (isDouble)
-		{
-			if (m_state == PlayerAState::idle)
-			{
-				m_state = PlayerAState::eat_idle;
-				cout << "eat_idle" << endl;
-			}
-			else if (m_state == PlayerAState::eat_idle)
-			{
-				m_state = PlayerAState::idle;
-				cout << "idle" << endl;
-			}
-			UpdateAnim(false);
-			isDouble = false;
-		}
-	}
-	//----
 	if (m_rig->GetIsOnLand() && !GetAsyncKeyState(m_leftKey) && !GetAsyncKeyState(m_rightKey) && !GetAsyncKeyState(m_atkKey)) 	//Idle
 		Idle();
 
-
-
-	if (!(GetAsyncKeyState(m_rightKey) && GetAsyncKeyState(m_leftKey))) //이동
+	if (!GetAsyncKeyState(m_atkKey))
+		m_atkTrigger = true;
+	if (GetAsyncKeyState(m_atkKey)) //공격
+	{
+		(this->*m_attackFunc[(int)m_mode])();
+	}
+	else if (GetAsyncKeyState(m_changeKey) &&  //변신
+		(m_state == PlayerAState::eat_idle  || m_state == PlayerAState::eat_move))
+	{
+		m_mode = m_eatMode;
+		m_state = PlayerAState::change;
+		UpdateAnim(true);
+		if (m_mode == PlayerMode::mSword)
+			m_gameObj->Size() = { m_dSize.x * 1.2, m_dSize.y * 1.2 };
+		return;
+	}
+	else if (!(GetAsyncKeyState(m_rightKey) && GetAsyncKeyState(m_leftKey))) //이동
 	{
 		if (GetAsyncKeyState(m_rightKey))//우측 이동
 		{
@@ -372,4 +460,14 @@ void Player::Update()
 	}
 	else
 		m_jumpFlyTrigger = true;
+}
+
+PlayerAState Player::GetState()
+{
+	return m_state;
+}
+
+PlayerArrow Player::GetArrow()
+{
+	return m_arrow;
 }

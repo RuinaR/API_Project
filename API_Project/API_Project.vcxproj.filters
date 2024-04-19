@@ -116,6 +116,12 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Camera</Filter>
     </ClCompile>
+    <ClCompile Include="AttakObject.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangeObject.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowFrame.h">
@@ -180,6 +186,12 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="AttakObject.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangeObject.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

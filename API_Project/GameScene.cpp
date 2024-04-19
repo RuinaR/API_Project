@@ -10,9 +10,12 @@
 #include "Collider.h"
 #include "Rigidbody.h"
 #include "Player.h"
+#include "ChangeObject.h"
+
+
 void GameScene::Init()
 {
-	land = AnimationManager::LoadHBitmap("Bitmaps\\tmp_land\\land");
+	land = AnimationManager::LoadHBitmap("Bitmaps\\obj\\land");
 }
 
 void GameScene::Release()
@@ -23,7 +26,7 @@ void GameScene::Release()
 void GameScene::Start()
 {
 	obj1 = new GameObject();
-	obj1->SetTag("land");
+	obj1->SetTag(TAG_LAND);
 	obj1->SetPosition({ 500,300 });
 	obj1->Size() = { 300, 100 };
 	obj1->AddComponent(new BitmapRender(land));
@@ -31,7 +34,7 @@ void GameScene::Start()
 	obj1->InitializeSet();
 
 	obj2 = new GameObject();
-	obj2->SetTag("land");
+	obj2->SetTag(TAG_LAND);
 	obj2->SetPosition({ 900,200 });
 	obj2->Size() = { 300, 100 };
 	obj2->AddComponent(new BitmapRender(land));
@@ -39,7 +42,7 @@ void GameScene::Start()
 	obj2->InitializeSet();
 
 	obj3 = new GameObject();
-	obj3->SetTag("land");
+	obj3->SetTag(TAG_LAND);
 	obj3->SetPosition({ 200,400 });
 	obj3->Size() = { 3000, 300 };
 	obj3->AddComponent(new BitmapRender(land));
@@ -47,7 +50,7 @@ void GameScene::Start()
 	obj3->InitializeSet();
 
 	obj4 = new GameObject();
-	obj4->SetTag("land");
+	obj4->SetTag(TAG_LAND);
 	obj4->SetPosition({ 200,100 });
 	obj4->Size() = { 100, 600 };
 	obj4->AddComponent(new BitmapRender(land));
@@ -55,7 +58,7 @@ void GameScene::Start()
 	obj4->InitializeSet();
 
 	obj5 = new GameObject();
-	obj5->SetTag("land");
+	obj5->SetTag(TAG_LAND);
 	obj5->SetPosition({ 1650,100 });
 	obj5->Size() = { 100, 600 };
 	obj5->AddComponent(new BitmapRender(land));
@@ -63,10 +66,10 @@ void GameScene::Start()
 	obj5->InitializeSet();
 	
 	player = new GameObject();
-	player->SetTag("player");
+	player->SetTag(TAG_PLAYER);
 	player->SetPosition({ 300,200 });
-	player->Size() = { 50, 50 };
-	player->AddComponent(new Player());
+	Player* playerC = new Player();
+	player->AddComponent(playerC);
 	player->InitializeSet();
 
 	player->SetOrderInLayer(10);
@@ -89,6 +92,19 @@ void GameScene::Start()
 	tmp3->AddComponent(new BitmapRender(land));
 	tmp3->InitializeSet();
 
+	GameObject* test_sword = new GameObject();
+	test_sword->AddComponent(new ChangeObject(PlayerMode::mSword, playerC));
+	test_sword->SetPosition({ 700,250 });
+	test_sword->InitializeSet();
+	test_sword->SetOrderInLayer(6);
+	test_sword->SetTag(TAG_MONSTER);
+
+	GameObject* test_sword2 = new GameObject();
+	test_sword2->AddComponent(new ChangeObject(PlayerMode::mSword, playerC));
+	test_sword2->SetPosition({ 1000,350 });
+	test_sword2->InitializeSet();
+	test_sword2->SetOrderInLayer(6);
+	test_sword2->SetTag(TAG_MONSTER);
 
 	player->AddChild(tmp1);
 	tmp1->AddChild(tmp2);
