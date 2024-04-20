@@ -68,13 +68,13 @@ int MainFrame::Run()
     while (TRUE) 
     {
         while (PeekMessage(&Message, 0, 0, 0, PM_REMOVE))  // 메시지 처리 우선
-        {
+        {         
+            WindowFrame::GetInstance()->Run(&Message);
             if (Message.message == WM_QUIT)
             {
                 Release();
                 return (int)Message.wParam;
-            }
-            WindowFrame::GetInstance()->Run(&Message);
+            }    
         }
 
         if (WindowFrame::GetInstance()->IsFocus())
