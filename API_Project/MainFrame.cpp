@@ -49,6 +49,7 @@ void MainFrame::Initialize(int targetFPS)
     WindowFrame::GetInstance()->Initialize();
 	ObjectManager::Create();
 	CollisionManager::Create();
+
 	m_scene = new GameScene();
 	m_scene->Init();
 	WindowFrame::GetInstance()->SetScene(m_scene);

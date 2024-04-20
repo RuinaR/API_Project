@@ -2,7 +2,7 @@
 #include "Buffer.h"
 
 Buffer::Buffer()
-	:m_bitmap(NULL), m_hWnd(NULL), m_hdc(NULL), m_oldBitmap(NULL), m_bitInfo()
+	:m_bitmap(NULL), m_hWnd(NULL), m_hdc(NULL), m_oldBitmap(NULL), m_bitInfo(), m_bg(NULL), m_bgInfo()
 {
 
 }
@@ -51,11 +51,32 @@ HDC Buffer::GetHDC()
 	return m_hdc;
 }
 
-void Buffer::SetWihite()
+void Buffer::SetBG(HBITMAP bit)
 {
-	RECT rect;
-	rect = { 0,0,m_bitInfo.bmWidth,m_bitInfo.bmHeight };
-	FillRect(m_hdc, &rect, (HBRUSH)GetStockObject(WHITE_BRUSH));
+	m_bg = bit;
+	if (m_bg != NULL)
+	{
+		GetObject(m_bg, sizeof(BITMAP), &m_bgInfo);
+	}
+}
+
+void Buffer::DrawBG()
+{
+	if (m_bg == NULL)
+	{
+		RECT rect;
+		rect = { 0,0,m_bitInfo.bmWidth,m_bitInfo.bmHeight };
+		FillRect(m_hdc, &rect, (HBRUSH)GetStockObject(WHITE_BRUSH));
+		return;
+	}
+	HDC MemoryDC;
+	HBITMAP OldBitmap;
+	MemoryDC = CreateCompatibleDC(m_hdc);
+	OldBitmap = (HBITMAP)SelectObject(MemoryDC, m_bg);
+	TransparentBlt(m_hdc, 0, 0, m_bitInfo.bmWidth, m_bitInfo.bmHeight, 
+		MemoryDC, 0, 0, m_bgInfo.bmWidth, m_bgInfo.bmHeight, TRANSCOLOR);
+	SelectObject(MemoryDC, OldBitmap);
+	DeleteDC(MemoryDC);
 }
 
 void Buffer::CopyBitmap(HDC hdc)

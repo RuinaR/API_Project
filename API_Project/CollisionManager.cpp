@@ -56,23 +56,27 @@ void CollisionManager::Update()
 	vector<Collider*> cloneColVec;
 	for (vector<Collider*>::iterator itr1 = m_objVec->begin(); itr1 != m_objVec->end(); itr1++)
 	{
+		if (ISDEBUGMODE)
+		{
+			(*itr1)->DrawCollider();
+		}
 		cloneColVec = (*(*itr1)->VecCol());
 		(*itr1)->VecCol()->clear();
 
-		r1 = { (long)(*itr1)->GetGameObject()->Position().x,
-					 (long)(*itr1)->GetGameObject()->Position().y,
-					 (long)(*itr1)->GetGameObject()->Position().x + (long)(*itr1)->ColSize().x,
-					 (long)(*itr1)->GetGameObject()->Position().y + (long)(*itr1)->ColSize().y };
+		r1 = { (long)(*itr1)->ColOffset().x + (long)(*itr1)->GetGameObject()->Position().x,
+					(long)(*itr1)->ColOffset().y + (long)(*itr1)->GetGameObject()->Position().y,
+					(long)(*itr1)->ColOffset().x + (long)(*itr1)->GetGameObject()->Position().x + (long)(*itr1)->ColSize().x,
+					(long)(*itr1)->ColOffset().y + (long)(*itr1)->GetGameObject()->Position().y + (long)(*itr1)->ColSize().y };
 		
 		for (vector<Collider*>::iterator itr2 = m_objVec->begin(); itr2 != m_objVec->end(); itr2++)
 		{
 			if ((*itr1) == (*itr2))
 				continue;
 
-			r2 = { (long)(*itr2)->GetGameObject()->Position().x,
-					 (long)(*itr2)->GetGameObject()->Position().y,
-					 (long)(*itr2)->GetGameObject()->Position().x + (long)(*itr2)->ColSize().x,
-					 (long)(*itr2)->GetGameObject()->Position().y + (long) (*itr2)->ColSize().y };
+			r2 = { (long)(*itr2)->ColOffset().x + (long)(*itr2)->GetGameObject()->Position().x,
+						(long)(*itr2)->ColOffset().y + (long)(*itr2)->GetGameObject()->Position().y,
+						(long)(*itr2)->ColOffset().x + (long)(*itr2)->GetGameObject()->Position().x + (long)(*itr2)->ColSize().x,
+						(long)(*itr2)->ColOffset().y +(long)(*itr2)->GetGameObject()->Position().y + (long) (*itr2)->ColSize().y };
 			if (IntersectRect(&tmpr, &r1, &r2)) //Ãæµ¹
 			{
 				(*itr1)->VecCol()->push_back(*itr2);

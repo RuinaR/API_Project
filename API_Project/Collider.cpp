@@ -14,6 +14,10 @@ Vector2D& Collider::ColSize()
 {
 	return m_colSize;
 }
+Vector2D& Collider::ColOffset()
+{
+	return m_colOffset;
+}
 void Collider::Initialize()
 {
 	ColInit();
@@ -31,8 +35,39 @@ void Collider::Release()
 	ColRelease();
 }
 
-void Collider::SetCol(int w, int h)
+void Collider::DrawCollider()
 {
-	m_colSize.x = w;
-	m_colSize.y = h;
+	Vector2D leftTop = { m_colOffset.x + m_gameObj->Position().x - Camera::GetInstance()->GetPos().x,
+		m_colOffset.y + m_gameObj->Position().y - Camera::GetInstance()->GetPos().y };
+	Vector2D rightDown = { m_colOffset.x + m_gameObj->Position().x + m_colSize.x - Camera::GetInstance()->GetPos().x,
+		m_colOffset.y + m_gameObj->Position().y + m_colSize.y - Camera::GetInstance()->GetPos().y };
+
+	HPEN myPen, oldPen;
+	HDC hdc = WindowFrame::GetInstance()->GetBuffer()->GetHDC();
+
+	myPen = CreatePen(PS_SOLID, 3, DEBUGCOLOR);
+	oldPen = (HPEN)SelectObject(hdc, myPen);
+
+	MoveToEx(hdc, leftTop.x, leftTop.y, NULL);
+	LineTo(hdc, rightDown.x, leftTop.y);
+	MoveToEx(hdc, leftTop.x, leftTop.y, NULL);
+	LineTo(hdc, leftTop.x, rightDown.y);
+	MoveToEx(hdc, rightDown.x, rightDown.y, NULL);
+	LineTo(hdc, leftTop.x, rightDown.y);
+	MoveToEx(hdc, rightDown.x, rightDown.y, NULL);
+	LineTo(hdc, rightDown.x, leftTop.y);
+
+	SelectObject(hdc, oldPen);
+	DeleteObject(myPen);
 }
+
+void Collider::SetTrigger(bool b)
+{
+	m_isTrigger = b;
+}
+
+bool Collider::GetTrigger()
+{
+	return m_isTrigger;
+}
+

@@ -8,6 +8,7 @@ class Player : public Component
 protected:
 	Rigidbody* m_rig = nullptr;
 	AnimationRender* m_ar = nullptr;
+	BoxCollider* m_bo = nullptr;
 	Animation m_arrAnim[(int)PlayerMode::max][(int)PlayerArrow::max][(int)PlayerAState::max];
 	PlayerMode m_mode;
 	PlayerArrow m_arrow;
@@ -16,8 +17,10 @@ protected:
 	Timer m_flyTimer = Timer();
 	Timer m_leftKeyTimer = Timer();
 	Timer m_rightKeyTimer = Timer();
-	Vector2D m_dSize = { 50,50 };
-
+	Vector2D m_dSize = { 100,100 };
+	Vector2D m_cSize = { 40,40 };
+	Vector2D m_dOffset = { 30,50 };
+	float m_atkRange = 60.0f;
 	bool m_leftKeyTrigger = false;
 	bool m_rightKeyTrigger = false;
 	bool m_jumpFlyTrigger = false;
@@ -40,6 +43,9 @@ protected:
 
 	float m_startGravity = 0.0f;
 	float m_flyGravity = 450.0f;
+	float m_stoneGravity = 5000.0f;
+
+	bool isStoneAtked = false;
 
 	void (Player::* m_attackFunc[(int)PlayerMode::max])();
 protected:
@@ -49,6 +55,7 @@ protected:
 	void MoveRight();
 	void JumpAction();
 	void Idle();
+	void StoneAttacking();
 protected:
 	void Attack_default();
 	void Attack_sword();

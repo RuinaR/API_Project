@@ -9,7 +9,7 @@ void AttakObject::CollisionExit(Collider* other)
 }
 void AttakObject::Collision(Collider* other)
 {
-	m_gameObj->SetDestroy(true);
+	m_gameObj->SetDestroy(true); //µ¥¹ÌÁö
 }
 AttakObject::AttakObject()
 	:Component()

@@ -67,9 +67,6 @@ LRESULT WindowFrame::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPa
 		return 0;
 	case WM_KILLFOCUS:
 		m_Pthis->m_isFocus = false;
-
-		//테스트용, 나중에 지울것
-		SetFocus(WindowFrame::GetInstance()->GetHWND());
 		return 0;
 	case WM_SETFOCUS:
 		MainFrame::GetInstance()->Timer().tick();
@@ -81,7 +78,7 @@ LRESULT WindowFrame::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPa
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
 		m_Pthis->m_buffer->CopyBitmap(hdc);
-		m_Pthis->m_buffer->SetWihite();
+		m_Pthis->m_buffer->DrawBG();
 		EndPaint(hWnd, &ps);
 		return 0;
 	case WM_DESTROY:

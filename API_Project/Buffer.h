@@ -7,7 +7,9 @@ private:
 	HWND m_hWnd;
 	HBITMAP m_bitmap;
 	HBITMAP m_oldBitmap;
+	HBITMAP m_bg;
 	BITMAP m_bitInfo;
+	BITMAP m_bgInfo;
 	HDC m_hdc;
 public:
 	Buffer();
@@ -19,7 +21,8 @@ public:
 	BITMAP GetBitmapInfo();
 
 	HDC GetHDC();
-	void SetWihite();
+	void SetBG(HBITMAP bit);
+	void DrawBG();
 	void CopyBitmap(HDC hdc);
 };
 

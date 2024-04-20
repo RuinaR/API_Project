@@ -7,6 +7,7 @@
 #include "Rigidbody.h"
 #include "ChangeObject.h"
 #include "AttakObject.h"
+#include "AttackEvent.h"
 
 float Lerp(float start, float end, float t)
 {
@@ -201,12 +202,14 @@ void Player::Attack_default()
 			if (m_arrow == PlayerArrow::left)
 			{
 				ao->SetSpeed(-5.0f);
-				obj->SetPosition({ m_gameObj->Position().x - 40, m_gameObj->Position().y });
+				obj->SetPosition({m_dOffset.x + m_gameObj->Position().x - m_cSize.x, 
+					m_dOffset.y + m_gameObj->Position().y + m_cSize.y / 2 - 20});
 			}
 			else
 			{
 				ao->SetSpeed(5.0f);
-				obj->SetPosition({ m_gameObj->Position().x + 40, m_gameObj->Position().y });
+				obj->SetPosition({ m_dOffset.x+ m_gameObj->Position().x + m_cSize.x, 
+					m_dOffset.y + m_gameObj->Position().y + m_cSize.y / 2 - 20});
 			}
 			obj->AddComponent(ao);
 			obj->InitializeSet();
@@ -221,13 +224,30 @@ void Player::Attack_default()
 
 void Player::Attack_sword()
 {
-	if (m_rig->GetIsOnLand())
+	if (m_state != PlayerAState::fly && 
+		!(m_state == PlayerAState::idle && !m_rig->GetIsOnLand()))
 	{
 		m_state = PlayerAState::attack;
 		UpdateAnim(true);
 		m_atkTrigger = false;
-		return;
+		m_rig->Velocity() = { 0.0f, 0.0f };
+		GameObject* atk = new GameObject();
+		atk->Size() = { m_atkRange,m_cSize.y };
+		if (m_arrow == PlayerArrow::left)
+		{
+			atk->SetPosition({ m_dOffset.x + m_gameObj->Position().x - m_atkRange - 5, m_dOffset.y + m_gameObj->Position().y });
+		}
+		else
+		{
+			atk->SetPosition({ m_dOffset.x + m_gameObj->Position().x + m_cSize.x + 5, m_dOffset.y + m_gameObj->Position().y });
+		}
+		BoxCollider* newbo = new BoxCollider();
+		newbo->SetTrigger(true);
+		atk->AddComponent(newbo);
+		atk->AddComponent(new AttackEvent());
+		atk->InitializeSet();
 	}
+	return;
 }
 
 void Player::CollisionEnter(Collider* other)
@@ -236,10 +256,33 @@ void Player::CollisionEnter(Collider* other)
 
 void Player::Attack_stone()
 {
+	if (m_atkTrigger)
+	{
+		isStoneAtked = false;
+		m_state = PlayerAState::attack;
+		UpdateAnim(true);
+		m_atkTrigger = false;
+		m_rig->Velocity() = { 0.0f, m_rig->Velocity().y };
+	}
 }
 
 void Player::CollisionExit(Collider* other)
 {
+}
+
+void Player::StoneAttacking()
+{
+	if (GetAsyncKeyState(m_atkKey))
+	{
+		if (m_atkTrigger)
+		{
+			Idle();
+			m_rig->SetGravity(m_startGravity);
+			m_atkTrigger = false;
+		}
+	}
+	else
+		m_atkTrigger = true;
 }
 
 void Player::Collision(Collider* other)
@@ -255,18 +298,25 @@ void Player::Collision(Collider* other)
 		UpdateAnim(true);
 
 		other->GetGameObject()->SetDestroy(true);
+	}	
+	else if (m_mode == PlayerMode::mStone && m_state == PlayerAState::attack &&
+		(other->GetGameObject()->GetTag() == TAG_HIT || other->GetGameObject()->GetTag() == TAG_MONSTER)) //바위 피격
+	{
+		if (!isStoneAtked)
+		{
+			isStoneAtked = true;
+			other->GetGameObject()->SetDestroy(true);//적 데미지
+		}
 	}
-
 	else if (m_state != PlayerAState::eating &&
 		(other->GetGameObject()->GetTag() == TAG_HIT || other->GetGameObject()->GetTag() == TAG_MONSTER)) //피격
 	{
 		m_mode = PlayerMode::mDefault;
 		m_state = PlayerAState::hit;
 		UpdateAnim(true);
-		m_gameObj->Size() = m_dSize;
 		if (m_arrow == PlayerArrow::left)
 		{
-			m_rig->Velocity() = {150,-150};
+			m_rig->Velocity() = { 150,-150 };
 		}
 		else
 		{
@@ -289,7 +339,7 @@ void Player::Initialize()
 	m_gameObj->Size() = m_dSize;
 
 	m_mode = PlayerMode::mDefault;
-	string modeStr[(int)PlayerMode::max] = { "default", "sword"};
+	string modeStr[(int)PlayerMode::max] = { "default", "sword", "stone"};
 	string arrowStr[(int)PlayerArrow::max] = { "left", "right" };
 	string stateStr[(int)PlayerAState::max] = {};
 	stateStr[(int)PlayerAState::idle] = "idle";
@@ -308,6 +358,7 @@ void Player::Initialize()
 
 	m_attackFunc[(int)PlayerMode::mDefault] = &Player::Attack_default;
 	m_attackFunc[(int)PlayerMode::mSword] = &Player::Attack_sword;
+	m_attackFunc[(int)PlayerMode::mStone] = &Player::Attack_stone;
 
 	for (int a = 0; a < (int)PlayerMode::max; a++)
 	{
@@ -325,7 +376,8 @@ void Player::Initialize()
 	}
 	m_ar = new AnimationRender(m_arrAnim[(int)PlayerMode::mDefault][(int)PlayerArrow::right][(int)PlayerAState::idle]);
 	m_rig = new Rigidbody();
-	m_gameObj->AddComponent(new BoxCollider());
+	m_bo = new BoxCollider();
+	m_gameObj->AddComponent(m_bo);
 	m_gameObj->AddComponent(new BitmapRender(m_arrAnim[(int)PlayerMode::mDefault][(int)PlayerArrow::right][(int)PlayerAState::idle].bitmaps[0]));
 	m_gameObj->AddComponent(m_ar);
 	m_gameObj->AddComponent(m_rig);
@@ -354,6 +406,8 @@ void Player::Release()
 
 void Player::Start()
 {
+	m_bo->ColOffset() = m_dOffset;
+	m_bo->ColSize() = m_cSize;
 	RECT rect;
 	GetClientRect(WindowFrame::GetInstance()->GetHWND(), &rect);
 	Camera::GetInstance()->SetPos(m_gameObj->Position().x - rect.right / 2 + m_gameObj->Size().x / 2,
@@ -385,13 +439,41 @@ void Player::Update()
 	};
 	Camera::GetInstance()->SetPos(newCamPos.x, newCamPos.y);
 
+	if (m_mode == PlayerMode::mStone &&
+		m_state == PlayerAState::attack)
+	{
+		m_rig->SetGravity(m_stoneGravity);
+		StoneAttacking();
+		return;
+	}
+
 	if (m_state == PlayerAState::change ||
 		m_state == PlayerAState::attack ||
 		m_state == PlayerAState::hit)
 	{
+		if (m_state != PlayerAState::hit)
+			m_rig->Velocity() = { 0.0f, 0.0f };
 		if (m_ar->IsFinishAnim())
 		{
-			Idle();
+			m_state = PlayerAState::idle;
+			UpdateAnim(true);
+			return;
+		}
+		else
+			return;
+	}
+	if (m_state == PlayerAState::eat )
+	{
+		if (m_ar->IsFinishAnim())
+		{
+			if (m_eatMode == PlayerMode::mDefault)
+			{
+				//체력 회복
+				Idle();
+				return;
+			}
+			m_state = PlayerAState::change;
+			UpdateAnim(true);
 			return;
 		}
 		else
@@ -409,7 +491,7 @@ void Player::Update()
 
 	if (!GetAsyncKeyState(m_atkKey))
 		m_atkTrigger = true;
-	if (GetAsyncKeyState(m_atkKey)) //공격
+	if (GetAsyncKeyState(m_atkKey) && m_state != PlayerAState::eat_jump) //공격
 	{
 		(this->*m_attackFunc[(int)m_mode])();
 	}
@@ -417,10 +499,8 @@ void Player::Update()
 		(m_state == PlayerAState::eat_idle  || m_state == PlayerAState::eat_move))
 	{
 		m_mode = m_eatMode;
-		m_state = PlayerAState::change;
+		m_state = PlayerAState::eat;
 		UpdateAnim(true);
-		if (m_mode == PlayerMode::mSword)
-			m_gameObj->Size() = { m_dSize.x * 1.2, m_dSize.y * 1.2 };
 		return;
 	}
 	else if (!(GetAsyncKeyState(m_rightKey) && GetAsyncKeyState(m_leftKey))) //이동

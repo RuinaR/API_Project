@@ -1,179 +1,184 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
     <Filter Include="헤더 파일">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="WindowFrame">
-      <UniqueIdentifier>{50f20a86-047e-48d1-90e1-c3034c6c241f}</UniqueIdentifier>
+    <Filter Include="EngineFramework">
+      <UniqueIdentifier>{dd4429a1-f8a6-469f-af94-01c54d834121}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Buffer">
-      <UniqueIdentifier>{cd188cd4-0129-43ee-b582-c5756b22ced1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Mouse">
-      <UniqueIdentifier>{0d40e825-c4e6-41b7-97f8-a560eb9685ac}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainFrame">
-      <UniqueIdentifier>{c9e4de8c-e866-48d7-9163-84b9a60ddd93}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObject">
-      <UniqueIdentifier>{3e6042a8-cbef-4e7d-8ca7-d2a3fcb59b01}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Component">
-      <UniqueIdentifier>{55689892-b36a-4e2a-a9e8-27c8d9db7536}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene">
+    <Filter Include="EngineFramework\Scene">
       <UniqueIdentifier>{11bea34a-53d2-4f8c-9b1c-5257ad791bea}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\GameScene">
-      <UniqueIdentifier>{c3f4c169-a93e-4c24-a92c-d0d45c49fc0d}</UniqueIdentifier>
+    <Filter Include="EngineFramework\Mouse">
+      <UniqueIdentifier>{0d40e825-c4e6-41b7-97f8-a560eb9685ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Collider">
-      <UniqueIdentifier>{e3a88837-bfef-4c37-9f5a-75e42ab90162}</UniqueIdentifier>
+    <Filter Include="EngineFramework\WindowFrame">
+      <UniqueIdentifier>{50f20a86-047e-48d1-90e1-c3034c6c241f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager">
+    <Filter Include="EngineFramework\Manager">
       <UniqueIdentifier>{f2daaf14-b8a8-49c3-9e2a-bd629dca819f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\AnimationManager">
+    <Filter Include="EngineFramework\Manager\AnimationManager">
       <UniqueIdentifier>{27801c1f-5070-4b51-9e22-dab965f45276}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\ObjectManager">
+    <Filter Include="EngineFramework\Manager\ObjectManager">
       <UniqueIdentifier>{b295adf5-7d98-4b53-8fd8-08eeab7a18df}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Manager\CollisionManager">
+    <Filter Include="EngineFramework\Manager\CollisionManager">
       <UniqueIdentifier>{be9689a9-a4e3-462d-85ff-0040c5b99826}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Rigidbody">
+    <Filter Include="EngineFramework\MainFrame">
+      <UniqueIdentifier>{c9e4de8c-e866-48d7-9163-84b9a60ddd93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EngineFramework\GameObject">
+      <UniqueIdentifier>{3e6042a8-cbef-4e7d-8ca7-d2a3fcb59b01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EngineFramework\Component">
+      <UniqueIdentifier>{55689892-b36a-4e2a-a9e8-27c8d9db7536}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EngineFramework\Component\Collider">
+      <UniqueIdentifier>{e3a88837-bfef-4c37-9f5a-75e42ab90162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EngineFramework\Component\Rigidbody">
       <UniqueIdentifier>{90e1ecb3-45c3-4d63-ace1-758cf6668e64}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Component\Render">
+    <Filter Include="EngineFramework\Component\Render">
       <UniqueIdentifier>{e91979ba-dd58-4fc8-9062-32d6a6720090}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Camera">
+    <Filter Include="EngineFramework\Camera">
       <UniqueIdentifier>{2d364c8a-ecab-498b-8079-ea0bf488da16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EngineFramework\Buffer">
+      <UniqueIdentifier>{cd188cd4-0129-43ee-b582-c5756b22ced1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KirbyGame">
+      <UniqueIdentifier>{8887377c-e65c-483b-9870-00c209bcdbe8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KirbyGame\GameScene">
+      <UniqueIdentifier>{c3f4c169-a93e-4c24-a92c-d0d45c49fc0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KirbyGame\Component">
+      <UniqueIdentifier>{36280518-38e7-44af-88bf-07431587ab69}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="WindowFrame.cpp">
-      <Filter>WindowFrame</Filter>
+      <Filter>EngineFramework\WindowFrame</Filter>
     </ClCompile>
     <ClCompile Include="Buffer.cpp">
-      <Filter>Buffer</Filter>
+      <Filter>EngineFramework\Buffer</Filter>
     </ClCompile>
     <ClCompile Include="Mouse.cpp">
-      <Filter>Mouse</Filter>
+      <Filter>EngineFramework\Mouse</Filter>
     </ClCompile>
     <ClCompile Include="MainFrame.cpp">
-      <Filter>MainFrame</Filter>
+      <Filter>EngineFramework\MainFrame</Filter>
     </ClCompile>
     <ClCompile Include="Component.cpp">
-      <Filter>Component</Filter>
+      <Filter>EngineFramework\Component</Filter>
     </ClCompile>
     <ClCompile Include="BitmapRender.cpp">
-      <Filter>Component\Render</Filter>
+      <Filter>EngineFramework\Component\Render</Filter>
     </ClCompile>
     <ClCompile Include="AnimationRender.cpp">
-      <Filter>Component\Render</Filter>
+      <Filter>EngineFramework\Component\Render</Filter>
     </ClCompile>
     <ClCompile Include="AnimationManager.cpp">
-      <Filter>Manager\AnimationManager</Filter>
+      <Filter>EngineFramework\Manager\AnimationManager</Filter>
     </ClCompile>
     <ClCompile Include="GameScene.cpp">
-      <Filter>Scene\GameScene</Filter>
+      <Filter>KirbyGame\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
-      <Filter>Manager\ObjectManager</Filter>
+      <Filter>EngineFramework\Manager\ObjectManager</Filter>
     </ClCompile>
     <ClCompile Include="BoxCollider.cpp">
-      <Filter>Component\Collider</Filter>
+      <Filter>EngineFramework\Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
-      <Filter>Manager\CollisionManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Component</Filter>
+      <Filter>EngineFramework\Manager\CollisionManager</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
-      <Filter>Component\Collider</Filter>
+      <Filter>EngineFramework\Component\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Rigidbody.cpp">
-      <Filter>Component\Rigidbody</Filter>
+      <Filter>EngineFramework\Component\Rigidbody</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>헤더 파일</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>GameObject</Filter>
+      <Filter>EngineFramework\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
-      <Filter>Camera</Filter>
+      <Filter>EngineFramework\Camera</Filter>
     </ClCompile>
     <ClCompile Include="AttakObject.cpp">
-      <Filter>Component</Filter>
+      <Filter>KirbyGame\Component</Filter>
     </ClCompile>
     <ClCompile Include="ChangeObject.cpp">
-      <Filter>Component</Filter>
+      <Filter>KirbyGame\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>KirbyGame\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>EngineFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackEvent.cpp">
+      <Filter>KirbyGame\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowFrame.h">
-      <Filter>WindowFrame</Filter>
+      <Filter>EngineFramework\WindowFrame</Filter>
     </ClInclude>
     <ClInclude Include="Buffer.h">
-      <Filter>Buffer</Filter>
+      <Filter>EngineFramework\Buffer</Filter>
     </ClInclude>
     <ClInclude Include="Mouse.h">
-      <Filter>Mouse</Filter>
+      <Filter>EngineFramework\Mouse</Filter>
     </ClInclude>
     <ClInclude Include="MainFrame.h">
-      <Filter>MainFrame</Filter>
+      <Filter>EngineFramework\MainFrame</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>GameObject</Filter>
+      <Filter>EngineFramework\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Component.h">
-      <Filter>Component</Filter>
+      <Filter>EngineFramework\Component</Filter>
     </ClInclude>
     <ClInclude Include="BitmapRender.h">
-      <Filter>Component\Render</Filter>
+      <Filter>EngineFramework\Component\Render</Filter>
     </ClInclude>
     <ClInclude Include="AnimationRender.h">
-      <Filter>Component\Render</Filter>
+      <Filter>EngineFramework\Component\Render</Filter>
     </ClInclude>
     <ClInclude Include="AnimationManager.h">
-      <Filter>Manager\AnimationManager</Filter>
+      <Filter>EngineFramework\Manager\AnimationManager</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Scene</Filter>
+      <Filter>EngineFramework\Scene</Filter>
     </ClInclude>
     <ClInclude Include="GameScene.h">
-      <Filter>Scene\GameScene</Filter>
+      <Filter>KirbyGame\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
-      <Filter>Manager\ObjectManager</Filter>
+      <Filter>EngineFramework\Manager\ObjectManager</Filter>
     </ClInclude>
     <ClInclude Include="BoxCollider.h">
-      <Filter>Component\Collider</Filter>
+      <Filter>EngineFramework\Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="CollisionManager.h">
-      <Filter>Manager\CollisionManager</Filter>
+      <Filter>EngineFramework\Manager\CollisionManager</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
-      <Filter>Component\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Component</Filter>
+      <Filter>EngineFramework\Component\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Rigidbody.h">
-      <Filter>Component\Rigidbody</Filter>
+      <Filter>EngineFramework\Component\Rigidbody</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>헤더 파일</Filter>
@@ -182,16 +187,25 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
-      <Filter>MainFrame</Filter>
+      <Filter>EngineFramework\MainFrame</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Camera</Filter>
+      <Filter>EngineFramework\Camera</Filter>
     </ClInclude>
     <ClInclude Include="AttakObject.h">
-      <Filter>Component</Filter>
+      <Filter>KirbyGame\Component</Filter>
     </ClInclude>
     <ClInclude Include="ChangeObject.h">
-      <Filter>Component</Filter>
+      <Filter>KirbyGame\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>KirbyGame\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackEvent.h">
+      <Filter>KirbyGame\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

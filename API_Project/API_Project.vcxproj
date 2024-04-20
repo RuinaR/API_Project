@@ -132,6 +132,7 @@
   <ItemGroup>
     <ClCompile Include="AnimationManager.cpp" />
     <ClCompile Include="AnimationRender.cpp" />
+    <ClCompile Include="AttackEvent.cpp" />
     <ClCompile Include="AttakObject.cpp" />
     <ClCompile Include="BitmapRender.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationManager.h" />
     <ClInclude Include="AnimationRender.h" />
+    <ClInclude Include="AttackEvent.h" />
     <ClInclude Include="AttakObject.h" />
     <ClInclude Include="BitmapRender.h" />
     <ClInclude Include="BoxCollider.h" />
@@ -166,6 +168,7 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="MainFrame.h" />

@@ -16,15 +16,25 @@
 void GameScene::Init()
 {
 	land = AnimationManager::LoadHBitmap("Bitmaps\\obj\\land");
+	bigland = AnimationManager::LoadHBitmap("Bitmaps\\obj\\bigland");
+	bg = AnimationManager::LoadHBitmap("Bitmaps\\obj\\BG");
+	swordObj = AnimationManager::LoadHBitmap("Bitmaps\\obj\\swordObj");
+	defaultObj = AnimationManager::LoadHBitmap("Bitmaps\\obj\\defaultObj");
 }
 
 void GameScene::Release()
 {
+	AnimationManager::ReleaseHBitmap(bigland);
 	AnimationManager::ReleaseHBitmap(land);
+	AnimationManager::ReleaseHBitmap(bg);
+	AnimationManager::ReleaseHBitmap(swordObj);
+	AnimationManager::ReleaseHBitmap(defaultObj);
 }
 
 void GameScene::Start()
 {
+	WindowFrame::GetInstance()->GetBuffer()->SetBG(bg);
+
 	obj1 = new GameObject();
 	obj1->SetTag(TAG_LAND);
 	obj1->SetPosition({ 500,300 });
@@ -35,7 +45,7 @@ void GameScene::Start()
 
 	obj2 = new GameObject();
 	obj2->SetTag(TAG_LAND);
-	obj2->SetPosition({ 900,200 });
+	obj2->SetPosition({ 1100,200 });
 	obj2->Size() = { 300, 100 };
 	obj2->AddComponent(new BitmapRender(land));
 	obj2->AddComponent(new BoxCollider());
@@ -45,7 +55,7 @@ void GameScene::Start()
 	obj3->SetTag(TAG_LAND);
 	obj3->SetPosition({ 200,400 });
 	obj3->Size() = { 3000, 300 };
-	obj3->AddComponent(new BitmapRender(land));
+	obj3->AddComponent(new BitmapRender(bigland));
 	obj3->AddComponent(new BoxCollider());
 	obj3->InitializeSet();
 
@@ -66,8 +76,7 @@ void GameScene::Start()
 	obj5->InitializeSet();
 	
 	player = new GameObject();
-	player->SetTag(TAG_PLAYER);
-	player->SetPosition({ 300,200 });
+	player->SetPosition({ 300,-200 });
 	Player* playerC = new Player();
 	player->AddComponent(playerC);
 	player->InitializeSet();
@@ -94,21 +103,59 @@ void GameScene::Start()
 
 	GameObject* test_sword = new GameObject();
 	test_sword->AddComponent(new ChangeObject(PlayerMode::mSword, playerC));
+	test_sword->AddComponent(new BitmapRender(swordObj));
 	test_sword->SetPosition({ 700,250 });
 	test_sword->InitializeSet();
 	test_sword->SetOrderInLayer(6);
 	test_sword->SetTag(TAG_MONSTER);
 
 	GameObject* test_sword2 = new GameObject();
-	test_sword2->AddComponent(new ChangeObject(PlayerMode::mSword, playerC));
-	test_sword2->SetPosition({ 1000,350 });
+	test_sword2->AddComponent(new ChangeObject(PlayerMode::mStone, playerC));
+	test_sword2->AddComponent(new BitmapRender(swordObj));
+	test_sword2->SetPosition({ 700,200 });
 	test_sword2->InitializeSet();
 	test_sword2->SetOrderInLayer(6);
 	test_sword2->SetTag(TAG_MONSTER);
 
+	GameObject* test_stone = new GameObject();
+	test_stone->AddComponent(new ChangeObject(PlayerMode::mStone, playerC));
+	test_stone->AddComponent(new BitmapRender(swordObj));
+	test_stone->SetPosition({ 1000,350 });
+	test_stone->InitializeSet();
+	test_stone->SetOrderInLayer(6);
+	test_stone->SetTag(TAG_MONSTER);
+
+	GameObject* test_stone2 = new GameObject();
+	test_stone2->AddComponent(new ChangeObject(PlayerMode::mStone, playerC));
+	test_stone2->AddComponent(new BitmapRender(swordObj));
+	test_stone2->SetPosition({ 1200,350 });
+	test_stone2->InitializeSet();
+	test_stone2->SetOrderInLayer(6);
+	test_stone2->SetTag(TAG_MONSTER);
+
+	GameObject* test_default = new GameObject();
+	test_default->AddComponent(new ChangeObject(PlayerMode::mDefault, playerC));
+	test_default->AddComponent(new BitmapRender(defaultObj));
+	test_default->SetPosition({ 1600,350 });
+	test_default->InitializeSet();
+	test_default->SetOrderInLayer(6);
+	test_default->SetTag(TAG_MONSTER);
+
+	GameObject* test_default2 = new GameObject();
+	test_default2->AddComponent(new ChangeObject(PlayerMode::mDefault, playerC));
+	test_default2->AddComponent(new BitmapRender(defaultObj));
+	test_default2->SetPosition({ 1600,300 });
+	test_default2->InitializeSet();
+	test_default2->SetOrderInLayer(6);
+	test_default2->SetTag(TAG_MONSTER);
+
 	player->AddChild(tmp1);
 	tmp1->AddChild(tmp2);
 	tmp2->AddChild(tmp3);
+	tmp1->SetActive(false);
+	tmp2->SetActive(false);
+	tmp3->SetActive(false);
+
 
 	obj1->SetOrderInLayer(1);
 	obj2->SetOrderInLayer(2);

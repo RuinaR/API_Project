@@ -5,8 +5,7 @@
 class ChangeObject : public Component
 {
 protected:
-	PlayerMode m_mode = PlayerMode::mDefault;
-	HBITMAP m_bit = NULL;
+	PlayerMode m_mode = PlayerMode::mDefault;\
 	Player* m_player = nullptr;
 	float m_area = 300.0f;
 	float m_speed = 300.0f;
