@@ -56,7 +56,7 @@ void CollisionManager::Update()
 	vector<Collider*> cloneColVec;
 	for (vector<Collider*>::iterator itr1 = m_objVec->begin(); itr1 != m_objVec->end(); itr1++)
 	{
-		if (ISDEBUGMODE)
+		if (DEBUGMODE)
 		{
 			(*itr1)->DrawCollider();
 		}

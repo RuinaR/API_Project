@@ -14,8 +14,6 @@ ChangeObject::~ChangeObject()
 
 void ChangeObject::Initialize()
 {
-	m_gameObj->Size() = { 50,50 };
-	m_gameObj->AddComponent(new BoxCollider());
 }
 
 void ChangeObject::Release()

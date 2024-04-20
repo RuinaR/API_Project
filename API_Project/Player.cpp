@@ -377,6 +377,7 @@ void Player::Initialize()
 	m_ar = new AnimationRender(m_arrAnim[(int)PlayerMode::mDefault][(int)PlayerArrow::right][(int)PlayerAState::idle]);
 	m_rig = new Rigidbody();
 	m_bo = new BoxCollider();
+	m_rig->SetGravity(0.0f);
 	m_gameObj->AddComponent(m_bo);
 	m_gameObj->AddComponent(new BitmapRender(m_arrAnim[(int)PlayerMode::mDefault][(int)PlayerArrow::right][(int)PlayerAState::idle].bitmaps[0]));
 	m_gameObj->AddComponent(m_ar);
@@ -406,6 +407,7 @@ void Player::Release()
 
 void Player::Start()
 {
+	m_rig->SetGravity(m_startGravity);
 	m_bo->ColOffset() = m_dOffset;
 	m_bo->ColSize() = m_cSize;
 	RECT rect;
@@ -415,7 +417,6 @@ void Player::Start()
 	if (m_rig)
 		m_rig->SetNoFriction(true);
 
-	m_startGravity = m_rig->GetGravity();
 	m_flyTimer.tick();
 	m_leftKeyTimer.tick();
 	m_rightKeyTimer.tick();

@@ -1,18 +1,12 @@
 #pragma once
 #include "Scene.h"
+#include "StageMaker.h"
 struct Animation;
 
 class GameScene : public Scene
 {
 private:
-	HBITMAP land;
-	HBITMAP bigland;
-	HBITMAP bg;
-	HBITMAP swordObj;
-	HBITMAP defaultObj;
-	GameObject* obj1, * obj2, * obj3, * obj4, * obj5;
-	GameObject* tmp1, * tmp2, * tmp3;
-	GameObject* player = nullptr;
+	StageMaker* m_sMaker = nullptr;
 public:
 	void Init() override;
 	void Release() override;

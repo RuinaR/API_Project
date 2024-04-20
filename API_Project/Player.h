@@ -17,7 +17,7 @@ protected:
 	Timer m_flyTimer = Timer();
 	Timer m_leftKeyTimer = Timer();
 	Timer m_rightKeyTimer = Timer();
-	Vector2D m_dSize = { 100,100 };
+	Vector2D m_dSize = { UNITSIZE,UNITSIZE };
 	Vector2D m_cSize = { 40,40 };
 	Vector2D m_dOffset = { 30,50 };
 	float m_atkRange = 60.0f;
@@ -39,11 +39,11 @@ protected:
 	float m_speed_fly = 150.0f;
 	float m_eatSpeed = 150.0f;
 	float m_curXSpeed = 0.0f;
-	float m_JumpV = 500.0f;
+	float m_JumpV = 600.0f;
 
-	float m_startGravity = 0.0f;
+	float m_startGravity = 1200.0f;
 	float m_flyGravity = 450.0f;
-	float m_stoneGravity = 5000.0f;
+	float m_stoneGravity = 2400.0f;
 
 	bool isStoneAtked = false;
 

@@ -44,10 +44,20 @@ void BitmapRender::Update()
 	if (m_bit == NULL)
 		return;
 
-	DrawBitmap(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
-		m_gameObj->Position().x - Camera::GetInstance()->GetPos().x,
-        m_gameObj->Position().y - Camera::GetInstance()->GetPos().y,
-		m_gameObj->Size().x, 
-        m_gameObj->Size().y,
-		m_bit, TRANSCOLOR);
+    RECT tmp, bitrect, clientrect;
+    GetClientRect(WindowFrame::GetInstance()->GetHWND(), &clientrect);
+    bitrect = 
+        { (long)(m_gameObj->Position().x - Camera::GetInstance()->GetPos().x),
+        (long)(m_gameObj->Position().y - Camera::GetInstance()->GetPos().y),
+        (long)(m_gameObj->Position().x - Camera::GetInstance()->GetPos().x) + (long)(m_gameObj->Size().x),
+        (long)(m_gameObj->Position().y - Camera::GetInstance()->GetPos().y) + (long)(m_gameObj->Size().y) };
+    if (IntersectRect(&tmp, &bitrect, &clientrect))
+    {
+        DrawBitmap(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
+            m_gameObj->Position().x - Camera::GetInstance()->GetPos().x,
+            m_gameObj->Position().y - Camera::GetInstance()->GetPos().y,
+            m_gameObj->Size().x,
+            m_gameObj->Size().y,
+            m_bit, TRANSCOLOR);
+    }
 }

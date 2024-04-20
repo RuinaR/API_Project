@@ -1,5 +1,7 @@
 #pragma once
 
+#define UNITSIZE 100
+
 #define TAG_LAND "land"
 #define TAG_ATTACK "attack"
 #define TAG_PLAYER "player"
@@ -38,5 +40,16 @@ enum class PlayerMode
 	mDefault,
 	mSword,
 	mStone,
+	max
+};
+
+enum class MapType
+{
+	None = 0,
+	Player = 1,
+	Block = 2,
+	DefaultMon = 3,
+	SwordMon = 4,
+	StoneMon = 5,
 	max
 };

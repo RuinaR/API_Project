@@ -15,6 +15,7 @@
 #include <mmsystem.h>
 #include <time.h>
 #include <timeapi.h>
+#include <fstream>
 
 #include "AnimationManager.h"
 #include "ObjectManager.h"
@@ -37,9 +38,9 @@
 #define MAXWINDOWH 1080
 #define BUFFERBITW MAXWINDOWW
 #define BUFFERBITH MAXWINDOWH
-#define TARGETFPS 60
+#define TARGETFPS 120
 
-#define ISDEBUGMODE true
+#define DEBUGMODE true
 #define DEBUGCOLOR (RGB((0),(255),(0)))
 
 using namespace std;
