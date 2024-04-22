@@ -21,6 +21,7 @@ public:
 	void Release();
 	void Update();
 	void Clear();
+	int Count();
 	list<GameObject*>* GetObjList();
 };
 

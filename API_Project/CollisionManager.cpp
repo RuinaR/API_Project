@@ -121,3 +121,8 @@ void CollisionManager::Clear()
 {
 	m_objVec->clear();
 }
+
+int CollisionManager::Count()
+{
+	return m_objVec->size();
+}

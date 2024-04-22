@@ -31,6 +31,10 @@ void GameScene::Start()
 	newObj->InitializeSet();
 
 	m_sMaker->SetMap("testMap");
+
+	cout << "object : " << ObjectManager::GetInstance()->Count() << endl;
+	cout << "collision : " << CollisionManager::GetInstance()->Count() << endl;
+
 }
 
 void GameScene::LBtnDown()

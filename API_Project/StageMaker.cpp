@@ -25,7 +25,7 @@ vector<string> StageMaker::ReadMapData(string mapName)
     string line;
     while (getline(inFile, line)) 
     {
-        mapData.push_back(line);
+        mapData.push_back('0' + line);
     }
 
     // ÆÄÀÏ ´Ý±â
@@ -33,19 +33,21 @@ vector<string> StageMaker::ReadMapData(string mapName)
     return mapData;
 }
 
-void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup)
+void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup, vector<bool>* colRow)
 {
 	switch (t)
 	{
 	case MapType::None:
     {
         rowGroup->push_back(nullptr);
+        colRow->push_back(false);
     }
 		break;
 	case MapType::Player:
     {
         m_playerObj->SetPosition({ (double)UNITSIZE * i,(double)UNITSIZE * j });
         rowGroup->push_back(m_playerObj);
+        colRow->push_back(false);
 	}
 	break;
 	case MapType::Block:
@@ -55,9 +57,7 @@ void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup)
 		obj->SetPosition({ (double)UNITSIZE * i,(double)UNITSIZE * j });
 		obj->Size() = { UNITSIZE, UNITSIZE };
 		obj->AddComponent(new BitmapRender(m_land));
-		if (rowGroup->empty() || (rowGroup->back() == nullptr || rowGroup->back()->GetTag() != TAG_LAND))
-			obj->AddComponent(new BoxCollider());
-        else
+        if (!rowGroup->empty() && (rowGroup->back() != nullptr && rowGroup->back()->GetTag() == TAG_LAND))
         {
             int startIdx = rowGroup->size() - 1;
             int endIdx = 0;
@@ -66,15 +66,36 @@ void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup)
                 if ((*rowGroup)[k] == nullptr || (*rowGroup)[k]->GetTag() != TAG_LAND)
 				{
 					endIdx = k + 1;
+                    BoxCollider* bo = (*rowGroup)[endIdx]->GetComponent<BoxCollider>();
+                    if (bo == nullptr)
+                    {
+                        BoxCollider* newBo = new BoxCollider();
+                        (*rowGroup)[endIdx]->AddComponent(newBo);
+                        newBo->ColSize() =
+                        { (double)(UNITSIZE * (startIdx - endIdx + 2)) ,(double)UNITSIZE };
+                    }
+                    else
+                    {
+                        bo->ColSize() =
+                        { (double)(UNITSIZE * (startIdx - endIdx + 2)) ,(double)UNITSIZE };
+                    }
+                    for (int q = endIdx; q < startIdx + 1; q++)
+                    {
+                        (*colRow)[q] = true;
+                    }
+                    if (startIdx + 1 >= colRow->size())
+                        colRow->push_back(true);
+                    else
+                        (*colRow)[startIdx + 1] = true;
+
 					break;
 				}
 			}
-			if ((*rowGroup)[endIdx] != nullptr)
-				(*rowGroup)[endIdx]->GetComponent<BoxCollider>()->ColSize() = 
-            { (double)(UNITSIZE * (startIdx - endIdx + 2)) ,(double)UNITSIZE };
 		}
 		obj->InitializeSet();
 		rowGroup->push_back(obj);
+		if (rowGroup->size() > colRow->size())
+			colRow->push_back(false);
 	}
 	break;
 	case MapType::DefaultMon:
@@ -88,6 +109,7 @@ void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup)
        defaultMon->AddComponent(new BoxCollider());
        defaultMon->InitializeSet();
        rowGroup->push_back(defaultMon);
+       colRow->push_back(false);
     }
         break;
     case MapType::SwordMon:
@@ -101,6 +123,7 @@ void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup)
         swordMon->AddComponent(new BoxCollider());
         swordMon->InitializeSet();
         rowGroup->push_back(swordMon);
+        colRow->push_back(false);
     }
 	break;
 	case MapType::StoneMon:
@@ -114,6 +137,7 @@ void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup)
 		stoneMon->AddComponent(new BoxCollider());
 		stoneMon->InitializeSet();
         rowGroup->push_back(stoneMon);
+        colRow->push_back(false);
 	}
         break;
     }
@@ -130,17 +154,52 @@ void StageMaker::SetMap(string mapName)
 	for (vector<vector<GameObject*>>::iterator itr = m_mapObj.begin(); itr != m_mapObj.end(); itr++)
 		itr->clear();
 	m_mapObj.clear();
+    for (vector<vector<bool>>::iterator itr = m_colInfo.begin(); itr != m_colInfo.end(); itr++)
+        itr->clear();
+    m_colInfo.clear();
 
     WindowFrame::GetInstance()->GetBuffer()->SetBG(m_bg);
     vector<string> mapData = ReadMapData(mapName);
     for (int i = 0; i < mapData.size(); ++i)
     {
         vector<GameObject*> row;
+        vector<bool> colrow;
         for (int j = 0; j < mapData[i].size(); ++j) 
         {
-            MakeMap((MapType)(mapData[i][j] - '0'), j, i, &row);
+            MakeMap((MapType)(mapData[i][j] - '0'), j, i, &row, &colrow);
         }
         m_mapObj.push_back(row);
+        m_colInfo.push_back(colrow);
+    }
+    for (int i = 0; i < m_mapObj.size(); i++)
+    {
+        for (int j = 0; j < m_mapObj[i].size(); j++)
+        {
+            if (m_mapObj[i][j] != nullptr && 
+                m_mapObj[i][j]->GetTag() == TAG_LAND && 
+                m_mapObj[i][j]->GetComponent<BoxCollider>() == nullptr &&
+                m_colInfo[i][j] == false)
+            {
+                int cnt = 1;
+                m_colInfo[i][j] = true;
+                for (int k = i + 1; k < m_mapObj.size(); k++)
+                {
+                    if (m_mapObj[k][j] != nullptr &&
+                        m_mapObj[k][j]->GetTag() == TAG_LAND &&
+                        m_mapObj[k][j]->GetComponent<BoxCollider>() == nullptr &&
+                        m_colInfo[k][j] == false)
+                    {
+                        cnt++;
+                        m_colInfo[k][j] = true;
+                    }
+                    else
+                        break;
+                }
+                BoxCollider* newBo = new BoxCollider();
+                m_mapObj[i][j]->AddComponent(newBo);
+                newBo->ColSize() = { UNITSIZE, (double)(UNITSIZE * cnt) };
+            }
+        }
     }
 }
 

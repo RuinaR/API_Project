@@ -173,6 +173,11 @@ void ObjectManager::Clear()
 	}
 }
 
+int ObjectManager::Count()
+{
+	return m_objList->size();
+}
+
 list<GameObject*>* ObjectManager::GetObjList()
 {
 	return m_objList;

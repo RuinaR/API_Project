@@ -17,5 +17,6 @@ public:
 	bool UnregisterCollider(Collider* col);
 	void Update();
 	void Clear();
+	int Count();
 };
 
