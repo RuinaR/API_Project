@@ -268,7 +268,7 @@ void Player::Attack_stone()
 
 void Player::CollisionExit(Collider* other)
 {
-	cout << "PLAYER Col Exit: " << endl;
+	cout << "PLAYER Col Exit" << endl;
 }
 
 void Player::StoneAttacking()
