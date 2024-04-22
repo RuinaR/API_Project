@@ -50,7 +50,7 @@ void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup,
         colRow->push_back(false);
 	}
 	break;
-	case MapType::Block:
+	case MapType::Block: //가로줄 콜라이더를 계산해서 합친 상태로 생성
 	{
 		GameObject* obj = new GameObject();
 		obj->SetTag(TAG_LAND);
@@ -171,7 +171,8 @@ void StageMaker::SetMap(string mapName)
         m_mapObj.push_back(row);
         m_colInfo.push_back(colrow);
     }
-    for (int i = 0; i < m_mapObj.size(); i++)
+    
+    for (int i = 0; i < m_mapObj.size(); i++) //나머지 세로줄 콜라이더를 합쳐서 생성하는 작업
     {
         for (int j = 0; j < m_mapObj[i].size(); j++)
         {

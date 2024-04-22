@@ -1,2 +1,8 @@
-﻿  GameScene.cpp
+﻿  StageMaker.cpp
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(86,38): warning C4018: '>=': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(163,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(167,27): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(175,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(177,27): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(186,39): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
   API_Project.vcxproj -> C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\API_Project.exe
