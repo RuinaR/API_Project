@@ -5,7 +5,7 @@ class Collider : public Component
 protected:
 	Vector2D m_colSize = { 0.f,0.f };
 	Vector2D m_colOffset= { 0.f,0.f };
-	vector<Collider*>* m_ColObjVec = nullptr;
+	set<Collider*>* m_ColObjSet = nullptr;
 
 	virtual void ColInit() abstract;
 	virtual void ColRelease() abstract;
@@ -16,7 +16,7 @@ public:
 	void Update() final;
 	Vector2D& ColSize();
 	Vector2D& ColOffset();
-	vector<Collider*>* VecCol();
+	set<Collider*>* SetCol();
 	void Initialize() final;
 	void Release() final;
 	virtual void DrawCollider();

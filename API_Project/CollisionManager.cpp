@@ -53,22 +53,22 @@ bool CollisionManager::UnregisterCollider(Collider* col)
 void CollisionManager::Update()
 {
 	RECT r1, r2, tmpr;
-	vector<Collider*> cloneColVec;
+	set<Collider*> cloneColSet;
 	for (vector<Collider*>::iterator itr1 = m_objVec->begin(); itr1 != m_objVec->end(); itr1++)
 	{
 		if (DEBUGMODE)
 		{
 			(*itr1)->DrawCollider();
 		}
-		cloneColVec = (*(*itr1)->VecCol());
-		(*itr1)->VecCol()->clear();
+		cloneColSet = set<Collider*>((*itr1)->SetCol()->begin(), (*itr1)->SetCol()->end());
+		(*itr1)->SetCol()->clear();
 
 		r1 = { (long)(*itr1)->ColOffset().x + (long)(*itr1)->GetGameObject()->Position().x,
 					(long)(*itr1)->ColOffset().y + (long)(*itr1)->GetGameObject()->Position().y,
 					(long)(*itr1)->ColOffset().x + (long)(*itr1)->GetGameObject()->Position().x + (long)(*itr1)->ColSize().x,
 					(long)(*itr1)->ColOffset().y + (long)(*itr1)->GetGameObject()->Position().y + (long)(*itr1)->ColSize().y };
-		
-		for (vector<Collider*>::iterator itr2 = m_objVec->begin(); itr2 != m_objVec->end(); itr2++)
+		vector<Collider*>::iterator tmpItr = itr1;
+		for (vector<Collider*>::iterator itr2 = ++tmpItr; itr2 != m_objVec->end(); itr2++)
 		{
 			if ((*itr1) == (*itr2))
 				continue;
@@ -79,47 +79,42 @@ void CollisionManager::Update()
 						(long)(*itr2)->ColOffset().y +(long)(*itr2)->GetGameObject()->Position().y + (long) (*itr2)->ColSize().y };
 			if (IntersectRect(&tmpr, &r1, &r2)) //충돌
 			{
-				(*itr1)->VecCol()->push_back(*itr2);
+				(*itr1)->SetCol()->insert(*itr2);
 				bool isfind = false;
-				for (vector<Collider*>::iterator titr = cloneColVec.begin(); titr != cloneColVec.end(); titr++)
-				{
-					if ((*titr) == (*itr2))
-					{
-						isfind = true;
-						break;
-					}
-				}
+				if(cloneColSet.find(*itr2) != cloneColSet.end())
+					isfind = true;
 				for (vector<Component*>::iterator citr = (*itr1)->GetGameObject()->GetComponentVec()->begin();
 					citr != (*itr1)->GetGameObject()->GetComponentVec()->end();
 					citr++)
 				{
-					if (!isfind)
-						(*citr)->OnCollisionEnter((*itr2));
-					else
-						(*citr)->OnCollision((*itr2));
+					if (!isfind) (*citr)->OnCollisionEnter((*itr2));
+					else (*citr)->OnCollision((*itr2));
 				}
-			}
-		}
-		for (vector<Collider*>::iterator itr3 = cloneColVec.begin(); itr3 != cloneColVec.end(); itr3++)
-		{
-			bool skip = false;
-			for (vector<Collider*>::iterator itr4 = (*itr1)->VecCol()->begin(); itr4 != (*itr1)->VecCol()->end(); itr4++)
-			{
-				if ((*itr3) == (*itr4))
+				for (vector<Component*>::iterator citr = (*itr2)->GetGameObject()->GetComponentVec()->begin();
+					citr != (*itr2)->GetGameObject()->GetComponentVec()->end();
+					citr++)
 				{
-					skip = true;
-					break;
+					if (!isfind) (*citr)->OnCollisionEnter((*itr1));
+					else (*citr)->OnCollision((*itr1));
 				}
 			}
-			if (!skip)
+			else //현재 충돌이 아니고
 			{
-				for (vector<Component*>::iterator citr = (*itr1)->GetGameObject()->GetComponentVec()->begin();
+				if (cloneColSet.find(*itr2) != cloneColSet.end()) //이전 프레임에서는 충돌이었다면
+				{
+					for (vector<Component*>::iterator citr = (*itr1)->GetGameObject()->GetComponentVec()->begin();
 						citr != (*itr1)->GetGameObject()->GetComponentVec()->end();
 						citr++)
 					{
-						(*citr)->OnCollisionExit((*itr3));
+						(*citr)->OnCollisionExit((*itr2));
 					}
-				break;
+					for (vector<Component*>::iterator citr = (*itr2)->GetGameObject()->GetComponentVec()->begin();
+						citr != (*itr2)->GetGameObject()->GetComponentVec()->end();
+						citr++)
+					{
+						(*citr)->OnCollisionExit((*itr1));
+					}
+				}
 			}
 		}
 	}
@@ -127,8 +122,5 @@ void CollisionManager::Update()
 
 void CollisionManager::Clear()
 {
-	for (vector<Collider*>::iterator itr = m_objVec->begin(); itr != m_objVec->end(); itr++)
-	{
-		m_objVec->clear();
-	}
+	m_objVec->clear();
 }

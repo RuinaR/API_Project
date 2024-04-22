@@ -26,7 +26,7 @@ protected:
 	bool m_jumpFlyTrigger = false;
 	bool m_atkTrigger = false;
 
-	float m_dblTime = 0.25f;
+	float m_dblTime = 0.2f;
 
 	int m_leftKey = 0;
 	int m_rightKey = 0;

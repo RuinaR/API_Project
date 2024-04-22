@@ -19,13 +19,11 @@ BOOL Rigidbody::SetNoIntersect(const LPRECT pHold, LPRECT pRect)
 			{
 				pRect->top -= nH;
 				pRect->bottom -= nH;
-				m_velocity.y = 0.0f;
 			}
 			else if (rcInter.bottom == pHold->bottom)
 			{
 				pRect->top += nH;
 				pRect->bottom += nH;
-				m_velocity.y = 0.0f;
 			}
 		}
 		else
@@ -34,13 +32,11 @@ BOOL Rigidbody::SetNoIntersect(const LPRECT pHold, LPRECT pRect)
 			{
 				pRect->left -= nW;
 				pRect->right -= nW;
-				m_velocity.x = 0.0f;
 			}
 			else if (rcInter.right == pHold->right)
 			{
 				pRect->left += nW;
 				pRect->right += nW;
-				m_velocity.x = 0.0f;
 			}
 		}
 		return TRUE;
@@ -69,13 +65,7 @@ void Rigidbody::Update()
 	{
 		m_velocity.y += m_gravity * MainFrame::GetInstance()->DeltaTime();
 	}
-	else
-	{
-		if (m_velocity.y > 0.0f)
-		{
-			m_velocity.y = 0.0f;
-		}
-	}
+
 	if (!m_isNoFriction)
 	{
 		m_velocity.x *= 1.0f - m_friction * MainFrame::GetInstance()->DeltaTime();
@@ -92,37 +82,17 @@ void Rigidbody::Update()
 void Rigidbody::CollisionEnter(Collider* other)
 {
 	int d = 20;
-	if (m_gameObj->Position().y + m_box->ColSize().y <
-		other->GetGameObject()->Position().y + d)
+	if (m_gameObj->Position().y + m_box->ColSize().y + m_box->ColOffset().y <
+		other->GetGameObject()->Position().y + other->ColOffset().y + d)
 	{
 		m_isOnLand = true;
-		if (m_velocity.y > 0.0f)
-			m_velocity.y = 0.0f;
-	}
-	else if (m_gameObj->Position().y >
-		other->GetGameObject()->Position().y + other->ColSize().y - d)
-	{
-		if (m_velocity.y < 0.0f)
-			m_velocity.y = 0.0f;
-	}
-	else if (m_gameObj->Position().x + m_box->ColSize().x >
-		other->GetGameObject()->Position().x + d)
-	{
-		if (m_velocity.x < 0.0f)
-			m_velocity.x = 0.0f;
-	}
-	else if (m_gameObj->Position().x <
-		other->GetGameObject()->Position().x + other->ColSize().x - d)
-	{
-		if (m_velocity.x > 0.0f)
-			m_velocity.x = 0.0f;
 	}
 }
 
 void Rigidbody::CollisionExit(Collider* other)
 {
 	int d = 10;
-	for (vector<Collider*>::iterator itr = m_box->VecCol()->begin(); itr != m_box->VecCol()->end(); itr++)
+	for (set<Collider*>::iterator itr = m_box->SetCol()->begin(); itr != m_box->SetCol()->end(); itr++)
 	{
 		if (m_gameObj->Position().y + m_box->ColSize().y <
 			(*itr)->GetGameObject()->Position().y + d)
@@ -133,8 +103,11 @@ void Rigidbody::CollisionExit(Collider* other)
 
 void Rigidbody::Collision(Collider* other)
 {
+	if (m_box->GetTrigger() || other->GetTrigger())
+		return;
+
 	RECT r1, r2;
-	long d = 2;
+	long d = 1;
 	r1 = { (long)m_box->ColOffset().x + (long)m_gameObj->Position().x + d,
 			(long)m_box->ColOffset().y + (long)m_gameObj->Position().y + d,
 			(long)m_box->ColOffset().x + (long)(m_gameObj->Position().x + m_box->ColSize().x - d),
@@ -144,12 +117,8 @@ void Rigidbody::Collision(Collider* other)
 			(long)other->ColOffset().x + (long)(other->GetGameObject()->Position().x + other->ColSize().x),
 			(long)other->ColOffset().y + (long)(other->GetGameObject()->Position().y + other->ColSize().y) };
 
-	if (m_box->GetTrigger() || other->GetTrigger())
-		return;
-
 	SetNoIntersect(&r2, &r1);
-	m_gameObj->SetPosition(Vector2D({ (float)r1.left - d - m_box->ColOffset().x, (float)r1.top - d - m_box->ColOffset().y}));
-
+	m_gameObj->SetPosition(Vector2D({ (float)r1.left - d - m_box->ColOffset().x, (float)r1.top + d - m_box->ColOffset().y }));
 
 	return;
 }

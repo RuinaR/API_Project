@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "Collider.h"
-vector<Collider*>* Collider::VecCol()
+set<Collider*>* Collider::SetCol()
 {
-	return m_ColObjVec;
+	return m_ColObjSet;
 }
 void Collider::Start()
 {
@@ -21,7 +21,7 @@ Vector2D& Collider::ColOffset()
 void Collider::Initialize()
 {
 	ColInit();
-	m_ColObjVec = new vector<Collider*>();
+	m_ColObjSet = new set<Collider*>();
 	CollisionManager::GetInstance()->AddCollider(this);
 	m_colSize.x *= COLSIZEOFFSET;
 	m_colSize.y *= COLSIZEOFFSET;
@@ -29,8 +29,8 @@ void Collider::Initialize()
 
 void Collider::Release()
 {
-	m_ColObjVec->clear();
-	delete m_ColObjVec;
+	m_ColObjSet->clear();
+	delete m_ColObjSet;
 	CollisionManager::GetInstance()->UnregisterCollider(this);
 	ColRelease();
 }

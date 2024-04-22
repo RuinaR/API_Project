@@ -1,9 +1,12 @@
 C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\AnimationManager.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\AnimationManager.obj
 C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\AnimationRender.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\AnimationRender.obj
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\AttackEvent.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\AttackEvent.obj
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\AttakObject.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\AttakObject.obj
 C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\BitmapRender.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\BitmapRender.obj
 C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\BoxCollider.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\BoxCollider.obj
 C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Buffer.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\Buffer.obj
 C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Camera.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\Camera.obj
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\ChangeObject.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\ChangeObject.obj
 C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\Collider.obj
 C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\CollisionManager.obj
 C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Component.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\Component.obj
@@ -16,4 +19,5 @@ C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\ObjectM
 C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\pch.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\pch.obj
 C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\Player.obj
 C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Rigidbody.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\Rigidbody.obj
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\StageMaker.obj
 C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\WindowFrame.cpp;C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\WindowFrame.obj

@@ -31,7 +31,6 @@ void GameScene::Start()
 	newObj->InitializeSet();
 
 	m_sMaker->SetMap("testMap");
-
 }
 
 void GameScene::LBtnDown()

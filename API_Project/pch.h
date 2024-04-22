@@ -10,6 +10,7 @@
 #include <typeinfo>
 #include <vector>
 #include <list>
+#include <set>
 #include <string>
 #include <math.h>
 #include <mmsystem.h>

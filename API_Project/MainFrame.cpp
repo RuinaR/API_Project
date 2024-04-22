@@ -40,6 +40,7 @@ Timer& MainFrame::Timer()
 
 double MainFrame::DeltaTime()
 {
+    //cout << m_timer.getTotalDeltaTime() << endl;
 	return m_timer.getTotalDeltaTime();
 }
 
@@ -84,10 +85,10 @@ int MainFrame::Run()
             {
                 frameCount++;         
                 fpsCheckTime += m_timer.getTotalDeltaTime();
+
                 //UPDATE
                 ObjectManager::GetInstance()->Update();
                 CollisionManager::GetInstance()->Update();
-
                 //RENDER
                 InvalidateRect(WindowFrame::GetInstance()->GetHWND(), NULL, FALSE);
                 UpdateWindow(WindowFrame::GetInstance()->GetHWND());
@@ -98,7 +99,6 @@ int MainFrame::Run()
                     fps = frameCount;
                     frameCount = 0;
                     fpsCheckTime = 0.0;
-                    m_timer.resetTotalDeltaTime();
                     swprintf_s(strFPS, _countof(strFPS), L"FPS : %d", fps);
                     SetWindowText(WindowFrame::GetInstance()->GetHWND(), strFPS);
                 }

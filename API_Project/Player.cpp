@@ -37,7 +37,7 @@ void Player::FlyAction()
 		if (GetAsyncKeyState(m_jumpKey)) //위로 가속
 		{
 			m_flyTimer.tick();
-			if (m_flyTimer.getTotalDeltaTime() > m_dblTime)
+			if (m_flyTimer.getTotalDeltaTime() > m_dblTime * 2)
 			{
 				m_rig->Velocity().y = -m_speed_fly;
 				m_flyTimer.resetTotalDeltaTime();
@@ -133,6 +133,7 @@ void Player::MoveRight()
 void Player::JumpAction()
 {
 	//점프
+	m_flyTimer.tick();
 	if (m_rig->GetIsOnLand() &&
 		m_rig->Velocity().y >= -0.1f &&
 		m_rig->Velocity().y <= 0.1f)
@@ -151,10 +152,11 @@ void Player::JumpAction()
 		}
 		cout << "Jump" << endl;
 	}
-	else if (m_flyTimer.getDeltaTime() > m_dblTime &&
-		m_state != PlayerAState::eat_jump &&
-		m_state != PlayerAState::eat_idle &&
-		m_state != PlayerAState::eat_move)//날기 start
+	else if (m_flyTimer.getDeltaTime() > m_dblTime && 
+		(m_state != PlayerAState::eat_idle && 
+			m_state != PlayerAState::eat_jump && 
+			m_state != PlayerAState::eat_move && 
+			!m_rig->GetIsOnLand()))//날기 start
 	{
 		m_state = PlayerAState::fly;
 		m_rig->Velocity().y = -m_speed_fly;
@@ -252,6 +254,7 @@ void Player::Attack_sword()
 
 void Player::CollisionEnter(Collider* other)
 {
+	cout << "PLAYER Col Enter" << endl;
 }
 
 void Player::Attack_stone()
@@ -268,6 +271,7 @@ void Player::Attack_stone()
 
 void Player::CollisionExit(Collider* other)
 {
+	cout << "PLAYER Col Exit" << endl;
 }
 
 void Player::StoneAttacking()
@@ -316,11 +320,11 @@ void Player::Collision(Collider* other)
 		UpdateAnim(true);
 		if (m_arrow == PlayerArrow::left)
 		{
-			m_rig->Velocity() = { 150,-150 };
+			m_rig->Velocity() = {300,-350};
 		}
 		else
 		{
-			m_rig->Velocity() = { -150,-150 };
+			m_rig->Velocity() = {-300,-350};
 		}
 	}
 }
@@ -535,7 +539,6 @@ void Player::Update()
 		if (m_jumpFlyTrigger)
 		{
 			m_jumpFlyTrigger = false;
-			m_flyTimer.tick();
 			JumpAction();
 		}
 	}
