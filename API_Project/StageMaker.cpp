@@ -33,33 +33,52 @@ vector<string> StageMaker::ReadMapData(string mapName)
     return mapData;
 }
 
-void StageMaker::MakeMap(MapType t, int i, int j)
+void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup)
 {
 	switch (t)
 	{
 	case MapType::None:
     {
-
+        rowGroup->push_back(nullptr);
     }
 		break;
 	case MapType::Player:
     {
         m_playerObj->SetPosition({ (double)UNITSIZE * i,(double)UNITSIZE * j });
-    }
-		break;
+        rowGroup->push_back(m_playerObj);
+	}
+	break;
 	case MapType::Block:
-    {
-        GameObject* obj = new GameObject();
-        obj->SetTag(TAG_LAND);
-        obj->SetPosition({ (double)UNITSIZE * i,(double)UNITSIZE * j });
-        obj->Size() = { UNITSIZE, UNITSIZE };
-        obj->AddComponent(new BitmapRender(m_land));
-        obj->AddComponent(new BoxCollider());
-        obj->InitializeSet();
-    }
-        break;
-    case MapType::DefaultMon:
-    {
+	{
+		GameObject* obj = new GameObject();
+		obj->SetTag(TAG_LAND);
+		obj->SetPosition({ (double)UNITSIZE * i,(double)UNITSIZE * j });
+		obj->Size() = { UNITSIZE, UNITSIZE };
+		obj->AddComponent(new BitmapRender(m_land));
+		if (rowGroup->empty() || (rowGroup->back() == nullptr || rowGroup->back()->GetTag() != TAG_LAND))
+			obj->AddComponent(new BoxCollider());
+        else
+        {
+            int startIdx = rowGroup->size() - 1;
+            int endIdx = 0;
+            for (int k = startIdx; k >= 0; k--)
+            {
+                if ((*rowGroup)[k] == nullptr || (*rowGroup)[k]->GetTag() != TAG_LAND)
+				{
+					endIdx = k + 1;
+					break;
+				}
+			}
+			if ((*rowGroup)[endIdx] != nullptr)
+				(*rowGroup)[endIdx]->GetComponent<BoxCollider>()->ColSize() = 
+            { (double)(UNITSIZE * (startIdx - endIdx + 2)) ,(double)UNITSIZE };
+		}
+		obj->InitializeSet();
+		rowGroup->push_back(obj);
+	}
+	break;
+	case MapType::DefaultMon:
+	{
         GameObject* defaultMon = new GameObject();
        defaultMon->SetTag(TAG_MONSTER);
        defaultMon->Size() = { UNITSIZE / 2, UNITSIZE / 2 };
@@ -68,6 +87,7 @@ void StageMaker::MakeMap(MapType t, int i, int j)
        defaultMon->AddComponent(new BitmapRender(m_defaultObj));
        defaultMon->AddComponent(new BoxCollider());
        defaultMon->InitializeSet();
+       rowGroup->push_back(defaultMon);
     }
         break;
     case MapType::SwordMon:
@@ -80,6 +100,7 @@ void StageMaker::MakeMap(MapType t, int i, int j)
         swordMon->AddComponent(new BitmapRender(m_swordObj));
         swordMon->AddComponent(new BoxCollider());
         swordMon->InitializeSet();
+        rowGroup->push_back(swordMon);
     }
 	break;
 	case MapType::StoneMon:
@@ -92,6 +113,7 @@ void StageMaker::MakeMap(MapType t, int i, int j)
 		stoneMon->AddComponent(new BitmapRender(m_stoneObj));
 		stoneMon->AddComponent(new BoxCollider());
 		stoneMon->InitializeSet();
+        rowGroup->push_back(stoneMon);
 	}
         break;
     }
@@ -105,14 +127,20 @@ void StageMaker::StageStart()
 
 void StageMaker::SetMap(string mapName)
 {
+	for (vector<vector<GameObject*>>::iterator itr = m_mapObj.begin(); itr != m_mapObj.end(); itr++)
+		itr->clear();
+	m_mapObj.clear();
+
     WindowFrame::GetInstance()->GetBuffer()->SetBG(m_bg);
     vector<string> mapData = ReadMapData(mapName);
     for (int i = 0; i < mapData.size(); ++i)
     {
+        vector<GameObject*> row;
         for (int j = 0; j < mapData[i].size(); ++j) 
         {
-            MakeMap((MapType)(mapData[i][j] - '0'), j, i);
+            MakeMap((MapType)(mapData[i][j] - '0'), j, i, &row);
         }
+        m_mapObj.push_back(row);
     }
 }
 

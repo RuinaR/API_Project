@@ -94,7 +94,7 @@ void Player::MoveLeft()
 			m_state = PlayerAState::walk;
 		}
 		UpdateAnim(false);
-		m_rig->Velocity() = { m_curXSpeed, 0.0f };
+		m_rig->Velocity() = { m_curXSpeed, m_rig->Velocity().y };
 	}
 }
 
@@ -126,7 +126,7 @@ void Player::MoveRight()
 			m_state = PlayerAState::walk;
 		}
 		UpdateAnim(false);
-		m_rig->Velocity() = { m_curXSpeed, 0.0f };
+		m_rig->Velocity() = { m_curXSpeed, m_rig->Velocity().y };
 	}
 }
 
@@ -134,15 +134,13 @@ void Player::JumpAction()
 {
 	//Á¡ÇÁ
 	m_flyTimer.tick();
-	if (m_rig->GetIsOnLand() &&
-		m_rig->Velocity().y >= -0.1f &&
-		m_rig->Velocity().y <= 0.1f)
+	if (m_rig->GetIsOnLand())
 	{
 		if (m_state == PlayerAState::eat_idle ||
 			m_state == PlayerAState::eat_move ||
 			m_state == PlayerAState::eat_jump)
 		{
-			m_rig->Velocity() = { m_curXSpeed, -m_JumpV / 2 };
+			m_rig->Velocity() = { m_curXSpeed, -m_JumpV * 0.5f  };
 			m_state = PlayerAState::eat_jump;
 		}
 		else
@@ -232,7 +230,6 @@ void Player::Attack_sword()
 		m_state = PlayerAState::attack;
 		UpdateAnim(true);
 		m_atkTrigger = false;
-		m_rig->Velocity() = { 0.0f, 0.0f };
 		GameObject* atk = new GameObject();
 		atk->Size() = { m_atkRange,m_cSize.y };
 		if (m_arrow == PlayerArrow::left)
@@ -271,7 +268,7 @@ void Player::Attack_stone()
 
 void Player::CollisionExit(Collider* other)
 {
-	cout << "PLAYER Col Exit" << endl;
+	cout << "PLAYER Col Exit: " << endl;
 }
 
 void Player::StoneAttacking()
@@ -291,6 +288,9 @@ void Player::StoneAttacking()
 
 void Player::Collision(Collider* other)
 {
+	if (other == nullptr)
+		return;
+
 	if (m_state == PlayerAState::eating &&  //Èí¼ö
 		(other->GetGameObject()->GetTag() == TAG_CHANGE || other->GetGameObject()->GetTag() == TAG_MONSTER))
 	{
@@ -456,8 +456,8 @@ void Player::Update()
 		m_state == PlayerAState::attack ||
 		m_state == PlayerAState::hit)
 	{
-		if (m_state != PlayerAState::hit)
-			m_rig->Velocity() = { 0.0f, 0.0f };
+		/*if (m_state != PlayerAState::hit)
+			m_rig->Velocity() = { 0.0f, 0.0f };*/
 		if (m_ar->IsFinishAnim())
 		{
 			m_state = PlayerAState::idle;

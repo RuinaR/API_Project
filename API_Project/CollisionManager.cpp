@@ -72,6 +72,8 @@ void CollisionManager::Update()
 		{
 			if ((*itr1) == (*itr2))
 				continue;
+			if (!(*itr1)->GetGameObject()->GetActive() || !(*itr2)->GetGameObject()->GetActive())
+				continue;
 
 			r2 = { (long)(*itr2)->ColOffset().x + (long)(*itr2)->GetGameObject()->Position().x,
 						(long)(*itr2)->ColOffset().y + (long)(*itr2)->GetGameObject()->Position().y,
@@ -98,22 +100,17 @@ void CollisionManager::Update()
 					else (*citr)->OnCollision((*itr1));
 				}
 			}
-			else //현재 충돌이 아니고
+		}
+
+		for (set<Collider*>::iterator itr3 = cloneColSet.begin(); itr3 != cloneColSet.end(); itr3++)
+		{
+			if ((*itr1)->SetCol()->find(*itr3) == (*itr1)->SetCol()->end()) //이전에 충돌했지만 현재 충돌 상태가 아니라면
 			{
-				if (cloneColSet.find(*itr2) != cloneColSet.end()) //이전 프레임에서는 충돌이었다면
+				for (vector<Component*>::iterator citr = (*itr1)->GetGameObject()->GetComponentVec()->begin();
+					citr != (*itr1)->GetGameObject()->GetComponentVec()->end();
+					citr++)
 				{
-					for (vector<Component*>::iterator citr = (*itr1)->GetGameObject()->GetComponentVec()->begin();
-						citr != (*itr1)->GetGameObject()->GetComponentVec()->end();
-						citr++)
-					{
-						(*citr)->OnCollisionExit((*itr2));
-					}
-					for (vector<Component*>::iterator citr = (*itr2)->GetGameObject()->GetComponentVec()->begin();
-						citr != (*itr2)->GetGameObject()->GetComponentVec()->end();
-						citr++)
-					{
-						(*citr)->OnCollisionExit((*itr1));
-					}
+					(*citr)->OnCollisionExit((*itr3));
 				}
 			}
 		}

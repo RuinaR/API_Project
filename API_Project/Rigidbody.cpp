@@ -12,18 +12,22 @@ BOOL Rigidbody::SetNoIntersect(const LPRECT pHold, LPRECT pRect)
 	{
 		int nW = rcInter.right - rcInter.left;
 		int nH = rcInter.bottom - rcInter.top;
-
 		if (nW > nH)
 		{
 			if (rcInter.top == pHold->top)
 			{
+				m_isOnLand = true;
 				pRect->top -= nH;
 				pRect->bottom -= nH;
+				/*if (m_velocity.y > 0)
+				m_velocity.y = 0;*/
 			}
 			else if (rcInter.bottom == pHold->bottom)
 			{
 				pRect->top += nH;
 				pRect->bottom += nH;
+			/*	if (m_velocity.y < 0)
+					m_velocity.y = 0;*/
 			}
 		}
 		else
@@ -32,11 +36,15 @@ BOOL Rigidbody::SetNoIntersect(const LPRECT pHold, LPRECT pRect)
 			{
 				pRect->left -= nW;
 				pRect->right -= nW;
+				/*if (m_velocity.x > 0)
+					m_velocity.x = 0;*/
 			}
 			else if (rcInter.right == pHold->right)
 			{
 				pRect->left += nW;
 				pRect->right += nW;
+				/*if (m_velocity.x < 0)
+					m_velocity.x = 0;*/
 			}
 		}
 		return TRUE;
@@ -65,7 +73,11 @@ void Rigidbody::Update()
 	{
 		m_velocity.y += m_gravity * MainFrame::GetInstance()->DeltaTime();
 	}
-
+	else
+	{
+		if (m_velocity.y > 0)
+			m_velocity.y = 0.0f;
+	}
 	if (!m_isNoFriction)
 	{
 		m_velocity.x *= 1.0f - m_friction * MainFrame::GetInstance()->DeltaTime();
@@ -81,12 +93,6 @@ void Rigidbody::Update()
 
 void Rigidbody::CollisionEnter(Collider* other)
 {
-	int d = 20;
-	if (m_gameObj->Position().y + m_box->ColSize().y + m_box->ColOffset().y <
-		other->GetGameObject()->Position().y + other->ColOffset().y + d)
-	{
-		m_isOnLand = true;
-	}
 }
 
 void Rigidbody::CollisionExit(Collider* other)
@@ -94,8 +100,8 @@ void Rigidbody::CollisionExit(Collider* other)
 	int d = 10;
 	for (set<Collider*>::iterator itr = m_box->SetCol()->begin(); itr != m_box->SetCol()->end(); itr++)
 	{
-		if (m_gameObj->Position().y + m_box->ColSize().y <
-			(*itr)->GetGameObject()->Position().y + d)
+		if (m_gameObj->Position().y + m_box->ColSize().y + m_box->ColOffset().y<
+			(*itr)->GetGameObject()->Position().y + (*itr)->ColOffset().y + d)
 			return;
 	}
 	m_isOnLand = false;
@@ -146,6 +152,7 @@ void Rigidbody::AddForce(Vector2D vec)
 
 bool Rigidbody::GetIsOnLand()
 {
+	//cout << m_isOnLand << endl;
 	return m_isOnLand;
 }
 
