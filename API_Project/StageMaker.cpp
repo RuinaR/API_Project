@@ -4,6 +4,14 @@
 #include "BoxCollider.h"
 #include "ChangeObject.h"
 
+bool EqualFloat(float f1, float f2, float d)
+{
+	if (f1 + d > f2 && f1 - d < f2)
+		return true;
+
+	return false;
+}
+
 vector<string> StageMaker::ReadMapData(string mapName)
 {
     char buffer[MAX_PATH];
@@ -202,6 +210,37 @@ void StageMaker::SetMap(string mapName)
             }
         }
     }
+
+    //가로줄 콜라이더끼리 마지막으로 합치는 작업(가로줄 우선이므로 세로줄끼리 합치는 작업은 필요없음)
+    for (int i = 0; i < m_mapObj.size(); i++)
+    {
+        for (int j = 0; j < m_mapObj[i].size(); j++)
+        {
+            if (m_mapObj[i][j] == nullptr || m_mapObj[i][j]->GetTag() != TAG_LAND)
+                continue;
+            BoxCollider* bo = m_mapObj[i][j]->GetComponent<BoxCollider>();
+			int cnt = 1;
+			if (bo != nullptr && EqualFloat(bo->ColSize().y, UNITSIZE, 0.1f))
+			{
+				for (int k = i + 1; k < m_mapObj.size(); k++)
+				{
+                    if (m_mapObj[k][j] == nullptr || m_mapObj[k][j]->GetTag() != TAG_LAND)
+                        break;
+					BoxCollider* bo2 = m_mapObj[k][j]->GetComponent<BoxCollider>();
+					if (bo2 == nullptr || !EqualFloat(bo->ColSize().x, bo2->ColSize().x, 0.1f))
+					{
+						break;
+					}
+					else
+					{
+						m_mapObj[k][j]->DeleteComponent(bo2);
+                        cnt++;
+					}
+				}
+                bo->ColSize() = { bo->ColSize().x , (double)(UNITSIZE * cnt) };
+			}
+		}
+	}
 }
 
 void StageMaker::Initialize()

@@ -50,4 +50,9 @@ public:
     void SetParent(GameObject* obj);
     void AddChild(GameObject* obj);
     void DeleteChild(GameObject* obj);
+
+    void OnLBtnDown();
+    void OnLBtnUp();
+    void OnRBtnDown();
+    void OnRBtnUp();
 };

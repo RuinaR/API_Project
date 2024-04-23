@@ -165,11 +165,12 @@ void ObjectManager::Clear()
 	{
 		for (list<GameObject*>::iterator itr = m_Pthis->m_objList->begin(); itr != m_Pthis->m_objList->end(); itr++)
 		{
-			(*itr)->Release();
-			delete(*itr);
-			(*itr) = nullptr;
+			(*itr)->SetDestroy(true);
+			//(*itr)->Release();
+			//delete(*itr);
+			//(*itr) = nullptr;
 		}
-		m_objList->clear();
+		//m_objList->clear();
 	}
 }
 
@@ -181,4 +182,36 @@ int ObjectManager::Count()
 list<GameObject*>* ObjectManager::GetObjList()
 {
 	return m_objList;
+}
+
+void ObjectManager::OnLBtnDown()
+{
+	for (list<GameObject*>::iterator itr = m_objList->begin(); itr != m_objList->end(); itr++)
+	{
+		(*itr)->OnLBtnDown();
+	}
+}
+
+void ObjectManager::OnLBtnUp()
+{
+	for (list<GameObject*>::iterator itr = m_objList->begin(); itr != m_objList->end(); itr++)
+	{
+		(*itr)->OnLBtnUp();
+	}
+}
+
+void ObjectManager::OnRBtnDown()
+{
+	for (list<GameObject*>::iterator itr = m_objList->begin(); itr != m_objList->end(); itr++)
+	{
+		(*itr)->OnRBtnDown();
+	}
+}
+
+void ObjectManager::OnRBtnUp()
+{
+	for (list<GameObject*>::iterator itr = m_objList->begin(); itr != m_objList->end(); itr++)
+	{
+		(*itr)->OnRBtnUp();
+	}
 }

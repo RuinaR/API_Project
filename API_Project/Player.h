@@ -1,7 +1,6 @@
 #pragma once
 #include "Component.h"
 #include "Rigidbody.h"
-#include "pch.h"
 
 class Player : public Component
 {

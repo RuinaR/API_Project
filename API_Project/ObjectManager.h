@@ -23,5 +23,10 @@ public:
 	void Clear();
 	int Count();
 	list<GameObject*>* GetObjList();
+
+	void OnLBtnDown();
+	void OnLBtnUp();
+	void OnRBtnDown();
+	void OnRBtnUp();
 };
 

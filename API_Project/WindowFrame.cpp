@@ -45,22 +45,22 @@ LRESULT WindowFrame::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPa
 	case WM_LBUTTONDOWN:
 		Mouse::GetInstance()->SetLeftBtn(true);
 		Mouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
-		if (m_Pthis->m_scene)m_Pthis->m_scene->LBtnDown();
+		ObjectManager::GetInstance()->OnLBtnDown();
 		return 0;
 	case WM_LBUTTONUP:
 		Mouse::GetInstance()->SetLeftBtn(false);
 		Mouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
-		if (m_Pthis->m_scene)m_Pthis->m_scene->LBtnUp();
+		ObjectManager::GetInstance()->OnLBtnUp();
 		return 0;
 	case WM_RBUTTONDOWN:
 		Mouse::GetInstance()->SetRightBtn(true);
 		Mouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
-		if (m_Pthis->m_scene)m_Pthis->m_scene->RBtnDown();
+		ObjectManager::GetInstance()->OnRBtnDown();
 		return 0;
 	case WM_RBUTTONUP:
 		Mouse::GetInstance()->SetRightBtn(false);
 		Mouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
-		if (m_Pthis->m_scene)m_Pthis->m_scene->RBtnUp();
+		ObjectManager::GetInstance()->OnRBtnUp();
 		return 0;
 	case WM_MOUSEMOVE:
 		Mouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
@@ -99,6 +99,7 @@ void WindowFrame::SetScene(Scene* scene)
 		delete m_scene;
 	}
 	m_scene = scene;
+	m_scene->Init();
 	m_scene->Start();
 }
 

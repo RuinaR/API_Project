@@ -133,6 +133,12 @@
     <ClCompile Include="StageMaker.cpp">
       <Filter>KirbyGame\Component</Filter>
     </ClCompile>
+    <ClCompile Include="DebugWindow.cpp">
+      <Filter>EngineFramework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="RestartBtn.cpp">
+      <Filter>KirbyGame\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowFrame.h">
@@ -211,6 +217,12 @@
       <Filter>KirbyGame\Component</Filter>
     </ClInclude>
     <ClInclude Include="StageMaker.h">
+      <Filter>KirbyGame\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="DebugWindow.h">
+      <Filter>EngineFramework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="RestartBtn.h">
       <Filter>KirbyGame\Component</Filter>
     </ClInclude>
   </ItemGroup>

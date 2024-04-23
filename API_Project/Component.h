@@ -24,5 +24,11 @@ public:
 	void OnCollision(Collider* other) { Collision(other); }
 	void InitGameObj(GameObject* obj);
 	GameObject* GetGameObject();
+
+	virtual void OnLBtnDown();
+	virtual void OnLBtnUp();
+	virtual void OnRBtnDown();
+	virtual void OnRBtnUp();
+	virtual void OnMouseHover();
 };
 

@@ -2,12 +2,10 @@
 #include "Component.h"
 Component::Component()
 {
-	
 }
 
 Component::~Component()
 {
-	cout << "~Component()" << endl;
 }
 
 void Component::InitGameObj(GameObject* obj)
@@ -18,4 +16,29 @@ void Component::InitGameObj(GameObject* obj)
 GameObject* Component::GetGameObject()
 {
 	return this->m_gameObj;
+}
+
+void Component::OnLBtnDown()
+{
+
+}
+
+void Component::OnLBtnUp()
+{
+
+}
+
+void Component::OnRBtnDown()
+{
+	
+}
+
+void Component::OnRBtnUp()
+{
+	
+}
+
+void Component::OnMouseHover()
+{
+	
 }

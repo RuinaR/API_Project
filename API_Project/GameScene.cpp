@@ -12,15 +12,17 @@
 #include "Player.h"
 #include "ChangeObject.h"
 #include "StageMaker.h"
-
+#include "RestartBtn.h"
+#include "DebugWindow.h"
 
 void GameScene::Init()
 {
-
+	DebugWindow::Create();
 }
 
 void GameScene::Release()
 {
+	DebugWindow::Destroy();
 }
 
 void GameScene::Start()
@@ -32,27 +34,16 @@ void GameScene::Start()
 
 	m_sMaker->SetMap("testMap");
 
-	cout << "object : " << ObjectManager::GetInstance()->Count() << endl;
-	cout << "collision : " << CollisionManager::GetInstance()->Count() << endl;
-
-}
-
-void GameScene::LBtnDown()
-{
 	m_sMaker->StageStart();
+
+
+	GameObject* btn = new GameObject();
+	btn->Size() = { 200,100 };
+	RestartBtn* re = new RestartBtn();
+	btn->AddComponent(re);
+	btn->SetOrderInLayer(10);
+	btn->InitializeSet();
+	re->SetUIPos({ 0,300 });
+
 }
 
-void GameScene::RBtnDown()
-{
-	GameScene* newScene = new GameScene();
-	newScene->Init();
-	WindowFrame::GetInstance()->SetScene(newScene);
-}
-
-void GameScene::LBtnUp()
-{
-}
-
-void GameScene::RBtnUp()
-{
-}

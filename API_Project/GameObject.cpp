@@ -1,12 +1,12 @@
 #include "pch.h"
 #include "GameObject.h"
+#include "DebugWindow.h"
 GameObject::GameObject() {
     m_vecComponent = new vector<Component*>();
     m_children = new vector<GameObject*>();
 }
 
 GameObject::~GameObject() {
-    cout << "~GameObject()" << endl;
 }
 
 const Vector2D& GameObject::Position() {
@@ -52,21 +52,21 @@ string GameObject::GetTag() {
 }
 
 void GameObject::SetActive(bool isActive) {
-    m_setActive = isActive;
+	m_setActive = isActive;
 }
 
 bool GameObject::GetActive() {
-    return m_setActive;
+	return m_setActive;
 }
 
 void GameObject::SetOrderInLayer(float value) {
-    m_orderInLayer = value;
-    ObjectManager::GetInstance()->UnregisterObject(this);
-    ObjectManager::GetInstance()->RegisterObject(this);
+	m_orderInLayer = value;
+	if (ObjectManager::GetInstance()->UnregisterObject(this))
+		ObjectManager::GetInstance()->RegisterObject(this);
 }
 
 float GameObject::GetOrderInLayer() {
-    return m_orderInLayer;
+	return m_orderInLayer;
 }
 
 Component* GameObject::AddComponent(Component* component) {
@@ -86,7 +86,7 @@ void GameObject::DeleteComponent(Component* component) {
     for (vector<Component*>::iterator itr = m_vecComponent->begin(); itr != m_vecComponent->end(); itr++) {
         if ((*itr) == component) {
             (*itr)->Release();
-            delete(*itr);
+            delete (*itr);
             (*itr) = nullptr;
             m_vecComponent->erase(itr);
             return;
@@ -107,9 +107,12 @@ void GameObject::Release() {
 
 	for (vector<Component*>::iterator itr = m_vecComponent->begin(); itr != m_vecComponent->end(); itr++)
 	{
-		(*itr)->Release();
-		delete(*itr);
-		(*itr) = nullptr;
+        if ((*itr) != nullptr)
+        {
+            (*itr)->Release();
+            delete(*itr);
+            (*itr) = nullptr;
+        }
 	}
 	delete m_vecComponent;
     m_vecComponent = nullptr;
@@ -135,8 +138,29 @@ void GameObject::Update() {
     if (!m_setActive)
         return;
 
-    for (vector<Component*>::iterator itr = m_vecComponent->begin(); itr != m_vecComponent->end(); itr++)
-        (*itr)->Update();
+    RECT rect = {
+        m_position.x - Camera::GetInstance()->GetPos().x,
+        m_position.y - Camera::GetInstance()->GetPos().y,
+        m_position.x - Camera::GetInstance()->GetPos().x + m_size.x,
+		m_position.y - Camera::GetInstance()->GetPos().y + m_size.y };
+	POINT point = { Mouse::GetInstance()->GetPos().X, Mouse::GetInstance()->GetPos().Y };
+
+	for (vector<Component*>::iterator itr = m_vecComponent->begin(); itr != m_vecComponent->end(); itr++)
+	{
+		(*itr)->Update();
+		if (PtInRect(&rect, point))
+		{
+			(*itr)->OnMouseHover();
+
+			//Debug
+			if (DebugWindow::GetInstance() != nullptr)
+			{
+				string text = "--MouseOver--\nTag : " + m_tag + "\n"
+					+ "X " + to_string(m_position.x) + "\nY " + to_string(m_position.y);
+				DebugWindow::GetInstance()->SetText(text);
+			}
+		}
+	}
 }
 
 void GameObject::SetParent(GameObject* obj)
@@ -165,5 +189,81 @@ void GameObject::DeleteChild(GameObject* obj)
             m_children->erase(itr);
             return;
         }
+    }
+}
+
+void GameObject::OnLBtnDown()
+{
+    if (!m_setActive || !m_vecComponent)
+        return;
+
+    RECT rect = {
+         m_position.x - Camera::GetInstance()->GetPos().x,
+         m_position.y - Camera::GetInstance()->GetPos().y,
+         m_position.x - Camera::GetInstance()->GetPos().x + m_size.x,
+         m_position.y - Camera::GetInstance()->GetPos().y + m_size.y };
+    POINT point = { Mouse::GetInstance()->GetPos().X, Mouse::GetInstance()->GetPos().Y };
+
+    if (PtInRect(&rect, point))
+    {
+        for (vector<Component*>::iterator itr = m_vecComponent->begin(); itr != m_vecComponent->end(); itr++)
+            (*itr)->OnLBtnDown();
+    }
+}
+
+void GameObject::OnLBtnUp()
+{
+    if (!m_setActive || !m_vecComponent)
+        return;
+
+    RECT rect = {
+        m_position.x - Camera::GetInstance()->GetPos().x,
+        m_position.y - Camera::GetInstance()->GetPos().y,
+        m_position.x - Camera::GetInstance()->GetPos().x + m_size.x,
+        m_position.y - Camera::GetInstance()->GetPos().y + m_size.y };
+    POINT point = { Mouse::GetInstance()->GetPos().X, Mouse::GetInstance()->GetPos().Y };
+
+	if (PtInRect(&rect, point))
+	{
+		for (vector<Component*>::iterator itr = m_vecComponent->begin(); itr != m_vecComponent->end(); itr++)
+		    	(*itr)->OnLBtnUp();
+	}
+}
+
+void GameObject::OnRBtnDown()
+{
+    if (!m_setActive || !m_vecComponent)
+        return;
+
+    RECT rect = {
+        m_position.x - Camera::GetInstance()->GetPos().x,
+        m_position.y - Camera::GetInstance()->GetPos().y,
+        m_position.x - Camera::GetInstance()->GetPos().x + m_size.x,
+        m_position.y - Camera::GetInstance()->GetPos().y + m_size.y };
+    POINT point = { Mouse::GetInstance()->GetPos().X, Mouse::GetInstance()->GetPos().Y };
+
+    if (PtInRect(&rect, point))
+    {
+        for (vector<Component*>::iterator itr = m_vecComponent->begin(); itr != m_vecComponent->end(); itr++)
+            (*itr)->OnRBtnDown();
+    }
+}
+
+void GameObject::OnRBtnUp()
+{
+    if (!m_setActive || !m_vecComponent)
+        return;
+
+    RECT rect = {
+         m_position.x - Camera::GetInstance()->GetPos().x,
+         m_position.y - Camera::GetInstance()->GetPos().y,
+         m_position.x - Camera::GetInstance()->GetPos().x + m_size.x,
+         m_position.y - Camera::GetInstance()->GetPos().y + m_size.y };
+    POINT point = { Mouse::GetInstance()->GetPos().X, Mouse::GetInstance()->GetPos().Y };
+
+    if (PtInRect(&rect, point))
+    {
+        for (vector<Component*>::iterator itr = m_vecComponent->begin(); itr != m_vecComponent->end(); itr++)
+            (*itr)->OnRBtnUp();
     }
 }

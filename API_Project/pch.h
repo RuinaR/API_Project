@@ -17,6 +17,8 @@
 #include <time.h>
 #include <timeapi.h>
 #include <fstream>
+#include <locale>
+#include <codecvt>
 
 #include "AnimationManager.h"
 #include "ObjectManager.h"
@@ -26,6 +28,7 @@
 #include "Mouse.h"
 #include "Camera.h"
 #include "Buffer.h"
+
 
 #include "game.h"
 
@@ -42,8 +45,13 @@
 #define TARGETFPS 120
 
 #define DEBUGMODE true
-#define DEBUGCOLOR (RGB((0),(255),(0)))
+#define DEBUGCOLOR (RGB((0),(0),(255)))
 
 using namespace std;
 
 
+void DrawTextInRect(HDC hdc, const std::wstring& text, const RECT& rect);
+
+wstring ConvertToWideString(const std::string& narrowStr);
+
+void FillRectWithColor(HDC hdc, const RECT& rect, COLORREF color);

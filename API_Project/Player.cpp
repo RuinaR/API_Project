@@ -340,6 +340,7 @@ Player::~Player()
 
 void Player::Initialize()
 {
+	m_gameObj->SetTag(TAG_PLAYER);
 	m_gameObj->Size() = m_dSize;
 
 	m_mode = PlayerMode::mDefault;
