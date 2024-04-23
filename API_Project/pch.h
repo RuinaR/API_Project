@@ -19,6 +19,7 @@
 #include <fstream>
 #include <locale>
 #include <codecvt>
+#include <sstream>
 
 #include "AnimationManager.h"
 #include "ObjectManager.h"

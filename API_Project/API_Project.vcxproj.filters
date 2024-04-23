@@ -136,7 +136,10 @@
     <ClCompile Include="DebugWindow.cpp">
       <Filter>EngineFramework\Component</Filter>
     </ClCompile>
-    <ClCompile Include="RestartBtn.cpp">
+    <ClCompile Include="ColorButton.cpp">
+      <Filter>EngineFramework\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="RestartButton.cpp">
       <Filter>KirbyGame\Component</Filter>
     </ClCompile>
   </ItemGroup>
@@ -222,7 +225,10 @@
     <ClInclude Include="DebugWindow.h">
       <Filter>EngineFramework\Component</Filter>
     </ClInclude>
-    <ClInclude Include="RestartBtn.h">
+    <ClInclude Include="ColorButton.h">
+      <Filter>EngineFramework\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="RestartButton.h">
       <Filter>KirbyGame\Component</Filter>
     </ClInclude>
   </ItemGroup>

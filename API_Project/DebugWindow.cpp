@@ -19,6 +19,7 @@ void DebugWindow::Start()
 
 void DebugWindow::Update()
 {
+	int bkmode = SetBkMode(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), TRANSPARENT);
 	RECT rect = { 
         m_gameObj->Position().x,
         m_gameObj->Position().y,
@@ -27,10 +28,12 @@ void DebugWindow::Update()
     FillRectWithColor(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), rect, RGB(255, 255, 0));
 	DrawTextInRect(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), 
 		ConvertToWideString(
-			m_text + "\n\n\n" + "---COUNT---\n" + 
+			m_text + 
+			"\n\n\n" + "---Count---\n" + 
 			"object : " + to_string(ObjectManager::GetInstance()->Count()) + "\n"
 			"collider : " + to_string(CollisionManager::GetInstance()->Count())
 		), rect);
+	SetBkMode(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), bkmode);
 }
 
 DebugWindow* DebugWindow::GetInstance()

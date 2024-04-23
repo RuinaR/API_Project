@@ -56,10 +56,6 @@ void CollisionManager::Update()
 	set<Collider*> cloneColSet;
 	for (vector<Collider*>::iterator itr1 = m_objVec->begin(); itr1 != m_objVec->end(); itr1++)
 	{
-		if (DEBUGMODE)
-		{
-			(*itr1)->DrawCollider();
-		}
 		cloneColSet = set<Collider*>((*itr1)->SetCol()->begin(), (*itr1)->SetCol()->end());
 		(*itr1)->SetCol()->clear();
 

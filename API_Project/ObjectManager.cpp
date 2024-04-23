@@ -166,11 +166,7 @@ void ObjectManager::Clear()
 		for (list<GameObject*>::iterator itr = m_Pthis->m_objList->begin(); itr != m_Pthis->m_objList->end(); itr++)
 		{
 			(*itr)->SetDestroy(true);
-			//(*itr)->Release();
-			//delete(*itr);
-			//(*itr) = nullptr;
 		}
-		//m_objList->clear();
 	}
 }
 

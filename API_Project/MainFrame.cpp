@@ -90,6 +90,7 @@ int MainFrame::Run()
                 //UPDATE
                 ObjectManager::GetInstance()->Update();
                 CollisionManager::GetInstance()->Update();
+                
                 //RENDER
                 InvalidateRect(WindowFrame::GetInstance()->GetHWND(), NULL, FALSE);
                 UpdateWindow(WindowFrame::GetInstance()->GetHWND());

@@ -79,6 +79,7 @@ void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup,
                     {
                         BoxCollider* newBo = new BoxCollider();
                         (*rowGroup)[endIdx]->AddComponent(newBo);
+                        (*rowGroup)[endIdx]->SetOrderInLayer(1);
                         newBo->ColSize() =
                         { (double)(UNITSIZE * (startIdx - endIdx + 2)) ,(double)UNITSIZE };
                     }
@@ -207,6 +208,7 @@ void StageMaker::SetMap(string mapName)
                 BoxCollider* newBo = new BoxCollider();
                 m_mapObj[i][j]->AddComponent(newBo);
                 newBo->ColSize() = { UNITSIZE, (double)(UNITSIZE * cnt) };
+                m_mapObj[i][j]->SetOrderInLayer(1);
             }
         }
     }
@@ -234,10 +236,12 @@ void StageMaker::SetMap(string mapName)
 					else
 					{
 						m_mapObj[k][j]->DeleteComponent(bo2);
+                        m_mapObj[k][j]->SetOrderInLayer(0);
                         cnt++;
 					}
 				}
                 bo->ColSize() = { bo->ColSize().x , (double)(UNITSIZE * cnt) };
+                bo->GetGameObject()->SetOrderInLayer(1);
 			}
 		}
 	}

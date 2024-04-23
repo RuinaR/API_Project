@@ -153,7 +153,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="RestartBtn.cpp" />
+    <ClCompile Include="ColorButton.cpp" />
+    <ClCompile Include="RestartButton.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="StageMaker.cpp" />
     <ClCompile Include="WindowFrame.cpp" />
@@ -180,7 +181,8 @@
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="RestartBtn.h" />
+    <ClInclude Include="ColorButton.h" />
+    <ClInclude Include="RestartButton.h" />
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="StageMaker.h" />

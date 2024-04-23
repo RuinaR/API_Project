@@ -12,17 +12,20 @@
 #include "Player.h"
 #include "ChangeObject.h"
 #include "StageMaker.h"
-#include "RestartBtn.h"
+#include "ColorButton.h"
 #include "DebugWindow.h"
+#include "RestartButton.h"
 
 void GameScene::Init()
 {
-	DebugWindow::Create();
+	if (DEBUGMODE)
+		DebugWindow::Create();
 }
 
 void GameScene::Release()
 {
-	DebugWindow::Destroy();
+	if (DEBUGMODE)
+		DebugWindow::Destroy();
 }
 
 void GameScene::Start()
@@ -37,13 +40,18 @@ void GameScene::Start()
 	m_sMaker->StageStart();
 
 
-	GameObject* btn = new GameObject();
-	btn->Size() = { 200,100 };
-	RestartBtn* re = new RestartBtn();
-	btn->AddComponent(re);
-	btn->SetOrderInLayer(10);
-	btn->InitializeSet();
-	re->SetUIPos({ 0,300 });
-
+	GameObject* btnObj = new GameObject();
+	RestartButton* btn = new RestartButton();
+	btnObj->AddComponent(btn);
+	btnObj->SetOrderInLayer(10);
+	btnObj->InitializeSet();
+	btn->SetUIPos({ 0,400 });
+	btn->SetUISize({ 200,50 });
+	btn->SetText(TEXT("재시작 버튼"));
+	btn->SetTextColor(RGB(255, 0, 255));
+	btn->SetDefaultColor(RGB(255, 255, 255));
+	btn->SetHoverColor(RGB(200, 200, 200));
+	btn->SetDownColor(RGB(150, 150, 150));
+	btn->SetTextSize(30);
 }
 

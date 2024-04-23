@@ -153,10 +153,14 @@ void GameObject::Update() {
 			(*itr)->OnMouseHover();
 
 			//Debug
-			if (DebugWindow::GetInstance() != nullptr)
+			if (DEBUGMODE && DebugWindow::GetInstance() != nullptr)
 			{
-				string text = "--MouseOver--\nTag : " + m_tag + "\n"
-					+ "X " + to_string(m_position.x) + "\nY " + to_string(m_position.y);
+                stringstream ss;
+                ss << this;
+                string ptrStr = ss.str();
+                string text = "--MouseOver--\nTag : " + m_tag +
+                    "\nX " + to_string(m_position.x) + "\nY " + to_string(m_position.y) +
+                    "\nptr " + ptrStr;
 				DebugWindow::GetInstance()->SetText(text);
 			}
 		}
