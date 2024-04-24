@@ -160,6 +160,7 @@ void GameObject::Update() {
                 string ptrStr = ss.str();
                 string text = "--MouseOver--\nTag : " + m_tag +
                     "\nX " + to_string(m_position.x) + "\nY " + to_string(m_position.y) +
+                    "\nOrderInLayer : " + to_string(m_orderInLayer) +
                     "\nptr " + ptrStr;
 				DebugWindow::GetInstance()->SetText(text);
 			}

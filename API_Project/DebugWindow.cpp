@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "DebugWindow.h"
-
 DebugWindow* DebugWindow::m_Pthis = nullptr;
 
 void DebugWindow::Initialize()
@@ -19,12 +18,16 @@ void DebugWindow::Start()
 
 void DebugWindow::Update()
 {
+	m_gameObj->SetPosition({
+		m_dwPos.x + Camera::GetInstance()->GetPos().x,
+		m_dwPos.y + Camera::GetInstance()->GetPos().y });
+
 	int bkmode = SetBkMode(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), TRANSPARENT);
-	RECT rect = { 
-        m_gameObj->Position().x,
-        m_gameObj->Position().y,
-		m_gameObj->Position().x + m_gameObj->Size().x,
-        m_gameObj->Position().y + m_gameObj->Size().y };
+	RECT rect = {
+	m_gameObj->Position().x - Camera::GetInstance()->GetPos().x,
+	m_gameObj->Position().y - Camera::GetInstance()->GetPos().y,
+	m_gameObj->Position().x - Camera::GetInstance()->GetPos().x + m_dwSize.x,
+	m_gameObj->Position().y - Camera::GetInstance()->GetPos().y + m_dwSize.y };
     FillRectWithColor(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), rect, RGB(255, 255, 0));
 	DrawTextInRect(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), 
 		ConvertToWideString(
@@ -53,8 +56,8 @@ void DebugWindow::Create()
 		m_Pthis = new DebugWindow();
 		GameObject* DW = new GameObject();
 		DW->AddComponent(m_Pthis);
-		DW->SetPosition({ 0,0 });
-		DW->Size() = { 200,200 };
+		m_Pthis->SetDWPos({ 0, 0 });
+		m_Pthis->SetDWSize({ 200,200 });
 		DW->SetOrderInLayer(10);
 		DW->SetTag("DebugWindow");
 		DW->InitializeSet();
@@ -76,5 +79,17 @@ void DebugWindow::Destroy()
 		}
 		m_Pthis = nullptr;
 	}
+}
+
+void DebugWindow::SetDWSize(Vector2D size)
+{
+	m_dwSize = size;
+	if (m_gameObj)
+		m_gameObj->Size() = m_dwSize;
+}
+
+void DebugWindow::SetDWPos(Vector2D pos)
+{
+	m_dwPos = pos;
 }
 

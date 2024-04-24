@@ -95,7 +95,8 @@ void ColorButton::SetUIPos(Vector2D v)
 void ColorButton::SetUISize(Vector2D v)
 {
 	m_UISize = v;
-	m_gameObj->Size() = m_UISize;
+	if (m_gameObj)
+		m_gameObj->Size() = m_UISize;
 }
 
 void ColorButton::SetDefaultColor(COLORREF col)

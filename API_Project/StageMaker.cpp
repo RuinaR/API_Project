@@ -111,6 +111,7 @@ void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup,
 	{
         GameObject* defaultMon = new GameObject();
        defaultMon->SetTag(TAG_MONSTER);
+       defaultMon->SetOrderInLayer(2);
        defaultMon->Size() = { UNITSIZE / 2, UNITSIZE / 2 };
        defaultMon->SetPosition({ (double)UNITSIZE * i + UNITSIZE / 2 ,(double)UNITSIZE * j + UNITSIZE / 2 });
        defaultMon->AddComponent(new ChangeObject(PlayerMode::mDefault, m_player));
@@ -125,6 +126,7 @@ void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup,
     {
         GameObject* swordMon = new GameObject();
         swordMon->SetTag(TAG_MONSTER);
+        swordMon->SetOrderInLayer(2);
         swordMon->Size() = { UNITSIZE / 2, UNITSIZE / 2 };
         swordMon->SetPosition({ (double)UNITSIZE * i + UNITSIZE / 2,(double)UNITSIZE * j + UNITSIZE / 2 });
         swordMon->AddComponent(new ChangeObject(PlayerMode::mSword, m_player));
@@ -139,6 +141,7 @@ void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup,
 	{
 		GameObject* stoneMon = new GameObject();
 		stoneMon->SetTag(TAG_MONSTER);
+        stoneMon->SetOrderInLayer(2);
 		stoneMon->Size() = { UNITSIZE / 2, UNITSIZE / 2 };
 		stoneMon->SetPosition({ (double)UNITSIZE * i + UNITSIZE / 2,(double)UNITSIZE * j + UNITSIZE / 2 });
 		stoneMon->AddComponent(new ChangeObject(PlayerMode::mStone, m_player));
@@ -259,7 +262,7 @@ void StageMaker::Initialize()
     m_player = new Player();
     m_playerObj->AddComponent(m_player);
     m_playerObj->InitializeSet();
-    m_playerObj->SetOrderInLayer(10);
+    m_playerObj->SetOrderInLayer(5);
 
     m_playerObj->SetActive(false);
 }

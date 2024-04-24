@@ -36,9 +36,7 @@ void GameScene::Start()
 	newObj->InitializeSet();
 
 	m_sMaker->SetMap("testMap");
-
 	m_sMaker->StageStart();
-
 
 	GameObject* btnObj = new GameObject();
 	RestartButton* btn = new RestartButton();
