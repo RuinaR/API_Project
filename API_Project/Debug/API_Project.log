@@ -1,151 +1,22 @@
-﻿  pch.cpp
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\AnimationManager.h(14,2): warning C4091: 'static ': 변수를 선언하지 않으면 'AnimationManager' 왼쪽은 무시됩니다.
-  AnimationManager.cpp
-  AnimationRender.cpp
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\AnimationRender.cpp(40,54): warning C4244: '+=': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  AttackEvent.cpp
-  AttakObject.cpp
-  BitmapRender.cpp
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\BitmapRender.cpp(60,30): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\BitmapRender.cpp(59,30): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\BitmapRender.cpp(58,37): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\BitmapRender.cpp(57,37): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  BoxCollider.cpp
-  Buffer.cpp
-  Camera.cpp
-  ChangeObject.cpp
-  Collider.cpp
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp(57,34): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp(57,23): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp(58,34): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp(58,23): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp(59,34): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp(59,23): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp(60,34): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp(60,21): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp(61,38): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp(61,25): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp(62,34): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp(62,21): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp(63,38): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp(63,25): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp(64,34): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Collider.cpp(64,23): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  CollisionManager.cpp
-  ColorButton.cpp
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\ColorButton.cpp(26,26): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\ColorButton.cpp(26,26): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\ColorButton.cpp(27,26): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\ColorButton.cpp(27,26): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\ColorButton.cpp(28,62): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\ColorButton.cpp(28,62): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\ColorButton.cpp(29,62): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\ColorButton.cpp(29,62): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Component.cpp
-  DebugWindow.cpp
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\DebugWindow.cpp(27,26): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\DebugWindow.cpp(27,26): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\DebugWindow.cpp(28,26): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\DebugWindow.cpp(28,26): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\DebugWindow.cpp(29,62): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\DebugWindow.cpp(29,62): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\DebugWindow.cpp(30,62): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\DebugWindow.cpp(30,62): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Edit.cpp
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(52,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(55,27): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(257,78): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(257,41): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(259,93): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(259,41): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(264,78): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(264,13): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(266,93): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(266,28): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(273,103): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(273,65): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(278,103): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(278,65): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(283,112): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(283,68): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(288,112): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(288,68): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(297,15): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(298,15): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  EditerScene.cpp
-  GameObject.cpp
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(142,22): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(142,22): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(143,22): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(143,22): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(144,58): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(144,58): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(145,52): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(145,52): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(206,23): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(206,23): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(207,23): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(207,23): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(208,59): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(208,59): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(209,59): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(209,59): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(225,22): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(225,22): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(226,22): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(226,22): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(227,58): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(227,58): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(228,58): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(228,58): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(244,22): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(244,22): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(245,22): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(245,22): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(246,58): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(246,58): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(247,58): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(247,58): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(263,23): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(263,23): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(264,23): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(264,23): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(265,59): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(265,59): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(266,59): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\GameObject.cpp(266,59): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  GameScene.cpp
-  MainFrame.cpp
-  Mouse.cpp
-  코드를 생성하고 있습니다...
-  컴파일하고 있습니다...
-  ObjectManager.cpp
-  Player.cpp
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp(421,44): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp(420,73): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp(443,47): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp(443,14): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp(444,48): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp(444,14): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp(446,54): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Player.cpp(446,41): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Rigidbody.cpp
-  SceneChanger.cpp
-  StageMaker.cpp
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(95,38): warning C4018: '>=': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(180,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(184,27): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(193,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(195,27): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(204,39): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(226,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(228,27): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(234,49): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(236,27): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(241,71): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\StageMaker.cpp(241,53): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  StartScene.cpp
-  WindowFrame.cpp
-  main.cpp
-  코드를 생성하고 있습니다...
-  API_Project.vcxproj -> C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\API_Project.exe
+﻿  Edit.cpp
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(51,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(54,27): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(256,78): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(256,41): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(258,93): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(258,41): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(263,78): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(263,13): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(265,93): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(265,28): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(272,103): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(272,65): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(277,103): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(277,65): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(282,112): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(282,68): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(287,112): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(287,68): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(296,15): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(297,15): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  API_Project.vcxproj -> C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\API_Project.exe

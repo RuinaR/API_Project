@@ -21,7 +21,6 @@ vector<string> Edit::ReadMapData(string mapName)
     }
 
     // 파일에서 숫자들을 2차원 배열로 읽어오기
-   
     string line;
     while (getline(inFile, line)) 
     {
@@ -300,10 +299,21 @@ void Edit::Update()
         int indexX = x / UNITSIZE;
         int indexY = y / UNITSIZE;
 
-		if (!m_mapData[indexY][indexX] || m_mapData[indexY][indexX]->GetTag() != TAG_LAND)
+		if (m_mapTypeData[indexY][indexX] != m_select)
 		{
-			if (m_mapData[indexY][indexX])
-				m_mapData[indexY][indexX]->SetDestroy(true);
+            if (m_mapTypeData[indexY][indexX] == MapType::None && m_select == MapType::None)
+                return;
+
+            if (m_mapTypeData[indexY][indexX] != MapType::None)
+            {
+                m_mapData[indexY][indexX]->SetDestroy(true);
+                if (m_select == MapType::None)
+                {
+                    m_mapData[indexY][indexX] = nullptr;
+                    m_mapTypeData[indexY][indexX] = MapType::None;
+                    return;
+                }
+            }
 
             GameObject* newObj = new GameObject();
 			switch (m_select)
