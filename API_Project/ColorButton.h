@@ -15,7 +15,10 @@ protected:
 	wstring m_text = wstring(TEXT(""));
 	int m_textSize = 20;
 
-	virtual void ButtonEvent();
+	void ButtonEvent();
+
+	function<void()> m_event = nullptr;
+
 public:
 	void Initialize() override;
 	void Release() override;
@@ -37,5 +40,8 @@ public:
 	void SetTextColor(COLORREF col);
 	void SetTextSize(int val);
 	void SetText(wstring str);
+
+	// 클래스 멤버 함수를 설정하는 멤버 함수
+	void SetEvent(function<void()> func);
 };
 

@@ -17,19 +17,19 @@ vector<string> StageMaker::ReadMapData(string mapName)
     char buffer[MAX_PATH];
     GetCurrentDirectoryA(MAX_PATH, buffer);
     string currentDirectory = buffer;
-
+    vector<string> mapData;
     // 맵 파일 경로 설정
     string mapFilePath = currentDirectory + "\\Map\\" + mapName + ".txt";
 
     // 파일 열기
     ifstream inFile(mapFilePath);
     if (!inFile) {
-        cerr << "파일을 열 수 없습니다." << endl;
-        exit(1);
+        cout << "파일이 없습니다." << endl;
+        return mapData;
     }
 
     // 파일에서 숫자들을 2차원 배열로 읽어오기
-    vector<string> mapData;
+    
     string line;
     while (getline(inFile, line)) 
     {
@@ -157,7 +157,7 @@ void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup,
 
 void StageMaker::StageStart()
 {
-    if (m_playerObj->GetActive() == false)
+    if (m_playerObj && m_playerObj->GetActive() == false && !m_mapObj.empty())
         m_playerObj->SetActive(true);
 }
 
@@ -172,6 +172,11 @@ void StageMaker::SetMap(string mapName)
 
     WindowFrame::GetInstance()->GetBuffer()->SetBG(m_bg);
     vector<string> mapData = ReadMapData(mapName);
+    if (mapData.empty())
+    {
+        cout << "맵 데이터 없음" << endl;
+        return;
+    }
     for (int i = 0; i < mapData.size(); ++i)
     {
         vector<GameObject*> row;
@@ -179,6 +184,7 @@ void StageMaker::SetMap(string mapName)
         for (int j = 0; j < mapData[i].size(); ++j) 
         {
             MakeMap((MapType)(mapData[i][j] - '0'), j, i, &row, &colrow);
+            cout << "Create Tile Type : " << to_string(mapData[i][j] - '0') << endl;
         }
         m_mapObj.push_back(row);
         m_colInfo.push_back(colrow);
@@ -269,7 +275,6 @@ void StageMaker::Initialize()
 
 void StageMaker::Release()
 {
-
     AnimationManager::ReleaseHBitmap(m_land);
     AnimationManager::ReleaseHBitmap(m_bg);
     AnimationManager::ReleaseHBitmap(m_defaultObj);

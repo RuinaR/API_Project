@@ -85,6 +85,10 @@ void ColorButton::OnMouseHover()
 
 void ColorButton::ButtonEvent()
 {
+	if (m_event)
+	{
+		m_event();
+	}
 }
 
 void ColorButton::SetUIPos(Vector2D v)
@@ -132,4 +136,9 @@ void ColorButton::SetTextSize(int val)
 void ColorButton::SetText(wstring str)
 {
 	m_text = str;
+}
+
+void ColorButton::SetEvent(function<void()> func)
+{
+	m_event = func;
 }

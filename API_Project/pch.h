@@ -20,6 +20,7 @@
 #include <locale>
 #include <codecvt>
 #include <sstream>
+#include <functional>
 
 #include "AnimationManager.h"
 #include "ObjectManager.h"

@@ -9,6 +9,7 @@
 #define TAG_HIT "hit"
 #define TAG_MONSTER "monster"
 
+#define FILE_MAP "map_test"
 
 enum class PlayerArrow
 {

@@ -62,6 +62,12 @@
     <Filter Include="KirbyGame\Component">
       <UniqueIdentifier>{36280518-38e7-44af-88bf-07431587ab69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KirbyGame\StartScene">
+      <UniqueIdentifier>{a72bbc2b-d6e6-4f6a-8112-627f5e253d04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="KirbyGame\EditerScene">
+      <UniqueIdentifier>{b0f446ce-c305-4a13-8add-69ab89dea737}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowFrame.cpp">
@@ -139,7 +145,16 @@
     <ClCompile Include="ColorButton.cpp">
       <Filter>EngineFramework\Component</Filter>
     </ClCompile>
-    <ClCompile Include="RestartButton.cpp">
+    <ClCompile Include="StartScene.cpp">
+      <Filter>KirbyGame\StartScene</Filter>
+    </ClCompile>
+    <ClCompile Include="EditerScene.cpp">
+      <Filter>KirbyGame\EditerScene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneChanger.cpp">
+      <Filter>KirbyGame\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Edit.cpp">
       <Filter>KirbyGame\Component</Filter>
     </ClCompile>
   </ItemGroup>
@@ -228,7 +243,16 @@
     <ClInclude Include="ColorButton.h">
       <Filter>EngineFramework\Component</Filter>
     </ClInclude>
-    <ClInclude Include="RestartButton.h">
+    <ClInclude Include="StartScene.h">
+      <Filter>KirbyGame\StartScene</Filter>
+    </ClInclude>
+    <ClInclude Include="EditerScene.h">
+      <Filter>KirbyGame\EditerScene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneChanger.h">
+      <Filter>KirbyGame\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Edit.h">
       <Filter>KirbyGame\Component</Filter>
     </ClInclude>
   </ItemGroup>

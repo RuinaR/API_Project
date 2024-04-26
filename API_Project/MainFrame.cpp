@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "ObjectManager.h"
 #include "CollisionManager.h"
-#include "GameScene.h"
+#include "StartScene.h"
 #include "DebugWindow.h"
 MainFrame* MainFrame::m_Pthis = nullptr;
 
@@ -41,8 +41,8 @@ Timer& MainFrame::Timer()
 double MainFrame::DeltaTime()
 {
     //cout << m_timer.getTotalDeltaTime() << endl;
-    if (m_timer.getTotalDeltaTime() > 0.2)
-        return 0.2f;
+    if (m_timer.getTotalDeltaTime() > 0.02)
+        return 0.02f;
 	return m_timer.getTotalDeltaTime();
 }
 
@@ -53,7 +53,7 @@ void MainFrame::Initialize(int targetFPS)
 	ObjectManager::Create();
 	CollisionManager::Create();
 
-	m_scene = new GameScene();
+	m_scene = new StartScene();
 	WindowFrame::GetInstance()->SetScene(m_scene);
 }
 

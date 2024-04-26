@@ -143,6 +143,8 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DebugWindow.cpp" />
+    <ClCompile Include="Edit.cpp" />
+    <ClCompile Include="EditerScene.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="main.cpp" />
@@ -154,9 +156,10 @@
     </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ColorButton.cpp" />
-    <ClCompile Include="RestartButton.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
+    <ClCompile Include="SceneChanger.cpp" />
     <ClCompile Include="StageMaker.cpp" />
+    <ClCompile Include="StartScene.cpp" />
     <ClCompile Include="WindowFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +176,8 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DebugWindow.h" />
+    <ClInclude Include="Edit.h" />
+    <ClInclude Include="EditerScene.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />
@@ -182,10 +187,11 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ColorButton.h" />
-    <ClInclude Include="RestartButton.h" />
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneChanger.h" />
     <ClInclude Include="StageMaker.h" />
+    <ClInclude Include="StartScene.h" />
     <ClInclude Include="structs.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="WindowFrame.h" />
