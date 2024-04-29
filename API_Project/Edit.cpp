@@ -479,6 +479,11 @@ void Edit::Update()
             cout << "플레이어는 지울 수 없습니다." << endl;
             return;
         }
+        if (m_select == MapType::Player && m_mapTypeData[indexY][indexX] != MapType::None)
+        {
+            cout << "플레이어는 빈 곳에만 위치할 수 있습니다." << endl;
+            return;
+        }
         if (m_mapTypeData[indexY][indexX] != m_select)
         {    
             while (!m_redoStack.empty())

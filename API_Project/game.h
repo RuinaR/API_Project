@@ -10,7 +10,7 @@ using namespace std;
 #define TAG_HIT "hit"
 #define TAG_MONSTER "monster"
 
-#define FILE_MAP "map_test"
+#define FILE_MAP "map"
 
 #define PLAYER_DEFAULT_X 5
 #define PLAYER_DEFAULT_Y 5

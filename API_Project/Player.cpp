@@ -233,6 +233,7 @@ void Player::Attack_sword()
 		m_atkTrigger = false;
 		GameObject* atk = new GameObject();
 		atk->Size() = { m_atkRange,m_cSize.y };
+		atk->SetOrderInLayer(10);
 		if (m_arrow == PlayerArrow::left)
 		{
 			atk->SetPosition({ m_dOffset.x + m_gameObj->Position().x - m_atkRange - 5, m_dOffset.y + m_gameObj->Position().y });
