@@ -1,22 +1,2 @@
-﻿  Edit.cpp
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(51,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(54,27): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(256,78): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(256,41): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(258,93): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(258,41): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(263,78): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(263,13): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(265,93): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(265,28): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(272,103): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(272,65): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(277,103): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(277,65): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(282,112): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(282,68): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(287,112): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(287,68): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(296,15): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Edit.cpp(297,15): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  API_Project.vcxproj -> C:\Users\jfwj0\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\API_Project.exe
+﻿  GameScene.cpp
+  API_Project.vcxproj -> C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Debug\API_Project.exe

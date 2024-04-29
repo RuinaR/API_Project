@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="EngineFramework">
       <UniqueIdentifier>{dd4429a1-f8a6-469f-af94-01c54d834121}</UniqueIdentifier>
     </Filter>
@@ -68,6 +64,10 @@
     <Filter Include="KirbyGame\EditerScene">
       <UniqueIdentifier>{b0f446ce-c305-4a13-8add-69ab89dea737}</UniqueIdentifier>
     </Filter>
+    <Filter Include="global">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WindowFrame.cpp">
@@ -113,7 +113,7 @@
       <Filter>EngineFramework\Component\Rigidbody</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>헤더 파일</Filter>
+      <Filter>global</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>EngineFramework\GameObject</Filter>
@@ -156,6 +156,9 @@
     </ClCompile>
     <ClCompile Include="Edit.cpp">
       <Filter>KirbyGame\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="gmae.cpp">
+      <Filter>global</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -208,10 +211,10 @@
       <Filter>EngineFramework\Component\Rigidbody</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>global</Filter>
     </ClInclude>
     <ClInclude Include="structs.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>global</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>EngineFramework\MainFrame</Filter>
@@ -229,7 +232,7 @@
       <Filter>KirbyGame\Component</Filter>
     </ClInclude>
     <ClInclude Include="game.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>global</Filter>
     </ClInclude>
     <ClInclude Include="AttackEvent.h">
       <Filter>KirbyGame\Component</Filter>

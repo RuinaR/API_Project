@@ -24,7 +24,7 @@ vector<string> StageMaker::ReadMapData(string mapName)
     // 파일 열기
     ifstream inFile(mapFilePath);
     if (!inFile) {
-        cout << "파일이 없습니다." << endl;
+        cout << "맵 파일이 없습니다." << endl;
         return mapData;
     }
 
@@ -178,25 +178,26 @@ void StageMaker::SetMap(string mapName)
         return;
     }
     for (int i = 0; i < mapData.size(); ++i)
-    {
-        vector<GameObject*> row;
-        vector<bool> colrow;
-        for (int j = 0; j < mapData[i].size(); ++j) 
-        {
-            MakeMap((MapType)(mapData[i][j] - '0'), j, i, &row, &colrow);
-            cout << "Create Tile Type : " << to_string(mapData[i][j] - '0') << endl;
-        }
-        m_mapObj.push_back(row);
-        m_colInfo.push_back(colrow);
-    }
-    
-    for (int i = 0; i < m_mapObj.size(); i++) //나머지 세로줄 콜라이더를 합쳐서 생성하는 작업
-    {
-        for (int j = 0; j < m_mapObj[i].size(); j++)
-        {
-            if (m_mapObj[i][j] != nullptr && 
-                m_mapObj[i][j]->GetTag() == TAG_LAND && 
-                m_mapObj[i][j]->GetComponent<BoxCollider>() == nullptr &&
+	{
+		vector<GameObject*> row;
+		vector<bool> colrow;
+		for (int j = 0; j < mapData[i].size(); ++j)
+		{
+			MakeMap((MapType)(mapData[i][j] - '0'), j, i, &row, &colrow);
+			if ((MapType)(mapData[i][j] - '0') != MapType::None)
+				cout << "Create Tile Type : " << MapTypeToString((MapType)(mapData[i][j] - '0')) << endl;
+		}
+		m_mapObj.push_back(row);
+		m_colInfo.push_back(colrow);
+	}
+
+	for (int i = 0; i < m_mapObj.size(); i++) //나머지 세로줄 콜라이더를 합쳐서 생성하는 작업
+	{
+		for (int j = 0; j < m_mapObj[i].size(); j++)
+		{
+			if (m_mapObj[i][j] != nullptr &&
+				m_mapObj[i][j]->GetTag() == TAG_LAND &&
+				m_mapObj[i][j]->GetComponent<BoxCollider>() == nullptr &&
                 m_colInfo[i][j] == false)
             {
                 int cnt = 1;

@@ -5,22 +5,19 @@
 
 void StartScene::Init()
 {
+	SceneChanger::Create();
 	m_bg = AnimationManager::LoadHBitmap("Bitmaps\\obj\\BG");
 }
 
 void StartScene::Release()
 {
+	SceneChanger::Destroy();
 	AnimationManager::ReleaseHBitmap(m_bg);
 }
 
 void StartScene::Start()
 {
 	WindowFrame::GetInstance()->GetBuffer()->SetBG(m_bg);
-
-	GameObject* Obj = new GameObject();
-	SceneChanger* sceneChanger = new SceneChanger();
-	Obj->AddComponent(sceneChanger);
-	Obj->InitializeSet();
 
 	GameObject* btnObj = new GameObject();
 	ColorButton* btn = new ColorButton();
@@ -35,7 +32,7 @@ void StartScene::Start()
 	btn->SetHoverColor(RGB(200, 200, 200));
 	btn->SetDownColor(RGB(150, 150, 150));
 	btn->SetTextSize(20);
-	btn->SetEvent(bind(&SceneChanger::ChangeGameScene, sceneChanger));
+	btn->SetEvent(bind(&SceneChanger::ChangeGameScene, SceneChanger::GetInstance()));
 
 	GameObject* btnObj2 = new GameObject();
 	ColorButton* btn2 = new ColorButton();
@@ -50,5 +47,5 @@ void StartScene::Start()
 	btn2->SetHoverColor(RGB(200, 200, 200));
 	btn2->SetDownColor(RGB(150, 150, 150));
 	btn2->SetTextSize(20);
-	btn2->SetEvent(bind(&SceneChanger::ChangeEditScene, sceneChanger));
+	btn2->SetEvent(bind(&SceneChanger::ChangeEditScene, SceneChanger::GetInstance()));
 }

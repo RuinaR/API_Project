@@ -1,4 +1,5 @@
 #pragma once
+using namespace std;
 
 #define UNITSIZE 100
 
@@ -54,3 +55,6 @@ enum class MapType
 	StoneMon = 5,
 	max
 };
+
+
+string MapTypeToString(MapType type);

@@ -1,14 +1,7 @@
 #include "pch.h"
 #include "GameScene.h"
-#include "AnimationRender.h"
-#include "BitmapRender.h"
 #include "Component.h"
 #include "GameObject.h"
-#include "BitmapRender.h"
-#include "AnimationRender.h"
-#include "BoxCollider.h"
-#include "Collider.h"
-#include "Rigidbody.h"
 #include "Player.h"
 #include "ChangeObject.h"
 #include "StageMaker.h"
@@ -18,12 +11,14 @@
 
 void GameScene::Init()
 {
+	SceneChanger::Create();
 	if (DEBUGMODE)
 		DebugWindow::Create();
 }
 
 void GameScene::Release()
 {
+	SceneChanger::Destroy();
 	if (DEBUGMODE)
 		DebugWindow::Destroy();
 }
@@ -34,14 +29,8 @@ void GameScene::Start()
 	m_sMaker = new StageMaker();
 	newObj->AddComponent(m_sMaker);
 	newObj->InitializeSet();
-
 	m_sMaker->SetMap(FILE_MAP);
 	m_sMaker->StageStart();
-
-	GameObject* Obj = new GameObject();
-	SceneChanger* sceneChanger = new SceneChanger();
-	Obj->AddComponent(sceneChanger);
-	Obj->InitializeSet();
 
 	GameObject* btnObj = new GameObject();
 	ColorButton* btn = new ColorButton();
@@ -56,7 +45,7 @@ void GameScene::Start()
 	btn->SetHoverColor(RGB(200, 200, 200));
 	btn->SetDownColor(RGB(150, 150, 150));
 	btn->SetTextSize(20);
-	btn->SetEvent(bind(&SceneChanger::ChangeGameScene, sceneChanger));
+	btn->SetEvent(bind(&SceneChanger::ChangeGameScene, SceneChanger::GetInstance()));
 
 	GameObject* btnObj2 = new GameObject();
 	ColorButton* btn2 = new ColorButton();
@@ -71,7 +60,7 @@ void GameScene::Start()
 	btn2->SetHoverColor(RGB(200, 200, 200));
 	btn2->SetDownColor(RGB(150, 150, 150));
 	btn2->SetTextSize(20);
-	btn2->SetEvent(bind(&SceneChanger::ChangeStartScene, sceneChanger));
+	btn2->SetEvent(bind(&SceneChanger::ChangeStartScene, SceneChanger::GetInstance()));
 
 }
 

@@ -5,12 +5,14 @@
 #include "DebugWindow.h"
 void EditerScene::Init()
 {
+	SceneChanger::Create();
 	DebugWindow::Create();
 	DebugWindow::GetInstance()->SetDWPos({ 0,70 });
 }
 
 void EditerScene::Release()
 {
+	SceneChanger::Destroy();
 	DebugWindow::Destroy();
 }
 
@@ -22,11 +24,6 @@ void EditerScene::Start()
 	newObj->InitializeSet();
 	m_edit->SetMap(FILE_MAP);
 
-
-	GameObject* Obj = new GameObject();
-	SceneChanger* sceneChanger = new SceneChanger();
-	Obj->AddComponent(sceneChanger);
-	Obj->InitializeSet();
 
 	GameObject* btnObj = new GameObject();
 	ColorButton* btn = new ColorButton();
@@ -41,5 +38,5 @@ void EditerScene::Start()
 	btn->SetHoverColor(RGB(200, 200, 200));
 	btn->SetDownColor(RGB(150, 150, 150));
 	btn->SetTextSize(20);
-	btn->SetEvent(bind(&SceneChanger::ChangeStartScene, sceneChanger));
+	btn->SetEvent(bind(&SceneChanger::ChangeStartScene, SceneChanger::GetInstance()));
 }

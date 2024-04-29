@@ -16,7 +16,7 @@ vector<string> Edit::ReadMapData(string mapName)
     // 파일 열기
     ifstream inFile(mapFilePath);
     if (!inFile) {
-        cout << "파일이 존재하지 않음, 새 맵 파일을 만듭니다" << endl;
+        cout << "파일이 존재하지 않음, 새 맵 데이터 파일을 만듭니다" << endl;
         return mapData;
     }
 
@@ -67,7 +67,7 @@ void Edit::WriteMapData()
     // 파일 닫기
     file.close();
 
-    cout << "파일에 데이터를 성공적으로 썼습니다." << endl;
+    cout << "파일에 맵 데이터를 성공적으로 저장했습니다." << endl;
 }
 
 GameObject* Edit::DrawMap(MapType t, int i, int j)
@@ -366,14 +366,15 @@ void Edit::SetMap(string mapName)
     if (strMapData.empty())
         return;
 
-    for (int i = 0; i < m_count; ++i)
-    {
-        vector<GameObject*> row;
-        for (int j = 0; j < m_count; ++j)
-        {
-            m_mapData[i][j] = DrawMap((MapType)(strMapData[i][j] - '0'), j, i);
-            m_mapTypeData[i][j] = (MapType)(strMapData[i][j] - '0'); 
-            cout << "Draw Tile Type : " << to_string(strMapData[i][j] - '0') << endl;
-        }
-    }
+	for (int i = 0; i < m_count; ++i)
+	{
+		vector<GameObject*> row;
+		for (int j = 0; j < m_count; ++j)
+		{
+			m_mapData[i][j] = DrawMap((MapType)(strMapData[i][j] - '0'), j, i);
+			m_mapTypeData[i][j] = (MapType)(strMapData[i][j] - '0');
+			if ((MapType)(strMapData[i][j] - '0') != MapType::None)
+				cout << "Draw Tile Type : " << MapTypeToString((MapType)(strMapData[i][j] - '0')) << endl;
+		}
+	}
 }
