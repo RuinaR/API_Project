@@ -8,6 +8,7 @@
 #include "ChangeObject.h"
 #include "AttakObject.h"
 #include "AttackEvent.h"
+#include "DebugWindow.h"
 
 float Lerp(float start, float end, float t)
 {
@@ -544,6 +545,14 @@ void Player::Update()
 	}
 	else
 		m_jumpFlyTrigger = true;
+
+
+	//Debug
+	if (DEBUGMODE && DebugWindow::GetInstance() != nullptr)
+	{
+		string text = "Player Velocity :\nX:" + to_string(m_rig->Velocity().x) + " \nY:" + to_string(m_rig->Velocity().y);
+		DebugWindow::GetInstance()->SetText2(text);
+	}
 }
 
 PlayerAState Player::GetState()

@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <Windows.h>
+
 using namespace std;
 struct Vector2D
 {

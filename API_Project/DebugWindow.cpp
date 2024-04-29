@@ -31,10 +31,9 @@ void DebugWindow::Update()
     FillRectWithColor(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), rect, RGB(255, 255, 0));
 	DrawTextInRect(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), 
 		ConvertToWideString(
-			m_text + 
-			"\n\n\n" + "---Count---\n" + 
-			"object : " + to_string(ObjectManager::GetInstance()->Count()) + "\n"
-			"collider : " + to_string(CollisionManager::GetInstance()->Count())
+			m_text1 + "\n\n" +
+			m_text2 + "\n\n" +
+			m_text3 + "\n\n"			
 		), rect);
 	SetBkMode(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), bkmode);
 }
@@ -44,10 +43,6 @@ DebugWindow* DebugWindow::GetInstance()
     return m_Pthis;
 }
 
-void DebugWindow::SetText(string text)
-{
-	m_text = text;
-}
 
 void DebugWindow::Create()
 {
@@ -57,7 +52,7 @@ void DebugWindow::Create()
 		GameObject* DW = new GameObject();
 		DW->AddComponent(m_Pthis);
 		m_Pthis->SetDWPos({ 0, 0 });
-		m_Pthis->SetDWSize({ 200,200 });
+		m_Pthis->SetDWSize({ 200,400 });
 		DW->SetOrderInLayer(10);
 		DW->SetTag("DebugWindow");
 		DW->InitializeSet();
@@ -79,6 +74,21 @@ void DebugWindow::Destroy()
 		}
 		m_Pthis = nullptr;
 	}
+}
+
+void DebugWindow::SetText1(string text)
+{
+	m_text1 = text;
+}
+
+void DebugWindow::SetText2(string text)
+{
+	m_text2 = text;
+}
+
+void DebugWindow::SetText3(string text)
+{
+	m_text3 = text;
 }
 
 void DebugWindow::SetDWSize(Vector2D size)

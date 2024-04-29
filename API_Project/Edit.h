@@ -18,6 +18,9 @@ private:
 
 	MapType m_select = MapType::None;
 
+	stack<UndoRedoData> m_undoStack = stack<UndoRedoData>();
+	stack<UndoRedoData> m_redoStack = stack<UndoRedoData>();
+
 	ColorButton* m_selectBtn[(int)MapType::max];
 	ColorButton* m_InitMapBtn = nullptr;
 	void WriteMapData();
@@ -29,6 +32,9 @@ private:
 	void SelectStoneMon();
 	void SelectPlayer();
 	void InitMap();
+	void ReDrawMapObj(int indexX, int indexY, MapType type);
+	void Undo();
+	void Redo();
 public:
 	void Initialize() override;
 	void Release() override;

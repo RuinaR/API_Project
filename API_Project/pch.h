@@ -21,6 +21,7 @@
 #include <codecvt>
 #include <sstream>
 #include <functional>
+#include <stack>
 
 #include "AnimationManager.h"
 #include "ObjectManager.h"

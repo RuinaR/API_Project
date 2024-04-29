@@ -4,6 +4,7 @@
 #include "Collider.h"
 #include "BoxCollider.h"
 #include "Component.h"
+#include "DebugWindow.h"
 
 BOOL Rigidbody::SetNoIntersect(const LPRECT pHold, LPRECT pRect)
 {
@@ -19,15 +20,15 @@ BOOL Rigidbody::SetNoIntersect(const LPRECT pHold, LPRECT pRect)
 				m_isOnLand = true;
 				pRect->top -= nH;
 				pRect->bottom -= nH;
-				/*if (m_velocity.y > 0)
-				m_velocity.y = 0;*/
+				if (m_velocity.y > 0)
+				m_velocity.y = 0;
 			}
 			else if (rcInter.bottom == pHold->bottom)
 			{
 				pRect->top += nH;
 				pRect->bottom += nH;
-			/*	if (m_velocity.y < 0)
-					m_velocity.y = 0;*/
+				if (m_velocity.y < 0)
+					m_velocity.y = 0;
 			}
 		}
 		else
@@ -36,15 +37,15 @@ BOOL Rigidbody::SetNoIntersect(const LPRECT pHold, LPRECT pRect)
 			{
 				pRect->left -= nW;
 				pRect->right -= nW;
-				/*if (m_velocity.x > 0)
-					m_velocity.x = 0;*/
+				if (m_velocity.x > 0)
+					m_velocity.x = 0;
 			}
 			else if (rcInter.right == pHold->right)
 			{
 				pRect->left += nW;
 				pRect->right += nW;
-				/*if (m_velocity.x < 0)
-					m_velocity.x = 0;*/
+				if (m_velocity.x < 0)
+					m_velocity.x = 0;
 			}
 		}
 		return TRUE;
@@ -86,9 +87,11 @@ void Rigidbody::Update()
 	if (abs(m_velocity.x) < 20.0f && abs(m_velocity.y) < 20.0f)
 		return;
 
-	m_gameObj->AddPosition(Vector2D({
-		(float)(m_velocity.x * MainFrame::GetInstance()->DeltaTime()) ,
-		(float)(m_velocity.y * MainFrame::GetInstance()->DeltaTime()) }));
+	Vector2D move;
+	move.x = (float)(m_velocity.x * MainFrame::GetInstance()->DeltaTime());
+	move.y = (float)(m_velocity.y * MainFrame::GetInstance()->DeltaTime());
+
+	m_gameObj->AddPosition(move);
 }
 
 void Rigidbody::CollisionEnter(Collider* other)

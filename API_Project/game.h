@@ -12,6 +12,9 @@ using namespace std;
 
 #define FILE_MAP "map_test"
 
+#define PLAYER_DEFAULT_X 5
+#define PLAYER_DEFAULT_Y 5
+
 enum class PlayerArrow
 {
 	left,
@@ -56,5 +59,13 @@ enum class MapType
 	max
 };
 
+struct UndoRedoData
+{
+	int x;
+	int y;
+	MapType type;
+	bool isErase;
+};
 
 string MapTypeToString(MapType type);
+

@@ -170,8 +170,164 @@ void Edit::InitMap()
                 m_mapData[i][j]->SetDestroy(true);
                 m_mapData[i][j] = nullptr;
             }
-            m_mapTypeData[i][j] = MapType::None;
+			m_mapTypeData[i][j] = MapType::None;
+		}
+	}
+	while (!m_redoStack.empty())
+		m_redoStack.pop();
+	while (!m_undoStack.empty())
+		m_undoStack.pop();
+
+    m_mapData[PLAYER_DEFAULT_Y][PLAYER_DEFAULT_X] = DrawMap(MapType::Player, PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y);
+    m_mapTypeData[PLAYER_DEFAULT_Y][PLAYER_DEFAULT_X] = MapType::Player;
+}
+
+void Edit::ReDrawMapObj(int indexX, int indexY, MapType type)
+{
+    cout << "RedoStackSize : " << m_redoStack.size() << endl;
+    cout << "UndoStackSize : " << m_undoStack.size() << endl;
+
+	if (m_mapTypeData[indexY][indexX] != MapType::None)
+	{
+		m_mapData[indexY][indexX]->SetDestroy(true);
+		if (type == MapType::None)
+		{
+			m_mapData[indexY][indexX] = nullptr;
+			m_mapTypeData[indexY][indexX] = MapType::None;
+			return;
+		}
+	}
+
+	GameObject* newObj = new GameObject();
+	switch (type)
+	{
+	case MapType::None:
+		break;
+	case MapType::Block:
+		newObj->AddComponent(new BitmapRender(m_land));
+		break;
+	case MapType::Player:
+		newObj->AddComponent(new BitmapRender(m_player));
+		for (int i = 0; i < m_count; ++i)
+		{
+			for (int j = 0; j < m_count; ++j)
+			{
+				if (m_mapTypeData[i][j] == MapType::Player)
+				{
+					m_mapData[i][j]->SetDestroy(true);
+					m_mapData[i][j] = nullptr;
+					m_mapTypeData[i][j] = MapType::None;
+				}
+			}
+		}
+		break;
+	case MapType::DefaultMon:
+		newObj->AddComponent(new BitmapRender(m_defaultObj));
+		break;
+	case MapType::SwordMon:
+		newObj->AddComponent(new BitmapRender(m_swordObj));
+		break;
+	case MapType::StoneMon:
+		newObj->AddComponent(new BitmapRender(m_stoneObj));
+		break;
+	}
+
+	newObj->Size() = { UNITSIZE, UNITSIZE };
+	newObj->SetPosition({ (double)UNITSIZE * indexX + UNITSIZE / 2 ,(double)UNITSIZE * indexY + UNITSIZE / 2 });
+	newObj->InitializeSet();
+
+	m_mapData[indexY][indexX] = newObj;
+	m_mapTypeData[indexY][indexX] = type;
+}
+
+void Edit::Undo()
+{
+    if (m_undoStack.empty())
+        return;
+
+    UndoRedoData data = m_undoStack.top();
+    m_undoStack.pop();
+
+    UndoRedoData newData = data; 
+    newData.isErase = !newData.isErase;
+    if (data.isErase)
+    {
+        m_redoStack.push(newData);
+        ReDrawMapObj(data.x, data.y, MapType::None);
+    }
+	else if (data.type == MapType::Player)
+	{
+		newData.isErase = false;
+		for (int i = 0; i < m_mapTypeData.size(); i++)
+		{
+			bool isFind = false;
+			for (int j = 0; j < m_mapTypeData[i].size(); j++)
+			{
+				if (m_mapTypeData[i][j] == MapType::Player)
+				{
+					newData.x = j;
+					newData.y = i;
+					isFind = true;
+					break;
+				}
+			}
+			if (isFind)
+				break;
+		}
+		newData.type = MapType::Player;
+		m_redoStack.push(newData);
+		ReDrawMapObj(data.x, data.y, data.type);
+	}
+    else
+    {
+        m_redoStack.push(newData);
+        ReDrawMapObj(data.x, data.y, data.type);
+    }
+}
+
+void Edit::Redo()
+{
+    if (m_redoStack.empty())
+        return;
+
+    UndoRedoData data = m_redoStack.top();
+    m_redoStack.pop();
+
+    UndoRedoData newData = data; 
+    newData.isErase = !newData.isErase;
+
+    if (data.isErase)
+    {
+        m_undoStack.push(newData);
+        ReDrawMapObj(data.x, data.y, MapType::None);
+    }
+    else if (data.type == MapType::Player)
+    {
+        newData.isErase = false;
+        for (int i = 0; i < m_mapTypeData.size(); i++)
+        {
+            bool isFind = false;
+            for (int j = 0; j < m_mapTypeData[i].size(); j++)
+            {
+                if (m_mapTypeData[i][j] == MapType::Player)
+                {
+                    newData.x = j;
+                    newData.y = i;
+                    isFind = true;
+                    break;
+                }
+            }
+            if (isFind)
+                break;
         }
+        newData.type = MapType::Player;
+        m_undoStack.push(newData);
+        ReDrawMapObj(data.x, data.y, data.type);
+    }
+    else
+    {
+        m_undoStack.push(newData);
+        ReDrawMapObj(data.x, data.y, data.type);
     }
 }
 
@@ -210,6 +366,26 @@ void Edit::Initialize()
     obj->InitializeSet();
     m_InitMapBtn->SetText(TEXT("초기화"));
     m_InitMapBtn->SetEvent(bind(&Edit::InitMap, this));
+
+    GameObject* objUndo = new GameObject();
+    ColorButton* btnUndo = new ColorButton();
+    objUndo->AddComponent(btnUndo);
+    btnUndo->SetUIPos({ 900, 10 });
+    btnUndo->SetUISize({ 90,50 });
+    objUndo->SetOrderInLayer(10);
+    objUndo->InitializeSet();
+    btnUndo->SetText(TEXT("UnDo"));
+    btnUndo->SetEvent(bind(&Edit::Undo, this));
+
+    GameObject* objRedo = new GameObject();
+    ColorButton* btnRedo = new ColorButton();
+    objRedo->AddComponent(btnRedo);
+    btnRedo->SetUIPos({ 1000, 10 });
+    btnRedo->SetUISize({ 90,50 });
+    objRedo->SetOrderInLayer(10);
+    objRedo->InitializeSet();
+    btnRedo->SetText(TEXT("ReDo"));
+    btnRedo->SetEvent(bind(&Edit::Redo, this));
 
     m_selectBtn[(int)MapType::None]->SetEvent(bind(&Edit::SelectNone, this));
     m_selectBtn[(int)MapType::Block]->SetEvent(bind(&Edit::SelectLand, this));
@@ -298,63 +474,59 @@ void Edit::Update()
 
         int indexX = x / UNITSIZE;
         int indexY = y / UNITSIZE;
-
-		if (m_mapTypeData[indexY][indexX] != m_select)
-		{
-            if (m_mapTypeData[indexY][indexX] == MapType::None && m_select == MapType::None)
-                return;
-
-            if (m_mapTypeData[indexY][indexX] != MapType::None)
+        if (m_mapTypeData[indexY][indexX] == MapType::Player)
+        {
+            cout << "플레이어는 지울 수 없습니다." << endl;
+            return;
+        }
+        if (m_mapTypeData[indexY][indexX] != m_select)
+        {    
+            while (!m_redoStack.empty())
             {
-                m_mapData[indexY][indexX]->SetDestroy(true);
-                if (m_select == MapType::None)
-                {
-                    m_mapData[indexY][indexX] = nullptr;
-                    m_mapTypeData[indexY][indexX] = MapType::None;
-                    return;
-                }
+                m_redoStack.pop();
             }
-
-            GameObject* newObj = new GameObject();
-			switch (m_select)
-			{
-			case MapType::None:
-				break;
-			case MapType::Block:
-                newObj->AddComponent(new BitmapRender(m_land));
-				break;
-			case MapType::Player:
-                newObj->AddComponent(new BitmapRender(m_player));
-                for (int i = 0; i < m_count; ++i)
+ 
+            UndoRedoData undoData;
+            undoData.x = indexX;
+            undoData.y = indexY;
+            if (m_select == MapType::None )
+            {
+                undoData.isErase = false;
+                undoData.type = m_mapTypeData[indexY][indexX];
+                m_undoStack.push(undoData);
+                ReDrawMapObj(indexX, indexY, m_select);
+            }
+            else if (m_select == MapType::Player)
+            {
+                undoData.isErase = false;
+                for (int i = 0; i < m_mapTypeData.size(); i++)
                 {
-                    for (int j = 0; j < m_count; ++j)
+                    bool isFind = false;
+                    for (int j = 0; j < m_mapTypeData[i].size(); j++)
                     {
                         if (m_mapTypeData[i][j] == MapType::Player)
                         {
-                            m_mapData[i][j]->SetDestroy(true);
-                            m_mapData[i][j] = nullptr;
-                            m_mapTypeData[i][j] = MapType::None;
+                            undoData.x = j;
+                            undoData.y = i;
+                            isFind = true;
+                            break;
                         }
                     }
+                    if (isFind)
+                        break;
                 }
-				break;
-            case MapType::DefaultMon:
-                newObj->AddComponent(new BitmapRender(m_defaultObj));
-                break;
-            case MapType::SwordMon:
-                newObj->AddComponent(new BitmapRender(m_swordObj));
-                break;
-            case MapType::StoneMon:
-                newObj->AddComponent(new BitmapRender(m_stoneObj));
-                break;
-			}      
-            
-            newObj->Size() = { UNITSIZE, UNITSIZE };
-            newObj->SetPosition({ (double)UNITSIZE * indexX + UNITSIZE / 2 ,(double)UNITSIZE * indexY + UNITSIZE / 2 });
-            newObj->InitializeSet();
-            m_mapData[indexY][indexX] = newObj;
-            m_mapTypeData[indexY][indexX] = m_select;
-		}
+                undoData.type = MapType::Player;
+                m_undoStack.push(undoData);
+                ReDrawMapObj(indexX, indexY, m_select);
+            }
+            else
+            {
+                ReDrawMapObj(indexX, indexY, m_select);
+                undoData.isErase = true;
+                undoData.type = m_mapTypeData[indexY][indexX];
+                m_undoStack.push(undoData);
+            }
+        }
 	}
 }
 
@@ -364,7 +536,11 @@ void Edit::SetMap(string mapName)
 
     vector<string> strMapData = ReadMapData(mapName);
     if (strMapData.empty())
+    {
+        m_mapTypeData[PLAYER_DEFAULT_Y][PLAYER_DEFAULT_X] = MapType::Player;
+        m_mapData[PLAYER_DEFAULT_Y][PLAYER_DEFAULT_X] = DrawMap(MapType::Player, PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y);
         return;
+    }
 
 	for (int i = 0; i < m_count; ++i)
 	{

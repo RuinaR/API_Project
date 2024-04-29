@@ -26,7 +26,6 @@ void GameObject::AddPosition(Vector2D v)
 {
 	m_position.x += v.x;
 	m_position.y += v.y;
-
 	for (vector<GameObject*>::iterator itr = m_children->begin(); itr != m_children->end(); itr++)
 		(*itr)->AddPosition(v);
 }
@@ -155,14 +154,17 @@ void GameObject::Update() {
 			//Debug
 			if (DEBUGMODE && DebugWindow::GetInstance() != nullptr)
 			{
-                stringstream ss;
-                ss << this;
-                string ptrStr = ss.str();
                 string text = "--MouseOver--\nTag : " + m_tag +
                     "\nX " + to_string(m_position.x) + "\nY " + to_string(m_position.y) +
-                    "\nOrderInLayer : " + to_string(m_orderInLayer) +
-                    "\nptr " + ptrStr;
-				DebugWindow::GetInstance()->SetText(text);
+                    "\nOrderInLayer : " + to_string(m_orderInLayer) + "\n--Component--\n";
+                for (vector<Component*>::iterator itr = m_vecComponent->begin(); itr != m_vecComponent->end(); itr++)
+                {
+                    const type_info& typeInfo = typeid(**itr);
+                    const char* className = typeInfo.name();
+                    string classNameStr = className;
+                    text.append(classNameStr + "\n");
+                }
+				DebugWindow::GetInstance()->SetText1(text);
 			}
 		}
 	}

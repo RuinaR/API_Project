@@ -7,7 +7,7 @@ void EditerScene::Init()
 {
 	SceneChanger::Create();
 	DebugWindow::Create();
-	DebugWindow::GetInstance()->SetDWPos({ 0,70 });
+	DebugWindow::GetInstance()->SetDWPos({ 0,400 });
 }
 
 void EditerScene::Release()
