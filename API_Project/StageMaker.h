@@ -18,7 +18,7 @@ protected:
 	vector<vector<bool>> m_colInfo = vector<vector<bool>>();
 public:
 	void StageStart();
-	void SetMap(string mapName);
+	bool SetMap(string mapName);
 	void Initialize() override;
 	void Release() override;
 	void Start() override;

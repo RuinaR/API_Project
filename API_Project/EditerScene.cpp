@@ -3,27 +3,22 @@
 #include "ColorButton.h"
 #include "SceneChanger.h"
 #include "DebugWindow.h"
-void EditerScene::Init()
+void EditerScene::StartEdit()
 {
-	SceneChanger::Create();
-	DebugWindow::Create();
-	DebugWindow::GetInstance()->SetDWPos({ 0,400 });
-}
+	string mapName = m_input->GetString();
+	if (mapName.empty())
+	{
+		MessageBox(WindowFrame::GetInstance()->GetHWND(), TEXT("맵 이름 입력 하세요"), TEXT("알림"), MB_OK);
+		return;
+	}
+	m_btn->GetGameObject()->SetDestroy(true);
+	m_input->GetGameObject()->SetDestroy(true);
 
-void EditerScene::Release()
-{
-	SceneChanger::Destroy();
-	DebugWindow::Destroy();
-}
-
-void EditerScene::Start()
-{
 	GameObject* newObj = new GameObject();
 	m_edit = new Edit();
 	newObj->AddComponent(m_edit);
 	newObj->InitializeSet();
-	m_edit->SetMap(FILE_MAP);
-
+	m_edit->SetMap(mapName);
 
 	GameObject* btnObj = new GameObject();
 	ColorButton* btn = new ColorButton();
@@ -39,4 +34,44 @@ void EditerScene::Start()
 	btn->SetDownColor(RGB(150, 150, 150));
 	btn->SetTextSize(20);
 	btn->SetEvent(bind(&SceneChanger::ChangeStartScene, SceneChanger::GetInstance()));
+}
+void EditerScene::Init()
+{
+	m_bg = AnimationManager::LoadHBitmap("Bitmaps\\obj\\BG");
+	SceneChanger::Create();
+	DebugWindow::Create();
+	DebugWindow::GetInstance()->SetDWPos({ 0,400 });
+}
+
+void EditerScene::Release()
+{
+	AnimationManager::ReleaseHBitmap(m_bg);
+	SceneChanger::Destroy();
+	DebugWindow::Destroy();
+}
+
+void EditerScene::Start()
+{
+	WindowFrame::GetInstance()->GetBuffer()->SetBG(m_bg);
+
+	GameObject* obj = new GameObject();
+	m_input = new InputString();
+	obj->AddComponent(m_input);
+	obj->SetOrderInLayer(10);
+	obj->InitializeSet();
+
+	GameObject* btnObj = new GameObject();
+	m_btn = new ColorButton();
+	btnObj->AddComponent(m_btn);
+	btnObj->SetOrderInLayer(10);
+	btnObj->InitializeSet();
+	m_btn->SetUIPos({ 0,200 });
+	m_btn->SetUISize({ 190,50 });
+	m_btn->SetText(TEXT("Start Edit"));
+	m_btn->SetTextColor(RGB(255, 0, 255));
+	m_btn->SetDefaultColor(RGB(255, 255, 255));
+	m_btn->SetHoverColor(RGB(200, 200, 200));
+	m_btn->SetDownColor(RGB(150, 150, 150));
+	m_btn->SetTextSize(20);
+	m_btn->SetEvent(bind(&EditerScene::StartEdit, this));
 }

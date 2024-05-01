@@ -43,6 +43,7 @@ LRESULT WindowFrame::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPa
 	case WM_CREATE:
 		return 0;
 	case WM_LBUTTONDOWN:
+		SetFocus(hWnd);
 		Mouse::GetInstance()->SetLeftBtn(true);
 		Mouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
 		ObjectManager::GetInstance()->OnLBtnDown();
@@ -53,6 +54,7 @@ LRESULT WindowFrame::WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPa
 		ObjectManager::GetInstance()->OnLBtnUp();
 		return 0;
 	case WM_RBUTTONDOWN:
+		SetFocus(hWnd);
 		Mouse::GetInstance()->SetRightBtn(true);
 		Mouse::GetInstance()->SetPos(LOWORD(lParam), HIWORD(lParam));
 		ObjectManager::GetInstance()->OnRBtnDown();
@@ -129,7 +131,7 @@ void WindowFrame::BuildWindow()
 
 	m_Pthis->m_hWnd =
 		CreateWindow(WndClass.lpszClassName, WndClass.lpszClassName,
-			WS_OVERLAPPEDWINDOW,
+			WS_OVERLAPPEDWINDOW | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
 			0, 0, MAXWINDOWW, MAXWINDOWH,
 			NULL, (HMENU)NULL, m_Pthis->m_Instance, NULL);
 

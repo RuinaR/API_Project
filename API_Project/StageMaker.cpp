@@ -161,7 +161,7 @@ void StageMaker::StageStart()
         m_playerObj->SetActive(true);
 }
 
-void StageMaker::SetMap(string mapName)
+bool StageMaker::SetMap(string mapName)
 {
 	for (vector<vector<GameObject*>>::iterator itr = m_mapObj.begin(); itr != m_mapObj.end(); itr++)
 		itr->clear();
@@ -175,7 +175,7 @@ void StageMaker::SetMap(string mapName)
     if (mapData.empty())
     {
         cout << "맵 데이터 없음" << endl;
-        return;
+        return false;
     }
     for (int i = 0; i < mapData.size(); ++i)
 	{
@@ -255,6 +255,7 @@ void StageMaker::SetMap(string mapName)
 			}
 		}
 	}
+    return true;
 }
 
 void StageMaker::Initialize()

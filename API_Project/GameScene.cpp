@@ -9,29 +9,28 @@
 #include "DebugWindow.h"
 #include "SceneChanger.h"
 
-void GameScene::Init()
+void GameScene::StartGame()
 {
-	SceneChanger::Create();
-	if (DEBUGMODE)
-		DebugWindow::Create();
-}
+	string mapName = m_input->GetString();
+	if (mapName.empty())
+	{
+		MessageBox(WindowFrame::GetInstance()->GetHWND(), TEXT("맵 이름 입력 하세요"), TEXT("알림"), MB_OK);
+		return;
+	}
+	m_btn->GetGameObject()->SetDestroy(true);
+	m_input->GetGameObject()->SetDestroy(true);
 
-void GameScene::Release()
-{
-	SceneChanger::Destroy();
-	if (DEBUGMODE)
-		DebugWindow::Destroy();
-}
-
-void GameScene::Start()
-{
 	GameObject* newObj = new GameObject();
 	m_sMaker = new StageMaker();
 	newObj->AddComponent(m_sMaker);
 	newObj->InitializeSet();
-	m_sMaker->SetMap(FILE_MAP);
+	if (!m_sMaker->SetMap(mapName))
+	{
+		MessageBox(WindowFrame::GetInstance()->GetHWND(), TEXT("존재하지 않는 맵"), TEXT("알림"), MB_OK);
+	}
 	m_sMaker->StageStart();
-
+	if (DEBUGMODE)
+		DebugWindow::GetInstance()->SetDWPos({ 0,0 });
 	GameObject* btnObj = new GameObject();
 	ColorButton* btn = new ColorButton();
 	btnObj->AddComponent(btn);
@@ -61,6 +60,50 @@ void GameScene::Start()
 	btn2->SetDownColor(RGB(150, 150, 150));
 	btn2->SetTextSize(20);
 	btn2->SetEvent(bind(&SceneChanger::ChangeStartScene, SceneChanger::GetInstance()));
+}
 
+void GameScene::Init()
+{
+	m_bg = AnimationManager::LoadHBitmap("Bitmaps\\obj\\BG");
+	SceneChanger::Create();
+	if (DEBUGMODE)
+	{
+		DebugWindow::Create();
+		DebugWindow::GetInstance()->SetDWPos({ 0,250 });
+	}
+}
+
+void GameScene::Release()
+{
+	AnimationManager::ReleaseHBitmap(m_bg);
+	SceneChanger::Destroy();
+	if (DEBUGMODE)
+		DebugWindow::Destroy();
+}
+
+void GameScene::Start()
+{
+	WindowFrame::GetInstance()->GetBuffer()->SetBG(m_bg);
+	
+	GameObject* obj = new GameObject();
+	m_input = new InputString();
+	obj->AddComponent(m_input);
+	obj->SetOrderInLayer(10);
+	obj->InitializeSet();
+
+	GameObject* btnObj = new GameObject();
+	m_btn = new ColorButton();
+	btnObj->AddComponent(m_btn);
+	btnObj->SetOrderInLayer(10);
+	btnObj->InitializeSet();
+	m_btn->SetUIPos({ 0,200 });
+	m_btn->SetUISize({ 190,50 });
+	m_btn->SetText(TEXT("Start Game"));
+	m_btn->SetTextColor(RGB(255, 0, 255));
+	m_btn->SetDefaultColor(RGB(255, 255, 255));
+	m_btn->SetHoverColor(RGB(200, 200, 200));
+	m_btn->SetDownColor(RGB(150, 150, 150));
+	m_btn->SetTextSize(20);
+	m_btn->SetEvent(bind(&GameScene::StartGame, this));
 }
 

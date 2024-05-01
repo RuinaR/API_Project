@@ -1,7 +1,6 @@
 #pragma once
 #include "Scene.h"
 #include "StageMaker.h"
-struct Animation;
 
 class StartScene : public Scene
 {

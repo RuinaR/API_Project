@@ -1,12 +1,17 @@
 #pragma once
 #include "Scene.h"
 #include "StageMaker.h"
-struct Animation;
-
+#include "InputString.h"
+#include "ColorButton.h"
 class GameScene : public Scene
 {
 private:
+	HBITMAP m_bg = NULL;
 	StageMaker* m_sMaker = nullptr;
+	InputString* m_input = nullptr;
+	ColorButton* m_btn = nullptr;
+
+	void StartGame();
 public:
 	void Init() override;
 	void Release() override;

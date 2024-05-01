@@ -148,6 +148,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="gmae.cpp" />
+    <ClCompile Include="InputString.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Mouse.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="InputString.h" />
     <ClInclude Include="MainFrame.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="ObjectManager.h" />

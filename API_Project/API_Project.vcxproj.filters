@@ -160,6 +160,9 @@
     <ClCompile Include="gmae.cpp">
       <Filter>global</Filter>
     </ClCompile>
+    <ClCompile Include="InputString.cpp">
+      <Filter>EngineFramework\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WindowFrame.h">
@@ -257,6 +260,9 @@
     </ClInclude>
     <ClInclude Include="Edit.h">
       <Filter>KirbyGame\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="InputString.h">
+      <Filter>EngineFramework\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
