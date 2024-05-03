@@ -32,6 +32,7 @@ protected:
 	int m_jumpKey = 0;
 	int m_atkKey = 0;
 	int m_changeKey = 0;
+	int m_upKey = 0;
 
 	float m_speed = 250.0f;
 	float m_speed_run = 500.0f;

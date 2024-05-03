@@ -15,6 +15,7 @@ private:
 	HBITMAP m_stoneObj = NULL;
 	HBITMAP m_defaultObj = NULL;
 	HBITMAP m_player = NULL;
+	HBITMAP m_door = NULL;
 
 	MapType m_select = MapType::None;
 
@@ -31,6 +32,7 @@ private:
 	void SelectSwordMon();
 	void SelectStoneMon();
 	void SelectPlayer();
+	void SelectDoor();
 	void InitMap();
 	void ReDrawMapObj(int indexX, int indexY, MapType type);
 	void Undo();

@@ -125,6 +125,15 @@ GameObject* Edit::DrawMap(MapType t, int i, int j)
         obj->InitializeSet();
     }
     break;
+    case MapType::Door:
+    {
+        obj = new GameObject();
+        obj->AddComponent(new BitmapRender(m_door));
+        obj->Size() = { UNITSIZE, UNITSIZE };
+        obj->SetPosition({ (double)UNITSIZE * i + UNITSIZE / 2 ,(double)UNITSIZE * j + UNITSIZE / 2 });
+        obj->InitializeSet();
+    }
+    break;
     }
     return obj;
 }
@@ -157,6 +166,11 @@ void Edit::SelectStoneMon()
 void Edit::SelectPlayer()
 {
     m_select = MapType::Player;
+}
+
+void Edit::SelectDoor()
+{
+    m_select = MapType::Door;
 }
 
 void Edit::InitMap()
@@ -230,6 +244,9 @@ void Edit::ReDrawMapObj(int indexX, int indexY, MapType type)
 	case MapType::StoneMon:
 		newObj->AddComponent(new BitmapRender(m_stoneObj));
 		break;
+    case MapType::Door:
+        newObj->AddComponent(new BitmapRender(m_door));
+        break;
 	}
 
 	newObj->Size() = { UNITSIZE, UNITSIZE };
@@ -339,6 +356,7 @@ void Edit::Initialize()
     m_swordObj = AnimationManager::LoadHBitmap("Bitmaps\\obj\\swordObj");
     m_stoneObj = AnimationManager::LoadHBitmap("Bitmaps\\obj\\stoneObj");
     m_player = AnimationManager::LoadHBitmap("Bitmaps\\obj\\player");
+    m_door = AnimationManager::LoadHBitmap("Bitmaps\\obj\\door");
 
     for (int i = 0; i < (int)MapType::max; i++)
     {
@@ -356,11 +374,12 @@ void Edit::Initialize()
     m_selectBtn[(int)MapType::DefaultMon]->SetText(TEXT("扁夯 各"));
     m_selectBtn[(int)MapType::SwordMon]->SetText(TEXT("家靛 各"));
     m_selectBtn[(int)MapType::StoneMon]->SetText(TEXT("胶沛 各"));
+    m_selectBtn[(int)MapType::Door]->SetText(TEXT("巩"));
 
     GameObject* obj = new GameObject();
     m_InitMapBtn = new ColorButton();
     obj->AddComponent(m_InitMapBtn);
-    m_InitMapBtn->SetUIPos({800, 10});
+    m_InitMapBtn->SetUIPos({900, 10});
     m_InitMapBtn->SetUISize({ 90,50 });
     obj->SetOrderInLayer(10);
     obj->InitializeSet();
@@ -370,7 +389,7 @@ void Edit::Initialize()
     GameObject* objUndo = new GameObject();
     ColorButton* btnUndo = new ColorButton();
     objUndo->AddComponent(btnUndo);
-    btnUndo->SetUIPos({ 900, 10 });
+    btnUndo->SetUIPos({ 1000, 10 });
     btnUndo->SetUISize({ 90,50 });
     objUndo->SetOrderInLayer(10);
     objUndo->InitializeSet();
@@ -380,7 +399,7 @@ void Edit::Initialize()
     GameObject* objRedo = new GameObject();
     ColorButton* btnRedo = new ColorButton();
     objRedo->AddComponent(btnRedo);
-    btnRedo->SetUIPos({ 1000, 10 });
+    btnRedo->SetUIPos({ 1100, 10 });
     btnRedo->SetUISize({ 90,50 });
     objRedo->SetOrderInLayer(10);
     objRedo->InitializeSet();
@@ -393,6 +412,7 @@ void Edit::Initialize()
     m_selectBtn[(int)MapType::DefaultMon]->SetEvent(bind(&Edit::SelectDefaultMon, this));
     m_selectBtn[(int)MapType::SwordMon]->SetEvent(bind(&Edit::SelectSwordMon, this));
     m_selectBtn[(int)MapType::StoneMon]->SetEvent(bind(&Edit::SelectStoneMon, this));
+    m_selectBtn[(int)MapType::Door]->SetEvent(bind(&Edit::SelectDoor, this));
 
 
     m_mapData = vector<vector<GameObject*>>(m_count);
@@ -413,6 +433,7 @@ void Edit::Release()
     AnimationManager::ReleaseHBitmap(m_swordObj);
     AnimationManager::ReleaseHBitmap(m_stoneObj);
     AnimationManager::ReleaseHBitmap(m_player);
+    AnimationManager::ReleaseHBitmap(m_door);
 
     WriteMapData();
 }

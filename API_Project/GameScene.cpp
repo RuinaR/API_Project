@@ -20,15 +20,12 @@ void GameScene::StartGame()
 	m_btn->GetGameObject()->SetDestroy(true);
 	m_input->GetGameObject()->SetDestroy(true);
 
-	GameObject* newObj = new GameObject();
-	m_sMaker = new StageMaker();
-	newObj->AddComponent(m_sMaker);
-	newObj->InitializeSet();
-	if (!m_sMaker->SetMap(mapName))
+	
+	if (!StageMaker::GetInstance()->SetMap(mapName))
 	{
 		MessageBox(WindowFrame::GetInstance()->GetHWND(), TEXT("존재하지 않는 맵"), TEXT("알림"), MB_OK);
 	}
-	m_sMaker->StageStart();
+	StageMaker::GetInstance()->StageStart();
 	if (DEBUGMODE)
 		DebugWindow::GetInstance()->SetDWPos({ 0,0 });
 	GameObject* btnObj = new GameObject();
@@ -66,6 +63,7 @@ void GameScene::Init()
 {
 	m_bg = AnimationManager::LoadHBitmap("Bitmaps\\obj\\BG");
 	SceneChanger::Create();
+	StageMaker::Create();
 	if (DEBUGMODE)
 	{
 		DebugWindow::Create();
@@ -77,6 +75,7 @@ void GameScene::Release()
 {
 	AnimationManager::ReleaseHBitmap(m_bg);
 	SceneChanger::Destroy();
+	StageMaker::Destroy();
 	if (DEBUGMODE)
 		DebugWindow::Destroy();
 }

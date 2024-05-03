@@ -4,6 +4,8 @@
 #include "BoxCollider.h"
 #include "ChangeObject.h"
 
+StageMaker* StageMaker::m_Pthis = nullptr;
+
 bool EqualFloat(float f1, float f2, float d)
 {
 	if (f1 + d > f2 && f1 - d < f2)
@@ -152,6 +154,55 @@ void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup,
         colRow->push_back(false);
 	}
         break;
+    case MapType::Door:
+    {
+        GameObject* door = new GameObject();
+        door->SetTag(TAG_DOOR);
+        door->SetOrderInLayer(2);
+        door->Size() = { UNITSIZE, UNITSIZE};
+        door->SetPosition({ (double)UNITSIZE * i, (double)UNITSIZE * j});
+        door->AddComponent(new BitmapRender(m_door));
+        BoxCollider* bo = new BoxCollider();
+        bo->SetTrigger(true);
+        door->AddComponent(bo);
+        door->InitializeSet();
+        rowGroup->push_back(door);
+        colRow->push_back(false);
+    }
+    break;
+    }
+}
+
+StageMaker* StageMaker::GetInstance()
+{
+    return m_Pthis;
+}
+
+void StageMaker::Create()
+{
+    if (m_Pthis == nullptr)
+    {
+        m_Pthis = new StageMaker();
+        GameObject* obj = new GameObject();
+        obj->AddComponent(m_Pthis);
+        obj->SetTag("StageMaker");
+        obj->InitializeSet();
+    }
+}
+
+void StageMaker::Destroy()
+{
+    if (m_Pthis != nullptr)
+    {
+        if (m_Pthis->m_gameObj != nullptr)
+        {
+            m_Pthis->m_gameObj->SetDestroy(true);
+        }
+        else
+        {
+            delete m_Pthis;
+        }
+        m_Pthis = nullptr;
     }
 }
 
@@ -175,8 +226,10 @@ bool StageMaker::SetMap(string mapName)
     if (mapData.empty())
     {
         cout << "맵 데이터 없음" << endl;
+        m_name = "";
         return false;
     }
+    m_name = mapName;
     for (int i = 0; i < mapData.size(); ++i)
 	{
 		vector<GameObject*> row;
@@ -265,6 +318,7 @@ void StageMaker::Initialize()
     m_defaultObj = AnimationManager::LoadHBitmap("Bitmaps\\obj\\defaultObj");
     m_swordObj = AnimationManager::LoadHBitmap("Bitmaps\\obj\\swordObj");
     m_stoneObj = AnimationManager::LoadHBitmap("Bitmaps\\obj\\stoneObj");
+    m_door = AnimationManager::LoadHBitmap("Bitmaps\\obj\\door");
 
     m_playerObj = new GameObject();
     m_player = new Player();
@@ -282,6 +336,7 @@ void StageMaker::Release()
     AnimationManager::ReleaseHBitmap(m_defaultObj);
     AnimationManager::ReleaseHBitmap(m_swordObj);
     AnimationManager::ReleaseHBitmap(m_stoneObj);
+    AnimationManager::ReleaseHBitmap(m_door);
 }
 
 void StageMaker::Start()
@@ -291,4 +346,9 @@ void StageMaker::Start()
 void StageMaker::Update()
 {
    
+}
+
+string StageMaker::GetMapName()
+{
+    return m_name;
 }

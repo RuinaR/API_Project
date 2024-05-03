@@ -157,7 +157,7 @@
     <ClCompile Include="Edit.cpp">
       <Filter>KirbyGame\Component</Filter>
     </ClCompile>
-    <ClCompile Include="gmae.cpp">
+    <ClCompile Include="game.cpp">
       <Filter>global</Filter>
     </ClCompile>
     <ClCompile Include="InputString.cpp">

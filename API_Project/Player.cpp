@@ -9,6 +9,9 @@
 #include "AttakObject.h"
 #include "AttackEvent.h"
 #include "DebugWindow.h"
+#include "SceneChanger.h"
+#include "StageMaker.h"
+#include "ColorButton.h"
 
 float Lerp(float start, float end, float t)
 {
@@ -292,8 +295,65 @@ void Player::Collision(Collider* other)
 {
 	if (other == nullptr)
 		return;
+	if (other->GetGameObject()->GetTag() == TAG_DOOR)
+	{
+		if (GetAsyncKeyState(m_upKey) & 0x8000) //다음 스테이지
+		{
+			cout << "NEXT STAGE" << endl;
+			string stageName = StageMaker::GetInstance()->GetMapName();
 
-	if (m_state == PlayerAState::eating &&  //흡수
+			SceneChanger::Destroy();
+			StageMaker::Destroy();
+			if (DEBUGMODE)
+				DebugWindow::Destroy();
+
+			ObjectManager::GetInstance()->Clear();
+
+			SceneChanger::Create();
+			StageMaker::Create();
+			if (DEBUGMODE)
+				DebugWindow::Create();
+
+			string nextName = to_string(atoi(stageName.c_str()) + 1);
+			if (!StageMaker::GetInstance()->SetMap(nextName))
+			{
+				MessageBox(WindowFrame::GetInstance()->GetHWND(), TEXT("존재하지 않는 맵"), TEXT("알림"), MB_OK);
+			}
+			StageMaker::GetInstance()->StageStart();
+
+			GameObject* btnObj = new GameObject();
+			ColorButton* btn = new ColorButton();
+			btnObj->AddComponent(btn);
+			btnObj->SetOrderInLayer(10);
+			btnObj->InitializeSet();
+			btn->SetUIPos({ 0,400 });
+			btn->SetUISize({ 200,50 });
+			btn->SetText(TEXT("GameScene Load"));
+			btn->SetTextColor(RGB(255, 0, 255));
+			btn->SetDefaultColor(RGB(255, 255, 255));
+			btn->SetHoverColor(RGB(200, 200, 200));
+			btn->SetDownColor(RGB(150, 150, 150));
+			btn->SetTextSize(20);
+			btn->SetEvent(bind(&SceneChanger::ChangeGameScene, SceneChanger::GetInstance()));
+
+			GameObject* btnObj2 = new GameObject();
+			ColorButton* btn2 = new ColorButton();
+			btnObj2->AddComponent(btn2);
+			btnObj2->SetOrderInLayer(10);
+			btnObj2->InitializeSet();
+			btn2->SetUIPos({ 0,500 });
+			btn2->SetUISize({ 200,50 });
+			btn2->SetText(TEXT("StartScene Load"));
+			btn2->SetTextColor(RGB(255, 0, 255));
+			btn2->SetDefaultColor(RGB(255, 255, 255));
+			btn2->SetHoverColor(RGB(200, 200, 200));
+			btn2->SetDownColor(RGB(150, 150, 150));
+			btn2->SetTextSize(20);
+			btn2->SetEvent(bind(&SceneChanger::ChangeStartScene, SceneChanger::GetInstance()));
+			return;
+		}
+	}
+	else if (m_state == PlayerAState::eating &&  //흡수
 		(other->GetGameObject()->GetTag() == TAG_CHANGE || other->GetGameObject()->GetTag() == TAG_MONSTER))
 	{
 		ChangeObject* co = other->GetGameObject()->GetComponent<ChangeObject>();
@@ -395,6 +455,7 @@ void Player::Initialize()
 	m_jumpKey = VK_SPACE;
 	m_atkKey = 0x5A;	//Z키, ATK
 	m_changeKey = VK_DOWN;
+	m_upKey = VK_UP;
 }
 
 void Player::Release()

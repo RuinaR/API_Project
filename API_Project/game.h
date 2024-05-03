@@ -9,6 +9,7 @@ using namespace std;
 #define TAG_CHANGE "change"
 #define TAG_HIT "hit"
 #define TAG_MONSTER "monster"
+#define TAG_DOOR "door"
 
 #define FILE_MAP "map"
 
@@ -56,6 +57,7 @@ enum class MapType
 	DefaultMon = 3,
 	SwordMon = 4,
 	StoneMon = 5,
+	Door = 6,
 	max
 };
 

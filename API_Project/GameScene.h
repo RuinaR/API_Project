@@ -7,7 +7,6 @@ class GameScene : public Scene
 {
 private:
 	HBITMAP m_bg = NULL;
-	StageMaker* m_sMaker = nullptr;
 	InputString* m_input = nullptr;
 	ColorButton* m_btn = nullptr;
 

@@ -103,8 +103,10 @@ void Rigidbody::CollisionExit(Collider* other)
 	int d = 10;
 	for (set<Collider*>::iterator itr = m_box->SetCol()->begin(); itr != m_box->SetCol()->end(); itr++)
 	{
-		if (m_gameObj->Position().y + m_box->ColSize().y + m_box->ColOffset().y<
-			(*itr)->GetGameObject()->Position().y + (*itr)->ColOffset().y + d)
+		if (!(*itr)->GetTrigger() &&
+			!m_box->GetTrigger() && 
+			(m_gameObj->Position().y + m_box->ColSize().y + m_box->ColOffset().y<
+			(*itr)->GetGameObject()->Position().y + (*itr)->ColOffset().y + d))
 			return;
 	}
 	m_isOnLand = false;
