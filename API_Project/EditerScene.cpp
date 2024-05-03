@@ -8,7 +8,7 @@ void EditerScene::StartEdit()
 	string mapName = m_input->GetString();
 	if (mapName.empty())
 	{
-		MessageBox(WindowFrame::GetInstance()->GetHWND(), TEXT("맵 이름 입력 하세요"), TEXT("알림"), MB_OK);
+		MessageBox(WindowFrame::GetInstance()->GetHWND(), TEXT("맵 이름을 입력 하세요"), TEXT("알림"), MB_OK);
 		return;
 	}
 	m_btn->GetGameObject()->SetDestroy(true);
@@ -39,15 +39,19 @@ void EditerScene::Init()
 {
 	m_bg = AnimationManager::LoadHBitmap("Bitmaps\\obj\\BG");
 	SceneChanger::Create();
-	DebugWindow::Create();
-	DebugWindow::GetInstance()->SetDWPos({ 0,400 });
+	if (DEBUGMODE)
+	{
+		DebugWindow::Create();
+		DebugWindow::GetInstance()->SetDWPos({ 0,400 });
+	}
 }
 
 void EditerScene::Release()
 {
 	AnimationManager::ReleaseHBitmap(m_bg);
 	SceneChanger::Destroy();
-	DebugWindow::Destroy();
+	if (DEBUGMODE)
+		DebugWindow::Destroy();
 }
 
 void EditerScene::Start()

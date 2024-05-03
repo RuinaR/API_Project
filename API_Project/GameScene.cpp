@@ -14,7 +14,7 @@ void GameScene::StartGame()
 	string mapName = m_input->GetString();
 	if (mapName.empty())
 	{
-		MessageBox(WindowFrame::GetInstance()->GetHWND(), TEXT("맵 이름 입력 하세요"), TEXT("알림"), MB_OK);
+		MessageBox(WindowFrame::GetInstance()->GetHWND(), TEXT("맵 이름을 입력 하세요"), TEXT("알림"), MB_OK);
 		return;
 	}
 	m_btn->GetGameObject()->SetDestroy(true);

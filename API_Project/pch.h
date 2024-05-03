@@ -47,7 +47,11 @@
 #define BUFFERBITH MAXWINDOWH
 #define TARGETFPS 120
 
+#ifdef _DEBUG
 #define DEBUGMODE true
+#else 
+#define DEBUGMODE false
+#endif
 #define DEBUGCOLOR (RGB((0),(0),(255)))
 
 using namespace std;
