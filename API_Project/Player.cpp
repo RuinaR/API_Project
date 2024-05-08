@@ -319,6 +319,7 @@ void Player::Collision(Collider* other)
 			{
 				MessageBox(WindowFrame::GetInstance()->GetHWND(), TEXT("존재하지 않는 맵"), TEXT("알림"), MB_OK);
 			}
+			StageMaker::GetInstance()->SetPlayerMode(m_mode);
 			StageMaker::GetInstance()->StageStart();
 
 			GameObject* btnObj = new GameObject();
@@ -615,6 +616,16 @@ void Player::Update()
 		string text = "Player Velocity :\nX:" + to_string(m_rig->Velocity().x) + " \nY:" + to_string(m_rig->Velocity().y);
 		DebugWindow::GetInstance()->SetText2(text);
 	}
+}
+
+void Player::SetPlayerMode(PlayerMode mode)
+{
+	m_mode = mode;
+}
+
+PlayerMode Player::GetPlayerMode()
+{
+	return m_mode;
 }
 
 PlayerAState Player::GetState()

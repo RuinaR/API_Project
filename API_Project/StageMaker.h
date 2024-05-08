@@ -28,6 +28,7 @@ public:
 public:
 	void StageStart();
 	bool SetMap(string mapName);
+	void SetPlayerMode(PlayerMode mode);
 	void Initialize() override;
 	void Release() override;
 	void Start() override;

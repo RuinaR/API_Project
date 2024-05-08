@@ -311,6 +311,11 @@ bool StageMaker::SetMap(string mapName)
     return true;
 }
 
+void StageMaker::SetPlayerMode(PlayerMode mode)
+{
+    m_player->SetPlayerMode(mode);
+}
+
 void StageMaker::Initialize()
 {
     m_land = AnimationManager::LoadHBitmap("Bitmaps\\obj\\land");

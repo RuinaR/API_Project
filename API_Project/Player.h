@@ -71,6 +71,8 @@ public:
 	void Release() override;
 	void Start() override;
 	void Update() override;
+	void SetPlayerMode(PlayerMode mode);
+	PlayerMode GetPlayerMode();
 	PlayerAState GetState();
 	PlayerArrow GetArrow();
 };
