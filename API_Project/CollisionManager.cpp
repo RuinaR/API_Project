@@ -69,10 +69,13 @@ void CollisionManager::Update()
 		{
 			//0번 영역
 			screenRectDivision[0]->push_back((*itr));
-			TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
-				(*itr)->GetGameObject()->Position().x - Camera::GetInstance()->GetPos().x,
-				(*itr)->GetGameObject()->Position().y - Camera::GetInstance()->GetPos().y + 10,
-				to_wstring(0).c_str(), 1);
+			if (DEBUGMODE)
+			{
+				TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
+					(*itr)->GetGameObject()->Position().x - Camera::GetInstance()->GetPos().x,
+					(*itr)->GetGameObject()->Position().y - Camera::GetInstance()->GetPos().y + 10,
+					to_wstring(0).c_str(), 1);
+			}
 		}
 		if ((*itr)->GetGameObject()->Position().x + (*itr)->ColOffset().x + (*itr)->ColSize().x > x &&
 			(*itr)->GetGameObject()->Position().y + (*itr)->ColOffset().y < y)
@@ -80,10 +83,13 @@ void CollisionManager::Update()
 			//1번 영역
 			screenRectDivision[1]->push_back((*itr));
 			screenRectDivision[0]->push_back((*itr));
-			TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
-				(*itr)->GetGameObject()->Position().x - Camera::GetInstance()->GetPos().x + 10,
-				(*itr)->GetGameObject()->Position().y - Camera::GetInstance()->GetPos().y + 10,
-				to_wstring(1).c_str(), 1);
+			if (DEBUGMODE)
+			{
+				TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
+					(*itr)->GetGameObject()->Position().x - Camera::GetInstance()->GetPos().x + 10,
+					(*itr)->GetGameObject()->Position().y - Camera::GetInstance()->GetPos().y + 10,
+					to_wstring(1).c_str(), 1);
+			}
 		}
 		if ((*itr)->GetGameObject()->Position().x + (*itr)->ColOffset().x< x &&
 			(*itr)->GetGameObject()->Position().y + (*itr)->ColOffset().y + (*itr)->ColSize().y > y)
@@ -91,10 +97,13 @@ void CollisionManager::Update()
 			//2번 영역
 			screenRectDivision[2]->push_back((*itr));
 			screenRectDivision[0]->push_back((*itr));
-			TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
-				(*itr)->GetGameObject()->Position().x - Camera::GetInstance()->GetPos().x + 20,
-				(*itr)->GetGameObject()->Position().y - Camera::GetInstance()->GetPos().y + 10,
-				to_wstring(2).c_str(), 1);
+			if (DEBUGMODE)
+			{
+				TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
+					(*itr)->GetGameObject()->Position().x - Camera::GetInstance()->GetPos().x + 20,
+					(*itr)->GetGameObject()->Position().y - Camera::GetInstance()->GetPos().y + 10,
+					to_wstring(2).c_str(), 1);
+			}
 		}
 		if ((*itr)->GetGameObject()->Position().x + (*itr)->ColOffset().x + (*itr)->ColSize().x > x &&
 			(*itr)->GetGameObject()->Position().y + (*itr)->ColOffset().y + (*itr)->ColSize().y > y)
@@ -102,10 +111,13 @@ void CollisionManager::Update()
 			//3번 영역
 			screenRectDivision[3]->push_back((*itr));
 			screenRectDivision[0]->push_back((*itr));
-			TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
-				(*itr)->GetGameObject()->Position().x - Camera::GetInstance()->GetPos().x + 30,
-				(*itr)->GetGameObject()->Position().y - Camera::GetInstance()->GetPos().y + 10,
-				to_wstring(3).c_str(), 1);
+			if (DEBUGMODE)
+			{
+				TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
+					(*itr)->GetGameObject()->Position().x - Camera::GetInstance()->GetPos().x + 30,
+					(*itr)->GetGameObject()->Position().y - Camera::GetInstance()->GetPos().y + 10,
+					to_wstring(3).c_str(), 1);
+			}
 		}
 	}
 
