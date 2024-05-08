@@ -82,7 +82,6 @@ void CollisionManager::Update()
 		{
 			//1번 영역
 			screenRectDivision[1]->push_back((*itr));
-			screenRectDivision[0]->push_back((*itr));
 			if (DEBUGMODE)
 			{
 				TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
@@ -96,7 +95,6 @@ void CollisionManager::Update()
 		{
 			//2번 영역
 			screenRectDivision[2]->push_back((*itr));
-			screenRectDivision[0]->push_back((*itr));
 			if (DEBUGMODE)
 			{
 				TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
@@ -110,7 +108,6 @@ void CollisionManager::Update()
 		{
 			//3번 영역
 			screenRectDivision[3]->push_back((*itr));
-			screenRectDivision[0]->push_back((*itr));
 			if (DEBUGMODE)
 			{
 				TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),

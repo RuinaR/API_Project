@@ -1,16 +1,5 @@
-﻿  CollisionManager.cpp
+﻿  AttakObject.cpp
 C:\Users\user\Desktop\API_Project\API_Project\API_Project\AnimationManager.h(14,2): warning C4091: 'static ': 변수를 선언하지 않으면 'AnimationManager' 왼쪽은 무시됩니다.
-  (소스 파일 'CollisionManager.cpp'을(를) 컴파일하는 중)
+  (소스 파일 'AttakObject.cpp'을(를) 컴파일하는 중)
   
-C:\Users\user\Desktop\API_Project\API_Project\API_Project\CollisionManager.cpp(63,8): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\user\Desktop\API_Project\API_Project\API_Project\CollisionManager.cpp(64,8): warning C4244: '초기화 중': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\user\Desktop\API_Project\API_Project\API_Project\CollisionManager.cpp(76,80): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\user\Desktop\API_Project\API_Project\API_Project\CollisionManager.cpp(75,44): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\user\Desktop\API_Project\API_Project\API_Project\CollisionManager.cpp(90,80): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\user\Desktop\API_Project\API_Project\API_Project\CollisionManager.cpp(89,80): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\user\Desktop\API_Project\API_Project\API_Project\CollisionManager.cpp(104,80): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\user\Desktop\API_Project\API_Project\API_Project\CollisionManager.cpp(103,80): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\user\Desktop\API_Project\API_Project\API_Project\CollisionManager.cpp(118,80): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\user\Desktop\API_Project\API_Project\API_Project\CollisionManager.cpp(117,80): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\user\Desktop\API_Project\API_Project\API_Project\CollisionManager.cpp(201,23): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   API_Project.vcxproj -> C:\Users\user\Desktop\API_Project\API_Project\API_Project\x64\Debug\API_Project.exe

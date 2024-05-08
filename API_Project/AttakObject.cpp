@@ -3,13 +3,13 @@
 #include "BoxCollider.h"
 void AttakObject::CollisionEnter(Collider* other)
 {
+	m_gameObj->SetDestroy(true); //데미지
 }
 void AttakObject::CollisionExit(Collider* other)
 {
 }
 void AttakObject::Collision(Collider* other)
 {
-	m_gameObj->SetDestroy(true); //데미지
 }
 AttakObject::AttakObject()
 	:Component()
