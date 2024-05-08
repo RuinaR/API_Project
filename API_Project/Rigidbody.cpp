@@ -119,17 +119,17 @@ void Rigidbody::Collision(Collider* other)
 
 	RECT r1, r2;
 	long d = 1;
-	r1 = { (long)m_box->ColOffset().x + (long)m_gameObj->Position().x + d,
-			(long)m_box->ColOffset().y + (long)m_gameObj->Position().y + d,
-			(long)m_box->ColOffset().x + (long)(m_gameObj->Position().x + m_box->ColSize().x - d),
-			(long)m_box->ColOffset().y + (long)(m_gameObj->Position().y + m_box->ColSize().y - d) };
-	r2 = { (long)other->ColOffset().x + (long)other->GetGameObject()->Position().x,
-			(long)other->ColOffset().y + (long)other->GetGameObject()->Position().y,
-			(long)other->ColOffset().x + (long)(other->GetGameObject()->Position().x + other->ColSize().x),
-			(long)other->ColOffset().y + (long)(other->GetGameObject()->Position().y + other->ColSize().y) };
+	r1 = { (long)m_box->ColOffset().x + (long)m_gameObj->Position().x,
+			(long)m_box->ColOffset().y + (long)m_gameObj->Position().y,
+			(long)m_box->ColOffset().x + (long)(m_gameObj->Position().x + m_box->ColSize().x),
+			(long)m_box->ColOffset().y + (long)(m_gameObj->Position().y + m_box->ColSize().y) };
+	r2 = { (long)other->ColOffset().x + (long)other->GetGameObject()->Position().x + d,
+			(long)other->ColOffset().y + (long)other->GetGameObject()->Position().y + d,
+			(long)other->ColOffset().x + (long)(other->GetGameObject()->Position().x + other->ColSize().x - d),
+			(long)other->ColOffset().y + (long)(other->GetGameObject()->Position().y + other->ColSize().y - d) };
 
 	SetNoIntersect(&r2, &r1);
-	m_gameObj->SetPosition(Vector2D({ (float)r1.left - d - m_box->ColOffset().x, (float)r1.top + d - m_box->ColOffset().y }));
+	m_gameObj->SetPosition(Vector2D({ (float)r1.left - m_box->ColOffset().x, (float)r1.top - m_box->ColOffset().y }));
 
 	return;
 }
