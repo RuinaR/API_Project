@@ -1,0 +1,26 @@
+﻿  CollisionManager.cpp
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\AnimationManager.h(14,2): warning C4091: 'static ': 변수를 선언하지 않으면 'AnimationManager' 왼쪽은 무시됩니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(69,111): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(69,65): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(70,112): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(70,63): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(71,112): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(71,73): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(72,111): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(72,72): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(82,41): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(82,41): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(83,41): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(83,41): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(84,65): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(84,65): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(85,65): warning C4838: 'double'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(85,65): warning C4244: '초기화 중': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(151,81): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(150,45): warning C4244: '인수': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(237,46): warning C4244: '+=': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(238,47): warning C4244: '+=': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(239,45): warning C4244: '+=': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(240,48): warning C4244: '+=': 'double'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\CollisionManager.cpp(257,23): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  API_Project.vcxproj -> C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\x64\Debug\API_Project.exe

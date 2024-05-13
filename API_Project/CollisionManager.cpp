@@ -50,80 +50,108 @@ bool CollisionManager::UnregisterCollider(Collider* col)
 	return false;
 }
 
-void CollisionManager::Update()
+void CollisionManager::CollisionUpdate(vector<Collider*>* vec, const RECT& rect, int maxAreaCnt)
 {
-	//현재 카메라 기준으로 4분할해서 충돌처리
-	vector<Collider*>** screenRectDivision = new vector<Collider*>*[4];
+	//4분할해서 재귀적으로 충돌처리
+	vector<Collider*>** rctDivision = new vector<Collider*>*[4];
 	for (int i = 0; i < 4; i++)
 	{
-		screenRectDivision[i] = new vector<Collider*>();
+		rctDivision[i] = new vector<Collider*>();
 	}
-	RECT client;
-	GetClientRect(WindowFrame::GetInstance()->GetHWND(), &client);
-	int x = Camera::GetInstance()->GetPos().x + client.right / 2;
-	int y = Camera::GetInstance()->GetPos().y + client.bottom / 2;
-	for (vector<Collider*>::iterator itr = m_objVec->begin(); itr != m_objVec->end(); itr++)
+	int x = rect.left + (rect.right - rect.left) / 2;
+	int y = rect.top + (rect.bottom - rect.top) / 2;
+
+	if (DEBUGMODE)
 	{
-		if ((*itr)->GetGameObject()->Position().x + (*itr)->ColOffset().x < x &&
-			(*itr)->GetGameObject()->Position().y + (*itr)->ColOffset().y < y)
+		HPEN newPen = CreatePen(PS_SOLID, 2, DEBUGCOLOR);
+		HPEN oldPen = (HPEN)SelectObject(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), newPen);
+
+		MoveToEx(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), x - Camera::GetInstance()->GetPos().x, rect.top - Camera::GetInstance()->GetPos().y, NULL);
+		LineTo(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), x - Camera::GetInstance()->GetPos().x, rect.bottom - Camera::GetInstance()->GetPos().y);
+		MoveToEx(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), rect.left - Camera::GetInstance()->GetPos().x, y - Camera::GetInstance()->GetPos().y, NULL);
+		LineTo(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), rect.right - Camera::GetInstance()->GetPos().x, y - Camera::GetInstance()->GetPos().y);
+
+		SelectObject(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), oldPen);
+		DeleteObject(newPen);
+	}
+	for (vector<Collider*>::iterator itr = vec->begin(); itr != vec->end(); itr++)
+	{
+		RECT tmp;
+		RECT dst =
 		{
-			//0번 영역
-			screenRectDivision[0]->push_back((*itr));
-			if (DEBUGMODE)
-			{
-				TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
-					(*itr)->GetGameObject()->Position().x - Camera::GetInstance()->GetPos().x,
-					(*itr)->GetGameObject()->Position().y - Camera::GetInstance()->GetPos().y + 10,
-					to_wstring(0).c_str(), 1);
-			}
-		}
-		if ((*itr)->GetGameObject()->Position().x + (*itr)->ColOffset().x + (*itr)->ColSize().x > x &&
-			(*itr)->GetGameObject()->Position().y + (*itr)->ColOffset().y < y)
-		{
-			//1번 영역
-			screenRectDivision[1]->push_back((*itr));
-			if (DEBUGMODE)
-			{
-				TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
-					(*itr)->GetGameObject()->Position().x - Camera::GetInstance()->GetPos().x + 10,
-					(*itr)->GetGameObject()->Position().y - Camera::GetInstance()->GetPos().y + 10,
-					to_wstring(1).c_str(), 1);
-			}
-		}
-		if ((*itr)->GetGameObject()->Position().x + (*itr)->ColOffset().x< x &&
-			(*itr)->GetGameObject()->Position().y + (*itr)->ColOffset().y + (*itr)->ColSize().y > y)
-		{
-			//2번 영역
-			screenRectDivision[2]->push_back((*itr));
-			if (DEBUGMODE)
-			{
-				TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
-					(*itr)->GetGameObject()->Position().x - Camera::GetInstance()->GetPos().x + 20,
-					(*itr)->GetGameObject()->Position().y - Camera::GetInstance()->GetPos().y + 10,
-					to_wstring(2).c_str(), 1);
-			}
-		}
-		if ((*itr)->GetGameObject()->Position().x + (*itr)->ColOffset().x + (*itr)->ColSize().x > x &&
-			(*itr)->GetGameObject()->Position().y + (*itr)->ColOffset().y + (*itr)->ColSize().y > y)
-		{
-			//3번 영역
-			screenRectDivision[3]->push_back((*itr));
-			if (DEBUGMODE)
-			{
-				TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
-					(*itr)->GetGameObject()->Position().x - Camera::GetInstance()->GetPos().x + 30,
-					(*itr)->GetGameObject()->Position().y - Camera::GetInstance()->GetPos().y + 10,
-					to_wstring(3).c_str(), 1);
-			}
-		}
+		(*itr)->GetGameObject()->Position().x + (*itr)->ColOffset().x ,
+		(*itr)->GetGameObject()->Position().y + (*itr)->ColOffset().y ,
+		(*itr)->GetGameObject()->Position().x + (*itr)->ColOffset().x + (*itr)->ColSize().x,
+		(*itr)->GetGameObject()->Position().y + (*itr)->ColOffset().y + (*itr)->ColSize().y
+		};
+		//0번 영역
+		RECT area0 = { rect.left , rect.top, x, y };
+		//1번 영역
+		RECT area1 = { x, rect.top, rect.right, y };
+		//2번 영역
+		RECT area2 = { rect.left, y, x, rect.bottom};
+		//3번 영역
+		RECT area3 = { x, y, rect.right, rect.bottom };
+
+		if (IntersectRect(&tmp, &area0, &dst))
+			rctDivision[0]->push_back((*itr));
+		if (IntersectRect(&tmp, &area1, &dst))
+			rctDivision[1]->push_back((*itr));
+		if (IntersectRect(&tmp, &area2, &dst))
+			rctDivision[2]->push_back((*itr));
+		if (IntersectRect(&tmp, &area3, &dst))
+			rctDivision[3]->push_back((*itr));
 	}
 
 	RECT r1, r2, tmpr;
 	set<Collider*> cloneColSet;
+	set<string> collisionInSet;
+	set<string> collisionOutSet;
 	for (int i = 0; i < 4; i++)
 	{
-		for (vector<Collider*>::iterator itr1 = screenRectDivision[i]->begin(); itr1 != screenRectDivision[i]->end(); itr1++)
+		if (rctDivision[i]->size() >= maxAreaCnt)
 		{
+			RECT area;
+			switch (i)
+			{
+			case 0:
+				area.left = rect.left;
+				area.right = rect.left + (rect.right - rect.left) / 2;
+				area.top = rect.top;
+				area.bottom = rect.top + (rect.bottom - rect.top) / 2;
+				break;
+			case 1:
+				area.left = rect.left + (rect.right - rect.left) / 2;
+				area.right = rect.right;
+				area.top = rect.top;
+				area.bottom = rect.top + (rect.bottom - rect.top) / 2;
+				break;
+			case 2:
+				area.left = rect.left;
+				area.right = rect.left + (rect.right - rect.left) / 2;
+				area.top = rect.top + (rect.bottom - rect.top) / 2;
+				area.bottom =rect.bottom;
+				break;
+			case 3:
+				area.left = rect.left + (rect.right - rect.left) / 2;
+				area.right = rect.right;
+				area.top = rect.top + (rect.bottom - rect.top) / 2;
+				area.bottom = rect.bottom;
+				break;
+			}
+			CollisionUpdate(rctDivision[i], area, maxAreaCnt);
+			continue;
+		}
+		for (vector<Collider*>::iterator itr1 = rctDivision[i]->begin(); itr1 != rctDivision[i]->end(); itr1++)
+		{
+			if (DEBUGMODE)
+			{
+				TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
+					(*itr1)->GetGameObject()->Position().x - Camera::GetInstance()->GetPos().x,
+					(*itr1)->GetGameObject()->Position().y - Camera::GetInstance()->GetPos().y + 10,
+					TEXT("■"), 1);
+			}
+
 			cloneColSet = set<Collider*>((*itr1)->SetCol()->begin(), (*itr1)->SetCol()->end());
 			(*itr1)->SetCol()->clear();
 
@@ -132,7 +160,7 @@ void CollisionManager::Update()
 						(long)(*itr1)->ColOffset().x + (long)(*itr1)->GetGameObject()->Position().x + (long)(*itr1)->ColSize().x,
 						(long)(*itr1)->ColOffset().y + (long)(*itr1)->GetGameObject()->Position().y + (long)(*itr1)->ColSize().y };
 			vector<Collider*>::iterator tmpItr = itr1;
-			for (vector<Collider*>::iterator itr2 = ++tmpItr; itr2 != screenRectDivision[i]->end(); itr2++)
+			for (vector<Collider*>::iterator itr2 = ++tmpItr; itr2 != rctDivision[i]->end(); itr2++)
 			{
 				if ((*itr1) == (*itr2))
 					continue;
@@ -144,6 +172,13 @@ void CollisionManager::Update()
 							(long)(*itr2)->ColOffset().y + (long)(*itr2)->GetGameObject()->Position().y + (long)(*itr2)->ColSize().y };
 				if (IntersectRect(&tmpr, &r1, &r2)) //충돌
 				{
+					//포인터를 문자열로 치환한 후 합친 것을 해시값으로 이용 
+					/*string hash = to_string((uintptr_t)(*itr1)) + to_string((uintptr_t)(*itr2));
+					if (collisionInSet.find(hash) != collisionInSet.end())
+						continue;
+					else
+						collisionInSet.insert(hash);*/
+
 					(*itr1)->SetCol()->insert(*itr2);
 					bool isfind = false;
 					if (cloneColSet.find(*itr2) != cloneColSet.end())
@@ -169,6 +204,13 @@ void CollisionManager::Update()
 			{
 				if ((*itr1)->SetCol()->find(*itr3) == (*itr1)->SetCol()->end()) //이전에 충돌했지만 현재 충돌 상태가 아니라면
 				{
+					//포인터를 문자열로 치환한 후 합친 것을 해시값으로 이용 
+					/*string hash = to_string((uintptr_t)(*itr1)) + to_string((uintptr_t)(*itr3));
+					if (collisionOutSet.find(hash) != collisionOutSet.end())
+						continue;
+					else
+						collisionOutSet.insert(hash);*/
+
 					for (vector<Component*>::iterator citr = (*itr1)->GetGameObject()->GetComponentVec()->begin();
 						citr != (*itr1)->GetGameObject()->GetComponentVec()->end();
 						citr++)
@@ -180,12 +222,29 @@ void CollisionManager::Update()
 		}
 	}
 
-	
+
 	for (int i = 0; i < 4; i++)
 	{
-		delete screenRectDivision[i];
+		delete rctDivision[i];
 	}
-	delete[] screenRectDivision;
+	delete[] rctDivision;
+}
+
+void CollisionManager::Update()
+{
+	RECT rect;
+	GetClientRect(WindowFrame::GetInstance()->GetHWND(), &rect);
+	rect.left += Camera::GetInstance()->GetPos().x;
+	rect.right += Camera::GetInstance()->GetPos().x;
+	rect.top += Camera::GetInstance()->GetPos().y;
+	rect.bottom += Camera::GetInstance()->GetPos().y;
+
+	//rect.left = 0;
+	//rect.right = 10000;
+	//rect.top = 0;
+	//rect.bottom = 10000;
+
+	CollisionUpdate(m_objVec, rect, 5);
 }
 
 void CollisionManager::Clear()

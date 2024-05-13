@@ -15,7 +15,8 @@ public:
 public:
 	void AddCollider(Collider* col);
 	bool UnregisterCollider(Collider* col);
-	void Update();
+	void CollisionUpdate(vector<Collider*>* vec, const RECT& rect, int maxAreaCnt);
+	void Update();	
 	void Clear();
 	int Count();
 };
