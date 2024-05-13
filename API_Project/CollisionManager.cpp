@@ -63,7 +63,7 @@ void CollisionManager::CollisionUpdate(vector<Collider*>* vec, const RECT& rect,
 
 	if (DEBUGMODE)
 	{
-		HPEN newPen = CreatePen(PS_SOLID, 2, DEBUGCOLOR);
+		HPEN newPen = CreatePen(PS_SOLID, 3, DEBUGCOLOR);
 		HPEN oldPen = (HPEN)SelectObject(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), newPen);
 
 		MoveToEx(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), x - Camera::GetInstance()->GetPos().x, rect.top - Camera::GetInstance()->GetPos().y, NULL);
@@ -147,7 +147,7 @@ void CollisionManager::CollisionUpdate(vector<Collider*>* vec, const RECT& rect,
 			if (DEBUGMODE)
 			{
 				TextOut(WindowFrame::GetInstance()->GetBuffer()->GetHDC(),
-					(*itr1)->GetGameObject()->Position().x - Camera::GetInstance()->GetPos().x,
+					(*itr1)->GetGameObject()->Position().x - Camera::GetInstance()->GetPos().x + 10,
 					(*itr1)->GetGameObject()->Position().y - Camera::GetInstance()->GetPos().y + 10,
 					TEXT("бс"), 1);
 			}
@@ -244,7 +244,7 @@ void CollisionManager::Update()
 	//rect.top = 0;
 	//rect.bottom = 10000;
 
-	CollisionUpdate(m_objVec, rect, 5);
+	CollisionUpdate(m_objVec, rect, 4);
 }
 
 void CollisionManager::Clear()
