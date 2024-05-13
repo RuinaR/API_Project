@@ -244,7 +244,7 @@ void CollisionManager::Update()
 	//rect.top = 0;
 	//rect.bottom = 10000;
 
-	CollisionUpdate(m_objVec, rect, 4);
+	CollisionUpdate(m_objVec, rect, 5);
 }
 
 void CollisionManager::Clear()
