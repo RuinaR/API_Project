@@ -1,8 +1,0 @@
-﻿  EditerScene.cpp
-C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\AnimationManager.h(14,2): warning C4091: 'static ': 변수를 선언하지 않으면 'AnimationManager' 왼쪽은 무시됩니다.
-  코드를 생성하고 있습니다.
-  6 of 1945 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    3 functions had inline decision re-evaluated but remain unchanged
-  코드를 생성했습니다.
-  API_Project.vcxproj -> C:\Users\ASUS\OneDrive\바탕 화면\API_Project\API_Project\API_Project\Release\API_Project.exe
