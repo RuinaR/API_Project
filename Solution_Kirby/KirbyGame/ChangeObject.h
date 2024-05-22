@@ -8,10 +8,6 @@ protected:
 	Player* m_player = nullptr;
 	float m_area = 300.0f;
 	float m_speed = 300.0f;
-
-	virtual void CollisionEnter(Collider* other) {};
-	virtual void CollisionExit(Collider* other) {};
-	virtual void Collision(Collider* other) {};
 public:
 	ChangeObject(PlayerMode mode, Player* player);	
 	virtual ~ChangeObject();

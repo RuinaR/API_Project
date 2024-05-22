@@ -4,14 +4,19 @@
 #include "GameObject.h"
 
 AnimationRender::AnimationRender(Animation anim)
-	:Component(), m_isPlay(true), m_updateTimer(0.0f), m_curItr()
+	:Component(), m_isPlay(true), m_updateTimer(0.0f), m_curItr(), m_bitren(nullptr)
 {
 	m_anim = anim;
 }
 
 void AnimationRender::Initialize()
 {
-
+	m_bitren = m_gameObj->GetComponent<BitmapRender>();
+	if (m_bitren == nullptr)
+	{
+		m_bitren = new BitmapRender(nullptr);
+		m_gameObj->AddComponent(m_bitren);
+	}
 }
 
 void AnimationRender::Release()
@@ -28,7 +33,6 @@ void AnimationRender::ChangeAnim(Animation anim)
 
 void AnimationRender::Start()
 {
-	m_bitren = m_gameObj->GetComponent<BitmapRender>();
 	m_curItr = m_anim.bitmaps.begin();
 }
 

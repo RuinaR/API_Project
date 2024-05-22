@@ -41,7 +41,7 @@ void BitmapRender::Start()
 
 void BitmapRender::Update()
 {
-	if (m_bit == NULL)
+	if (m_bit == nullptr)
 		return;
 
     RECT tmp, bitrect, clientrect;

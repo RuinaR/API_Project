@@ -41,8 +41,8 @@
 
 #define TRANSCOLOR (RGB((255),(0),(255)))
 #define COLSIZEOFFSET 1.0f
-#define MAXWINDOWW 1920
-#define MAXWINDOWH 1080
+#define MAXWINDOWW 2560
+#define MAXWINDOWH 1440
 #define BUFFERBITW MAXWINDOWW
 #define BUFFERBITH MAXWINDOWH
 #define TARGETFPS 120
@@ -52,7 +52,9 @@
 #else 
 #define DEBUGMODE false
 #endif
-#define DEBUGCOLOR (RGB((0),(0),(255)))
+#define DEBUGCOLOR1 (RGB((0),(0),(255)))
+#define DEBUGCOLOR2 (RGB((255),(0),(0)))
+
 
 using namespace std;
 

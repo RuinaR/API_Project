@@ -63,7 +63,7 @@ void CollisionManager::CollisionUpdate(vector<Collider*>* vec, const RECT& rect,
 
 	if (DEBUGMODE)
 	{
-		HPEN newPen = CreatePen(PS_SOLID, 3, DEBUGCOLOR);
+		HPEN newPen = CreatePen(PS_SOLID, 3, DEBUGCOLOR2);
 		HPEN oldPen = (HPEN)SelectObject(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), newPen);
 
 		MoveToEx(WindowFrame::GetInstance()->GetBuffer()->GetHDC(), x - Camera::GetInstance()->GetPos().x, rect.top - Camera::GetInstance()->GetPos().y, NULL);
@@ -105,8 +105,8 @@ void CollisionManager::CollisionUpdate(vector<Collider*>* vec, const RECT& rect,
 
 	RECT r1, r2, tmpr;
 	set<Collider*> cloneColSet;
-	set<string> collisionInSet;
-	set<string> collisionOutSet;
+	//set<string> collisionInSet;
+	//set<string> collisionOutSet;
 	for (int i = 0; i < 4; i++)
 	{
 		if (rctDivision[i]->size() >= maxAreaCnt)
@@ -233,16 +233,16 @@ void CollisionManager::CollisionUpdate(vector<Collider*>* vec, const RECT& rect,
 void CollisionManager::Update()
 {
 	RECT rect;
-	GetClientRect(WindowFrame::GetInstance()->GetHWND(), &rect);
-	rect.left += Camera::GetInstance()->GetPos().x;
-	rect.right += Camera::GetInstance()->GetPos().x;
-	rect.top += Camera::GetInstance()->GetPos().y;
-	rect.bottom += Camera::GetInstance()->GetPos().y;
+	//GetClientRect(WindowFrame::GetInstance()->GetHWND(), &rect);
+	//rect.left += Camera::GetInstance()->GetPos().x;
+	//rect.right += Camera::GetInstance()->GetPos().x;
+	//rect.top += Camera::GetInstance()->GetPos().y;
+	//rect.bottom += Camera::GetInstance()->GetPos().y;
 
-	//rect.left = 0;
-	//rect.right = 10000;
-	//rect.top = 0;
-	//rect.bottom = 10000;
+	rect.left = 0;
+	rect.right = 10000;
+	rect.top = 0;
+	rect.bottom = 10000;
 
 	CollisionUpdate(m_objVec, rect, 5);
 }

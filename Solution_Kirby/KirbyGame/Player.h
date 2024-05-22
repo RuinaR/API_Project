@@ -9,9 +9,9 @@ protected:
 	Rigidbody* m_rig = nullptr;
 	AnimationRender* m_ar = nullptr;
 	BoxCollider* m_bo = nullptr;
-	Animation m_arrAnim[(int)PlayerMode::max][(int)PlayerArrow::max][(int)PlayerAState::max];
+	Animation m_arrAnim[(int)PlayerMode::max][(int)Arrow::max][(int)PlayerAState::max];
 	PlayerMode m_mode;
-	PlayerArrow m_arrow;
+	Arrow m_arrow;
 	PlayerAState m_state;
 	PlayerMode m_eatMode = PlayerMode::mDefault;
 	Timer m_flyTimer = Timer();
@@ -75,5 +75,5 @@ public:
 	void SetPlayerMode(PlayerMode mode);
 	PlayerMode GetPlayerMode();
 	PlayerAState GetState();
-	PlayerArrow GetArrow();
+	Arrow GetArrow();
 };

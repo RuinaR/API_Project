@@ -26,7 +26,9 @@
     <ClCompile Include="EditerScene.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="LandChecker.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MonsterAI.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneChanger.cpp" />
     <ClCompile Include="StageMaker.cpp" />
@@ -40,6 +42,8 @@
     <ClInclude Include="EditerScene.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="LandChecker.h" />
+    <ClInclude Include="MonsterAI.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneChanger.h" />
     <ClInclude Include="StageMaker.h" />

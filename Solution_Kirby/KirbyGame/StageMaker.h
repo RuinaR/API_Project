@@ -1,5 +1,6 @@
 #pragma once
 #include "Player.h"
+#include "MonsterAI.h"
 class StageMaker : public Component
 {
 protected:

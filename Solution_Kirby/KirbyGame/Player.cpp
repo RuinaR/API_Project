@@ -50,12 +50,12 @@ void Player::FlyAction()
 		if (GetAsyncKeyState(m_rightKey))//우측 fly 이동
 		{
 			m_rig->Velocity() = { m_speed / 2, m_rig->Velocity().y };
-			m_arrow = PlayerArrow::right;
+			m_arrow = Arrow::right;
 		}
 		else if (GetAsyncKeyState(m_leftKey))//좌측 fly 이동
 		{
 			m_rig->Velocity() = { -m_speed / 2, m_rig->Velocity().y };
-			m_arrow = PlayerArrow::left;
+			m_arrow = Arrow::left;
 		}
 		else //fly idle
 		{
@@ -74,7 +74,7 @@ void Player::MoveLeft()
 {
 	if (m_rig->GetIsOnLand())
 	{
-		m_arrow = PlayerArrow::left;
+		m_arrow = Arrow::left;
 		UpdateAnim(false);
 		if ((m_leftKeyTimer.getDeltaTime() <= m_dblTime &&
 			(m_state == PlayerAState::walk ||
@@ -106,7 +106,7 @@ void Player::MoveRight()
 {
 	if (m_rig->GetIsOnLand())
 	{
-		m_arrow = PlayerArrow::right;
+		m_arrow = Arrow::right;
 		UpdateAnim(false);
 		if ((m_rightKeyTimer.getDeltaTime() <= m_dblTime &&
 				(m_state == PlayerAState::walk || 
@@ -203,7 +203,7 @@ void Player::Attack_default()
 		{
 			GameObject* obj = new GameObject();
 			AttakObject* ao = new AttakObject();
-			if (m_arrow == PlayerArrow::left)
+			if (m_arrow == Arrow::left)
 			{
 				ao->SetSpeed(-5.0f);
 				obj->SetPosition({m_dOffset.x + m_gameObj->Position().x - m_cSize.x, 
@@ -237,7 +237,7 @@ void Player::Attack_sword()
 		GameObject* atk = new GameObject();
 		atk->Size() = { m_atkRange,m_cSize.y };
 		atk->SetOrderInLayer(10);
-		if (m_arrow == PlayerArrow::left)
+		if (m_arrow == Arrow::left)
 		{
 			atk->SetPosition({ m_dOffset.x + m_gameObj->Position().x - m_atkRange - 5, m_dOffset.y + m_gameObj->Position().y });
 		}
@@ -381,7 +381,7 @@ void Player::Collision(Collider* other)
 		m_mode = PlayerMode::mDefault;
 		m_state = PlayerAState::hit;
 		UpdateAnim(true);
-		if (m_arrow == PlayerArrow::left)
+		if (m_arrow == Arrow::left)
 		{
 			m_rig->Velocity() = {300,-350};
 		}
@@ -393,7 +393,7 @@ void Player::Collision(Collider* other)
 }
 
 Player::Player()
-	: Component(), m_mode(PlayerMode::mDefault), m_arrow(PlayerArrow::right), m_state(PlayerAState::idle)
+	: Component(), m_mode(PlayerMode::mDefault), m_arrow(Arrow::right), m_state(PlayerAState::idle)
 {
 }
 
@@ -408,7 +408,7 @@ void Player::Initialize()
 
 	m_mode = PlayerMode::mDefault;
 	string modeStr[(int)PlayerMode::max] = { "default", "sword", "stone"};
-	string arrowStr[(int)PlayerArrow::max] = { "left", "right" };
+	string arrowStr[(int)Arrow::max] = { "left", "right" };
 	string stateStr[(int)PlayerAState::max] = {};
 	stateStr[(int)PlayerAState::idle] = "idle";
 	stateStr[(int)PlayerAState::walk] = "walk";
@@ -430,7 +430,7 @@ void Player::Initialize()
 
 	for (int a = 0; a < (int)PlayerMode::max; a++)
 	{
-		for (int i = 0; i < (int)PlayerArrow::max; i++)
+		for (int i = 0; i < (int)Arrow::max; i++)
 		{
 			for (int j = 0; j < (int)PlayerAState::max; j++)
 			{
@@ -442,12 +442,11 @@ void Player::Initialize()
 			}
 		}
 	}
-	m_ar = new AnimationRender(m_arrAnim[(int)PlayerMode::mDefault][(int)PlayerArrow::right][(int)PlayerAState::idle]);
+	m_ar = new AnimationRender(m_arrAnim[(int)PlayerMode::mDefault][(int)Arrow::right][(int)PlayerAState::idle]);
 	m_rig = new Rigidbody();
 	m_bo = new BoxCollider();
 	m_rig->SetGravity(0.0f);
 	m_gameObj->AddComponent(m_bo);
-	m_gameObj->AddComponent(new BitmapRender(m_arrAnim[(int)PlayerMode::mDefault][(int)PlayerArrow::right][(int)PlayerAState::idle].bitmaps[0]));
 	m_gameObj->AddComponent(m_ar);
 	m_gameObj->AddComponent(m_rig);
 
@@ -464,7 +463,7 @@ void Player::Release()
 
 	for (int a = 0; a < (int)PlayerMode::max; a++)
 	{
-		for (int i = 0; i < (int)PlayerArrow::max; i++)
+		for (int i = 0; i < (int)Arrow::max; i++)
 		{
 			for (int j = 0; j < (int)PlayerAState::max; j++)
 			{
@@ -633,7 +632,7 @@ PlayerAState Player::GetState()
 	return m_state;
 }
 
-PlayerArrow Player::GetArrow()
+Arrow Player::GetArrow()
 {
 	return m_arrow;
 }

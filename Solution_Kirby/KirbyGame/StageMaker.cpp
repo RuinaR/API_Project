@@ -111,14 +111,13 @@ void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup,
 	break;
 	case MapType::DefaultMon:
 	{
-        GameObject* defaultMon = new GameObject();
+       GameObject* defaultMon = new GameObject();
        defaultMon->SetTag(TAG_MONSTER);
        defaultMon->SetOrderInLayer(2);
        defaultMon->Size() = { UNITSIZE / 2, UNITSIZE / 2 };
-       defaultMon->SetPosition({ (double)UNITSIZE * i + UNITSIZE / 2 ,(double)UNITSIZE * j + UNITSIZE / 2 });
+       defaultMon->SetPosition({ (double)UNITSIZE * i + UNITSIZE / 2 ,(double)UNITSIZE * j + UNITSIZE / 2 - 2 });
        defaultMon->AddComponent(new ChangeObject(PlayerMode::mDefault, m_player));
-       defaultMon->AddComponent(new BitmapRender(m_defaultObj));
-       defaultMon->AddComponent(new BoxCollider());
+       defaultMon->AddComponent(new MonsterAI("default"));
        defaultMon->InitializeSet();
        rowGroup->push_back(defaultMon);
        colRow->push_back(false);
@@ -130,10 +129,9 @@ void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup,
         swordMon->SetTag(TAG_MONSTER);
         swordMon->SetOrderInLayer(2);
         swordMon->Size() = { UNITSIZE / 2, UNITSIZE / 2 };
-        swordMon->SetPosition({ (double)UNITSIZE * i + UNITSIZE / 2,(double)UNITSIZE * j + UNITSIZE / 2 });
+        swordMon->SetPosition({ (double)UNITSIZE * i + UNITSIZE / 2,(double)UNITSIZE * j + UNITSIZE / 2 - 2});
         swordMon->AddComponent(new ChangeObject(PlayerMode::mSword, m_player));
-        swordMon->AddComponent(new BitmapRender(m_swordObj));
-        swordMon->AddComponent(new BoxCollider());
+        swordMon->AddComponent(new MonsterAI("sword"));
         swordMon->InitializeSet();
         rowGroup->push_back(swordMon);
         colRow->push_back(false);
@@ -145,10 +143,9 @@ void StageMaker::MakeMap(MapType t, int i, int j, vector<GameObject*>* rowGroup,
 		stoneMon->SetTag(TAG_MONSTER);
         stoneMon->SetOrderInLayer(2);
 		stoneMon->Size() = { UNITSIZE / 2, UNITSIZE / 2 };
-		stoneMon->SetPosition({ (double)UNITSIZE * i + UNITSIZE / 2,(double)UNITSIZE * j + UNITSIZE / 2 });
+		stoneMon->SetPosition({ (double)UNITSIZE * i + UNITSIZE / 2,(double)UNITSIZE * j + UNITSIZE / 2 - 2});
 		stoneMon->AddComponent(new ChangeObject(PlayerMode::mStone, m_player));
-		stoneMon->AddComponent(new BitmapRender(m_stoneObj));
-		stoneMon->AddComponent(new BoxCollider());
+        stoneMon->AddComponent(new MonsterAI("stone"));
 		stoneMon->InitializeSet();
         rowGroup->push_back(stoneMon);
         colRow->push_back(false);

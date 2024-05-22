@@ -55,6 +55,12 @@
       <Filter>KirbyGame\StartScene</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MonsterAI.cpp">
+      <Filter>KirbyGame\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="LandChecker.cpp">
+      <Filter>KirbyGame\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AttackEvent.h">
@@ -89,6 +95,12 @@
     </ClInclude>
     <ClInclude Include="StartScene.h">
       <Filter>KirbyGame\StartScene</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterAI.h">
+      <Filter>KirbyGame\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="LandChecker.h">
+      <Filter>KirbyGame\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

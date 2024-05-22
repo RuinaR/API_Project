@@ -3,6 +3,7 @@
 using namespace std;
 
 #define UNITSIZE 100
+#define MAXUNITCNT 100
 
 #define TAG_LAND "land"
 #define TAG_ATTACK "attack"
@@ -17,7 +18,7 @@ using namespace std;
 #define PLAYER_DEFAULT_X 5
 #define PLAYER_DEFAULT_Y 5
 
-enum class PlayerArrow
+enum class Arrow
 {
 	left,
 	right,

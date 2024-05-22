@@ -23,9 +23,12 @@ public:
 
     Vector2D& Size();
     template <typename T>
-    T* GetComponent() {
-        for (vector<Component*>::iterator itr = m_vecComponent->begin(); itr != m_vecComponent->end(); itr++) {
-            if (typeid(**itr) == typeid(T)) {
+    T* GetComponent() 
+    {
+        for (vector<Component*>::iterator itr = m_vecComponent->begin(); itr != m_vecComponent->end(); itr++) 
+        {
+            if (typeid(**itr) == typeid(T)) 
+            {
                 return (T*)*itr;
             }
         }

@@ -10,7 +10,7 @@ private:
 	vector<vector<MapType>> m_mapTypeData = vector<vector<MapType>>();
 
 	vector<string> ReadMapData(string mapName);
-	int m_count = 100;
+	int m_count = MAXUNITCNT;
 	HBITMAP m_bg = NULL;
 	HBITMAP m_land = NULL;
 	HBITMAP m_swordObj = NULL;

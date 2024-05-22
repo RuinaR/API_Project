@@ -51,7 +51,7 @@ void Collider::DrawCollider()
 	HPEN myPen, oldPen;
 	HDC hdc = WindowFrame::GetInstance()->GetBuffer()->GetHDC();
 
-	myPen = CreatePen(PS_SOLID, penSize, DEBUGCOLOR);
+	myPen = CreatePen(PS_SOLID, penSize, DEBUGCOLOR1);
 	oldPen = (HPEN)SelectObject(hdc, myPen);
 
 	MoveToEx(hdc, leftTop.x, leftTop.y, NULL);

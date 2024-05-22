@@ -21,7 +21,7 @@ BOOL Rigidbody::SetNoIntersect(const LPRECT pHold, LPRECT pRect)
 				pRect->top -= nH;
 				pRect->bottom -= nH;
 				if (m_velocity.y > 0)
-				m_velocity.y = 0;
+					m_velocity.y = 0;
 			}
 			else if (rcInter.bottom == pHold->bottom)
 			{
@@ -96,11 +96,21 @@ void Rigidbody::Update()
 
 void Rigidbody::CollisionEnter(Collider* other)
 {
+	//int d = 10;
+
+	//if (m_box->GetTrigger() || other->GetTrigger())
+	//	return;
+
+	//if (m_gameObj->Position().y + m_box->ColSize().y + m_box->ColOffset().y <
+	//	other->GetGameObject()->Position().y + other->ColOffset().y + d)
+	//{
+	//	m_isOnLand = true;
+	//}
 }
 
 void Rigidbody::CollisionExit(Collider* other)
 {
-	int d = 10;
+	int d = 1;
 	for (set<Collider*>::iterator itr = m_box->SetCol()->begin(); itr != m_box->SetCol()->end(); itr++)
 	{
 		if (!(*itr)->GetTrigger() &&
@@ -118,7 +128,7 @@ void Rigidbody::Collision(Collider* other)
 		return;
 
 	RECT r1, r2;
-	long d = 1;
+	long d = 2;
 	r1 = { (long)m_box->ColOffset().x + (long)m_gameObj->Position().x,
 			(long)m_box->ColOffset().y + (long)m_gameObj->Position().y,
 			(long)m_box->ColOffset().x + (long)(m_gameObj->Position().x + m_box->ColSize().x),
