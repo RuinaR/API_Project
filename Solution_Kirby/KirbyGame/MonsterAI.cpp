@@ -12,14 +12,14 @@ void MonsterAI::CollisionEnter(Collider* other)
 			m_arrowVal = 1;
 			m_ar->ChangeAnim(m_anim[(int)Arrow::right]);
 			m_arrow = Arrow::right;
-			m_checker->GetCollider()->ColOffset().x = m_gameObj->Size().x;
+			m_checker->GetCollider()->ColOffset().x = m_bo->ColOffset().x + m_gameObj->Size().x / 2;
 		}
 		else
 		{
 			m_arrowVal = -1;
 			m_ar->ChangeAnim(m_anim[(int)Arrow::left]);
 			m_arrow = Arrow::left;
-			m_checker->GetCollider()->ColOffset().x = -m_gameObj->Size().x / 4;
+			m_checker->GetCollider()->ColOffset().x = m_bo->ColOffset().x - m_gameObj->Size().x / 8;
 		}
 		m_gameObj->AddPosition({ m_arrowVal * m_speed * MainFrame::GetInstance()->DeltaTime() ,0 });
 	}
@@ -77,10 +77,10 @@ void MonsterAI::Release()
 void MonsterAI::Start()
 {
 	int m_arrowVal = 1;
-	m_checker->GetCollider()->ColSize().x = m_gameObj->Size().x / 4;
-	m_checker->GetCollider()->ColSize().y = m_gameObj->Size().y / 4;
-	m_checker->GetCollider()->ColOffset().x = m_gameObj->Size().x;
-	m_checker->GetCollider()->ColOffset().y = m_gameObj->Size().y;
+	m_checker->GetCollider()->ColSize().x = m_bo->ColSize().x / 4;
+	m_checker->GetCollider()->ColSize().y = m_bo->ColSize().y / 4;
+	m_checker->GetCollider()->ColOffset().x = m_bo->ColOffset().x + m_gameObj->Size().x / 2;
+	m_checker->GetCollider()->ColOffset().y = m_bo->ColOffset().y + m_gameObj->Size().y / 2;
 }
 
 void MonsterAI::Update()
@@ -97,14 +97,14 @@ void MonsterAI::Update()
 			m_arrowVal = 1;
 			m_ar->ChangeAnim(m_anim[(int)Arrow::right]);
 			m_arrow = Arrow::right;
-			m_checker->GetCollider()->ColOffset().x = m_gameObj->Size().x;
+			m_checker->GetCollider()->ColOffset().x = m_bo->ColOffset().x + m_gameObj->Size().x / 2;
 		}
 		else
 		{
 			m_arrowVal = -1;
 			m_ar->ChangeAnim(m_anim[(int)Arrow::left]);
 			m_arrow = Arrow::left;
-			m_checker->GetCollider()->ColOffset().x = -m_gameObj->Size().x / 4;
+			m_checker->GetCollider()->ColOffset().x = m_bo->ColOffset().x - m_gameObj->Size().x / 8;
 		}
 	}
 	m_gameObj->AddPosition({ m_arrowVal * m_speed * MainFrame::GetInstance()->DeltaTime() ,0 });
