@@ -64,6 +64,10 @@ void MonsterAI::Initialize()
 		m_bo = new BoxCollider();
 		m_gameObj->AddComponent(m_bo);
 	}
+	m_bo->ColSize().x = m_gameObj->Size().x / 2;
+	m_bo->ColSize().y = m_gameObj->Size().y / 2;
+	m_bo->ColOffset().x = m_gameObj->Size().x / 4;
+	m_bo->ColOffset().y = m_gameObj->Size().y / 4;
 }
 
 void MonsterAI::Release()
