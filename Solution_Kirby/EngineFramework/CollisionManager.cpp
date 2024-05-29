@@ -105,8 +105,6 @@ void CollisionManager::CollisionUpdate(vector<Collider*>* vec, const RECT& rect,
 
 	RECT r1, r2, tmpr;
 	set<Collider*> cloneColSet;
-	//set<string> collisionInSet;
-	//set<string> collisionOutSet;
 	for (int i = 0; i < 4; i++)
 	{
 		if (rctDivision[i]->size() >= maxAreaCnt)
@@ -172,13 +170,6 @@ void CollisionManager::CollisionUpdate(vector<Collider*>* vec, const RECT& rect,
 							(long)(*itr2)->ColOffset().y + (long)(*itr2)->GetGameObject()->Position().y + (long)(*itr2)->ColSize().y };
 				if (IntersectRect(&tmpr, &r1, &r2)) //충돌
 				{
-					//포인터를 문자열로 치환한 후 합친 것을 해시값으로 이용 
-					/*string hash = to_string((uintptr_t)(*itr1)) + to_string((uintptr_t)(*itr2));
-					if (collisionInSet.find(hash) != collisionInSet.end())
-						continue;
-					else
-						collisionInSet.insert(hash);*/
-
 					(*itr1)->SetCol()->insert(*itr2);
 					bool isfind = false;
 					if (cloneColSet.find(*itr2) != cloneColSet.end())
@@ -202,15 +193,8 @@ void CollisionManager::CollisionUpdate(vector<Collider*>* vec, const RECT& rect,
 
 			for (set<Collider*>::iterator itr3 = cloneColSet.begin(); itr3 != cloneColSet.end(); itr3++)
 			{
-				if ((*itr1)->SetCol()->find(*itr3) == (*itr1)->SetCol()->end()) //이전에 충돌했지만 현재 충돌 상태가 아니라면
+				if ((*itr1)->SetCol()->find(*itr3) == (*itr1)->SetCol()->end()) //이전에 충돌했지만 현재 충돌 상태가 아니라면, 또는 충돌했던 객체가 유효한 상태가 아니라면
 				{
-					//포인터를 문자열로 치환한 후 합친 것을 해시값으로 이용 
-					/*string hash = to_string((uintptr_t)(*itr1)) + to_string((uintptr_t)(*itr3));
-					if (collisionOutSet.find(hash) != collisionOutSet.end())
-						continue;
-					else
-						collisionOutSet.insert(hash);*/
-
 					for (vector<Component*>::iterator citr = (*itr1)->GetGameObject()->GetComponentVec()->begin();
 						citr != (*itr1)->GetGameObject()->GetComponentVec()->end();
 						citr++)
